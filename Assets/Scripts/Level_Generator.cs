@@ -33,15 +33,15 @@ public class Level_Generator : MonoBehaviour
 
     public void PickMaps()
     {
-        /*q1MapPick = Random.Range(0, q1Maps.Length);
-        q2MapPick = Random.Range(0, q2Maps.Length);
-        q3MapPick = Random.Range(0, q3Maps.Length);
-        q4MapPick = Random.Range(0, q4Maps.Length);*/
+        q1MapPick = Random.Range(0, 2);
+        q2MapPick = Random.Range(0, 2);
+        q3MapPick = Random.Range(0, 2);
+        q4MapPick = Random.Range(0, 2);
 
-        q1MapPick = 0;
-        q2MapPick = 0;
-        q3MapPick = 0;
-        q4MapPick = 0;
+        /*q1MapPick = 1;
+        q2MapPick = 1;
+        q3MapPick = 1;
+        q4MapPick = 1;*/
 
         Debug.Log("Q1: " + q1MapPick);
         Debug.Log("Q2: " + q2MapPick);
@@ -80,6 +80,33 @@ public class Level_Generator : MonoBehaviour
                 Instantiate(wall, new Vector3(-20, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
                 Instantiate(wall, new Vector3(-10, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
                 break;
+
+            case 1:
+                Instantiate(wall, new Vector3(-20, 1, 45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 1
+
+                Instantiate(wall, new Vector3(-35, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 1.5
+                Instantiate(wall, new Vector3(-25, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+
+                Instantiate(wall, new Vector3(-40, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2
+                Instantiate(wall, new Vector3(-30, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-10, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+
+                Instantiate(wall, new Vector3(-15, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 2.5
+                Instantiate(wall, new Vector3(-5, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+
+                Instantiate(wall, new Vector3(-30, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 3
+                Instantiate(wall, new Vector3(-10, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+
+                Instantiate(wall, new Vector3(-35, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 3.5
+
+                Instantiate(wall, new Vector3(-30, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 4
+                Instantiate(wall, new Vector3(-20, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-10, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+
+                Instantiate(wall, new Vector3(-15, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 4.5
+
+                Instantiate(wall, new Vector3(-40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 5
+                break;
         }
     }
     public void GenerateQ2()
@@ -112,6 +139,36 @@ public class Level_Generator : MonoBehaviour
                 Instantiate(wall, new Vector3(25, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 4.5
 
                 Instantiate(wall, new Vector3(40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 5
+                break;
+
+            case 1:
+                Instantiate(wall, new Vector3(30, 1, 45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 1
+
+                Instantiate(wall, new Vector3(25, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 1.5
+
+                Instantiate(wall, new Vector3(40, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2
+                Instantiate(wall, new Vector3(20, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(10, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+
+                Instantiate(wall, new Vector3(35, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 2.5
+                Instantiate(wall, new Vector3(5, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+
+                Instantiate(wall, new Vector3(40, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 3
+                Instantiate(wall, new Vector3(30, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(10, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+
+                Instantiate(wall, new Vector3(25, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 3.5
+                Instantiate(wall, new Vector3(15, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(5, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+
+                Instantiate(wall, new Vector3(40, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 4
+
+                Instantiate(wall, new Vector3(35, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 4.5
+                Instantiate(wall, new Vector3(25, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(15, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+
+                Instantiate(wall, new Vector3(40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 5
+                Instantiate(wall, new Vector3(10, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
                 break;
         }
     }
@@ -147,6 +204,36 @@ public class Level_Generator : MonoBehaviour
                 Instantiate(wall, new Vector3(5, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
 
                 Instantiate(wall, new Vector3(40, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 5
+                break;
+
+            case 1:
+                Instantiate(wall, new Vector3(30, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 1
+                Instantiate(wall, new Vector3(10, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(35, 1, -40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 1.5
+
+                Instantiate(wall, new Vector3(20, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2
+
+                Instantiate(wall, new Vector3(35, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 2.5
+                Instantiate(wall, new Vector3(25, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(15, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(5, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(30, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 3
+
+                Instantiate(wall, new Vector3(45, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 3.5
+                Instantiate(wall, new Vector3(25, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(5, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(30, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 4
+
+                Instantiate(wall, new Vector3(35, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 4.5
+                Instantiate(wall, new Vector3(15, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(5, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(40, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 5
+                Instantiate(wall, new Vector3(30, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(20, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
                 break;
         }
     }
@@ -184,6 +271,34 @@ public class Level_Generator : MonoBehaviour
                 Instantiate(wall, new Vector3(-20, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
                 Instantiate(wall, new Vector3(-10, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
                 break;
+
+            case 1:
+                Instantiate(wall, new Vector3(-20, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 1
+
+                Instantiate(wall, new Vector3(-35, 1, -40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 1.5
+
+                Instantiate(wall, new Vector3(-40, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2
+                Instantiate(wall, new Vector3(-20, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-10, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-25, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 2.5
+                Instantiate(wall, new Vector3(-15, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-40, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 3
+
+                Instantiate(wall, new Vector3(-35, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 3.5
+                Instantiate(wall, new Vector3(-25, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-15, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-40, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 4
+                Instantiate(wall, new Vector3(-10, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-45, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 4.5
+                Instantiate(wall, new Vector3(-25, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-30, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 5
+                Instantiate(wall, new Vector3(-10, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                break;
         }
     }
 
@@ -213,7 +328,8 @@ public class Level_Generator : MonoBehaviour
         {
             q1Combine[i].mesh = q1MeshFilters[i].sharedMesh;
             q1Combine[i].transform = q1MeshFilters[i].transform.localToWorldMatrix;
-            q1MeshFilters[i].gameObject.SetActive(false);
+            //q1MeshFilters[i].gameObject.SetActive(false);
+            Destroy(q1MeshFilters[i].gameObject);
         }
 
         q1Object.transform.GetComponent<MeshFilter>().mesh = new Mesh();
@@ -232,7 +348,8 @@ public class Level_Generator : MonoBehaviour
         {
             q2Combine[i].mesh = q2MeshFilters[i].sharedMesh;
             q2Combine[i].transform = q2MeshFilters[i].transform.localToWorldMatrix;
-            q2MeshFilters[i].gameObject.SetActive(false);
+            //q2MeshFilters[i].gameObject.SetActive(false);
+            Destroy(q2MeshFilters[i].gameObject);
         }
 
         q2Object.transform.GetComponent<MeshFilter>().mesh = new Mesh();
@@ -251,7 +368,8 @@ public class Level_Generator : MonoBehaviour
         {
             q3Combine[i].mesh = q3MeshFilters[i].sharedMesh;
             q3Combine[i].transform = q3MeshFilters[i].transform.localToWorldMatrix;
-            q3MeshFilters[i].gameObject.SetActive(false);
+            //q3MeshFilters[i].gameObject.SetActive(false);
+            Destroy(q3MeshFilters[i].gameObject);
         }
 
         q3Object.transform.GetComponent<MeshFilter>().mesh = new Mesh();
@@ -270,7 +388,8 @@ public class Level_Generator : MonoBehaviour
         {
             q4Combine[i].mesh = q4MeshFilters[i].sharedMesh;
             q4Combine[i].transform = q4MeshFilters[i].transform.localToWorldMatrix;
-            q4MeshFilters[i].gameObject.SetActive(false);
+            //q4MeshFilters[i].gameObject.SetActive(false);
+            Destroy(q4MeshFilters[i].gameObject);
         }
 
         q4Object.transform.GetComponent<MeshFilter>().mesh = new Mesh();
