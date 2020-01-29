@@ -9,7 +9,7 @@ public class Level_Generator : MonoBehaviour
     public GameObject wall;
     public GameObject q1, q2, q3, q4;
     
-    private int[] q1Maps, q2Maps, q3Maps, q4Maps;
+    private int q1Maps, q2Maps, q3Maps, q4Maps;
     private int q1MapPick, q2MapPick, q3MapPick, q4MapPick;
 
     void Start()
@@ -25,18 +25,18 @@ public class Level_Generator : MonoBehaviour
 
     public void GenerateMaps()
     {
-        q1Maps = new int[4];
-        q2Maps = new int[4];
-        q3Maps = new int[4];
-        q4Maps = new int[4];
+        q1Maps = 2;
+        q2Maps = 2;
+        q3Maps = 2;
+        q4Maps = 2;
     }
 
     public void PickMaps()
     {
-        q1MapPick = Random.Range(0, 2);
-        q2MapPick = Random.Range(0, 2);
-        q3MapPick = Random.Range(0, 2);
-        q4MapPick = Random.Range(0, 2);
+        q1MapPick = Random.Range(0, q1Maps);
+        q2MapPick = Random.Range(0, q2Maps);
+        q3MapPick = Random.Range(0, q3Maps);
+        q4MapPick = Random.Range(0, q4Maps);
 
         /*q1MapPick = 1;
         q2MapPick = 1;
