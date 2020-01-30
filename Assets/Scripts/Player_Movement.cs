@@ -6,12 +6,11 @@ public class Player_Movement : MonoBehaviour
 {
     public float speed;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    public bool canMoveUp;
+    public bool canMoveRight;
+    public bool canMoveDown;
+    public bool canMoveLeft;
+    
     void FixedUpdate()
     {
         checkKeys();
@@ -19,24 +18,61 @@ public class Player_Movement : MonoBehaviour
 
     void checkKeys()
     {
+
         if (Input.GetKey("up"))
         {
-            transform.Translate(Vector3.forward * speed);
+            if (canMoveUp)
+            {
+                transform.Translate(Vector3.forward * speed);
+                canMoveUp = false;
+            }
+        }
+
+        if (!Input.GetKey("up"))
+        {
+            canMoveUp = true;
         }
 
         if (Input.GetKey("down"))
         {
-            transform.Translate(Vector3.back * speed);
+            if (canMoveDown)
+            {
+                transform.Translate(Vector3.back * speed);
+                canMoveDown = false;
+            }
+        }
+
+        if (!Input.GetKey("down"))
+        {
+            canMoveDown = true;
         }
 
         if (Input.GetKey("left"))
         {
-            transform.Rotate(0, -5, 0, Space.Self);
+            if (canMoveLeft)
+            {
+                transform.Rotate(0, -90, 0, Space.Self);
+                canMoveLeft = false;
+            }
+        }
+
+        if (!Input.GetKey("left"))
+        {
+            canMoveLeft = true;
         }
 
         if (Input.GetKey("right"))
         {
-            transform.Rotate(0, 5, 0, Space.Self);
+            if (canMoveRight)
+            {
+                transform.Rotate(0, 90, 0, Space.Self);
+                canMoveRight = false;
+            }
+        }
+
+        if (!Input.GetKey("right"))
+        {
+            canMoveRight = true;
         }
     }
 }
