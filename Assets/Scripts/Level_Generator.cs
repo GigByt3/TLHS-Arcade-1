@@ -27,8 +27,8 @@ public class Level_Generator : MonoBehaviour
     {
         q1Maps = 3;
         q2Maps = 3;
-        q3Maps = 2;
-        q4Maps = 2;
+        q3Maps = 3;
+        q4Maps = 3;
     }
 
     public void PickMaps()
@@ -53,87 +53,87 @@ public class Level_Generator : MonoBehaviour
         switch (q1MapPick)
         {
             case 0:
-                Instantiate(wall, new Vector3(-40, 1, 45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 1
+                Instantiate(wall, new Vector3(-20, 1, 22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 1
 
-                Instantiate(wall, new Vector3(-25, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 1.5
-                Instantiate(wall, new Vector3(-15, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-12.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 1.5
+                Instantiate(wall, new Vector3(-7.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-40, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2
-                Instantiate(wall, new Vector3(-30, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-20, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2
+                Instantiate(wall, new Vector3(-15, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-15, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 2.5
-                Instantiate(wall, new Vector3(-5, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-7.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 2.5
+                Instantiate(wall, new Vector3(-2.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-30, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 3
+                Instantiate(wall, new Vector3(-15, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 3
 
-                Instantiate(wall, new Vector3(-25, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 3.5
-                Instantiate(wall, new Vector3(-15, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
-                Instantiate(wall, new Vector3(-5, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-12.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 3.5
+                Instantiate(wall, new Vector3(-7.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-2.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-40, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 4
-                Instantiate(wall, new Vector3(-30, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-20, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 4
+                Instantiate(wall, new Vector3(-15, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-5, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 4.5
+                Instantiate(wall, new Vector3(-2.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 4.5
 
-                Instantiate(wall, new Vector3(-40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 5
-                Instantiate(wall, new Vector3(-30, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
-                Instantiate(wall, new Vector3(-20, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
-                Instantiate(wall, new Vector3(-10, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-20, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2.5f
+                Instantiate(wall, new Vector3(-15, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-10, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-5, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
                 break;
 
             case 1:
-                Instantiate(wall, new Vector3(-20, 1, 45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 1
+                Instantiate(wall, new Vector3(-10, 1, 22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 1
 
-                Instantiate(wall, new Vector3(-35, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 1.5
-                Instantiate(wall, new Vector3(-25, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-17.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 1.5
+                Instantiate(wall, new Vector3(-12.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-40, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2
-                Instantiate(wall, new Vector3(-30, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
-                Instantiate(wall, new Vector3(-10, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-20, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2
+                Instantiate(wall, new Vector3(-15, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-5, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-15, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 2.5
-                Instantiate(wall, new Vector3(-5, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-7.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 2.5
+                Instantiate(wall, new Vector3(-2.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-30, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 3
-                Instantiate(wall, new Vector3(-10, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-15, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 3
+                Instantiate(wall, new Vector3(-5, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-35, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 3.5
+                Instantiate(wall, new Vector3(-17.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 3.5
 
-                Instantiate(wall, new Vector3(-30, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 4
-                Instantiate(wall, new Vector3(-20, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
-                Instantiate(wall, new Vector3(-10, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-15, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 4
+                Instantiate(wall, new Vector3(-10, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-5, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-15, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 4.5
+                Instantiate(wall, new Vector3(-7.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 4.5
 
-                Instantiate(wall, new Vector3(-40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 5
+                Instantiate(wall, new Vector3(-20, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2.5f
                 break;
 
             case 2:
-                Instantiate(wall, new Vector3(-10, 1, 45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 1
+                Instantiate(wall, new Vector3(-5, 1, 22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 1
 
-                Instantiate(wall, new Vector3(-35, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 1.5
-                Instantiate(wall, new Vector3(-25, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-17.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 1.5
+                Instantiate(wall, new Vector3(-12.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-20, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2
-                Instantiate(wall, new Vector3(-10, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-10, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2
+                Instantiate(wall, new Vector3(-5, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-45, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 2.5
-                Instantiate(wall, new Vector3(-35, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-22.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 2.5
+                Instantiate(wall, new Vector3(-17.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-30, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 3
-                Instantiate(wall, new Vector3(-20, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-15, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 3
+                Instantiate(wall, new Vector3(-10, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-35, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 3.5
-                Instantiate(wall, new Vector3(-15, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-17.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 3.5
+                Instantiate(wall, new Vector3(-7.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-20, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 4
+                Instantiate(wall, new Vector3(-10, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 4
 
-                Instantiate(wall, new Vector3(-45, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 4.5
-                Instantiate(wall, new Vector3(-35, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
-                Instantiate(wall, new Vector3(-25, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-22.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform); //row 4.5
+                Instantiate(wall, new Vector3(-17.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-12.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
 
-                Instantiate(wall, new Vector3(-40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 5
-                Instantiate(wall, new Vector3(-10, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                Instantiate(wall, new Vector3(-20, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform); //row 2.5f
+                Instantiate(wall, new Vector3(-5, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
                 break;
         }
     }
@@ -144,88 +144,88 @@ public class Level_Generator : MonoBehaviour
             case 0:
                 //row 1 has nothing
 
-                Instantiate(wall, new Vector3(25, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 1.5
-                Instantiate(wall, new Vector3(15, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(12.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 1.5
+                Instantiate(wall, new Vector3(7.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(40, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2
-                Instantiate(wall, new Vector3(30, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(20, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2
+                Instantiate(wall, new Vector3(15, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(45, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 2.5
-                Instantiate(wall, new Vector3(15, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
-                Instantiate(wall, new Vector3(5, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(22.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 2.5
+                Instantiate(wall, new Vector3(7.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(30, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 3
-                Instantiate(wall, new Vector3(20, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(15, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 3
+                Instantiate(wall, new Vector3(10, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(35, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 3.5
-                Instantiate(wall, new Vector3(5, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(17.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 3.5
+                Instantiate(wall, new Vector3(2.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(40, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 4
-                Instantiate(wall, new Vector3(20, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
-                Instantiate(wall, new Vector3(10, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(20, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 4
+                Instantiate(wall, new Vector3(10, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(5, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(25, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 4.5
+                Instantiate(wall, new Vector3(12.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 4.5
 
-                Instantiate(wall, new Vector3(40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 5
+                Instantiate(wall, new Vector3(20, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2.5f
                 break;
 
             case 1:
-                Instantiate(wall, new Vector3(30, 1, 45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 1
+                Instantiate(wall, new Vector3(15, 1, 22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 1
 
-                Instantiate(wall, new Vector3(25, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 1.5
+                Instantiate(wall, new Vector3(12.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 1.5
 
-                Instantiate(wall, new Vector3(40, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2
-                Instantiate(wall, new Vector3(20, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
-                Instantiate(wall, new Vector3(10, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(20, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2
+                Instantiate(wall, new Vector3(10, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(5, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(35, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 2.5
-                Instantiate(wall, new Vector3(5, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(17.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 2.5
+                Instantiate(wall, new Vector3(2.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(40, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 3
-                Instantiate(wall, new Vector3(30, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
-                Instantiate(wall, new Vector3(10, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(20, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 3
+                Instantiate(wall, new Vector3(15, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(5, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(25, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 3.5
-                Instantiate(wall, new Vector3(15, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
-                Instantiate(wall, new Vector3(5, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(12.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 3.5
+                Instantiate(wall, new Vector3(7.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(40, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 4
+                Instantiate(wall, new Vector3(20, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 4
 
-                Instantiate(wall, new Vector3(35, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 4.5
-                Instantiate(wall, new Vector3(25, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
-                Instantiate(wall, new Vector3(15, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(17.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 4.5
+                Instantiate(wall, new Vector3(12.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(7.5f, 1, 5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 5
-                Instantiate(wall, new Vector3(10, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(20, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2.5f
+                Instantiate(wall, new Vector3(5, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
                 break;
             case 2:
-                Instantiate(wall, new Vector3(30, 1, 45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 1
+                Instantiate(wall, new Vector3(15, 1, 22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 1
 
-                Instantiate(wall, new Vector3(25, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 1.5
-                Instantiate(wall, new Vector3(15, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
-                Instantiate(wall, new Vector3(5, 1, 40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(12.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 1.5
+                Instantiate(wall, new Vector3(7.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(40, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2
-                Instantiate(wall, new Vector3(30, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); 
-                Instantiate(wall, new Vector3(10, 1, 35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(20, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2
+                Instantiate(wall, new Vector3(15, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); 
+                Instantiate(wall, new Vector3(5, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(35, 1, 30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 2.5
+                Instantiate(wall, new Vector3(17.5f, 1, 15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 2.5
 
-                Instantiate(wall, new Vector3(20, 1, 25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 3
+                Instantiate(wall, new Vector3(10, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 3
 
-                Instantiate(wall, new Vector3(35, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 3.5
-                Instantiate(wall, new Vector3(25, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); 
-                Instantiate(wall, new Vector3(15, 1, 20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(17.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); //row 3.5
+                Instantiate(wall, new Vector3(12.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform); 
+                Instantiate(wall, new Vector3(7.5f, 1, 10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
 
-                Instantiate(wall, new Vector3(40, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 4
-                Instantiate(wall, new Vector3(20, 1, 15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                Instantiate(wall, new Vector3(20, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 4
+                Instantiate(wall, new Vector3(10, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
 
                 //row 4.5 has nothing
 
-                Instantiate(wall, new Vector3(40, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 5
-                Instantiate(wall, new Vector3(30, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); 
-                Instantiate(wall, new Vector3(20, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); 
-                Instantiate(wall, new Vector3(10, 1, 5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); 
+                Instantiate(wall, new Vector3(20, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); //row 2.5f
+                Instantiate(wall, new Vector3(15, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); 
+                Instantiate(wall, new Vector3(10, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); 
+                Instantiate(wall, new Vector3(5, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform); 
                 break;
         }
     }
@@ -234,67 +234,92 @@ public class Level_Generator : MonoBehaviour
         switch (q3MapPick)
         {
             case 0:
-                Instantiate(wall, new Vector3(10, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 1
+                Instantiate(wall, new Vector3(5, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 1
 
-                Instantiate(wall, new Vector3(35, 1, -40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 1.5
-                Instantiate(wall, new Vector3(25, 1, -40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(5, 1, -40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(17.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 1.5
+                Instantiate(wall, new Vector3(12.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(20, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2
-                Instantiate(wall, new Vector3(10, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(10, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2
+                Instantiate(wall, new Vector3(5, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(35, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 2.5
+                Instantiate(wall, new Vector3(17.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 2.5
 
-                Instantiate(wall, new Vector3(30, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 3
-                Instantiate(wall, new Vector3(20, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(10, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(15, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 3
+                Instantiate(wall, new Vector3(10, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(5, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(45, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 3.5
-                Instantiate(wall, new Vector3(35, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(15, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(5, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(22.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 3.5
+                Instantiate(wall, new Vector3(17.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(7.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(30, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 4
-                Instantiate(wall, new Vector3(10, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(15, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 4
+                Instantiate(wall, new Vector3(5, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(25, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 4.5
-                Instantiate(wall, new Vector3(5, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(12.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 4.5
+                Instantiate(wall, new Vector3(2.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(40, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 5
+                Instantiate(wall, new Vector3(20, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2.5f
                 break;
 
             case 1:
-                Instantiate(wall, new Vector3(30, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 1
-                Instantiate(wall, new Vector3(10, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(15, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 1
+                Instantiate(wall, new Vector3(5, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(35, 1, -40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 1.5
+                Instantiate(wall, new Vector3(17.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 1.5
 
-                Instantiate(wall, new Vector3(20, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2
+                Instantiate(wall, new Vector3(10, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2
 
-                Instantiate(wall, new Vector3(35, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 2.5
-                Instantiate(wall, new Vector3(25, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(15, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(5, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(17.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 2.5
+                Instantiate(wall, new Vector3(12.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(7.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(30, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 3
+                Instantiate(wall, new Vector3(15, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 3
 
-                Instantiate(wall, new Vector3(45, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 3.5
-                Instantiate(wall, new Vector3(25, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(5, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(22.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 3.5
+                Instantiate(wall, new Vector3(12.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(30, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 4
+                Instantiate(wall, new Vector3(15, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 4
 
-                Instantiate(wall, new Vector3(35, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 4.5
-                Instantiate(wall, new Vector3(15, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(5, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(17.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 4.5
+                Instantiate(wall, new Vector3(7.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
 
-                Instantiate(wall, new Vector3(40, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 5
-                Instantiate(wall, new Vector3(30, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
-                Instantiate(wall, new Vector3(20, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(20, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2.5f
+                Instantiate(wall, new Vector3(15, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(10, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
                 break;
 
             case 2:
+                Instantiate(wall, new Vector3(20, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 1
+                Instantiate(wall, new Vector3(5, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
 
+                Instantiate(wall, new Vector3(12.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 1.5
+
+                Instantiate(wall, new Vector3(20, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2
+                Instantiate(wall, new Vector3(15, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(5, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(12.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 2.5
+                Instantiate(wall, new Vector3(7.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                Instantiate(wall, new Vector3(2.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(20, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 3
+                Instantiate(wall, new Vector3(5, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(17.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 3.5
+                Instantiate(wall, new Vector3(12.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(20, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 4
+                Instantiate(wall, new Vector3(5, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(12.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform); //row 4.5
+                Instantiate(wall, new Vector3(7.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+
+                Instantiate(wall, new Vector3(15, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform); //row 2.5f
                 break;
         }
     }
@@ -303,62 +328,90 @@ public class Level_Generator : MonoBehaviour
         switch (q4MapPick)
         {
             case 0:
-                Instantiate(wall, new Vector3(-30, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 1
-                Instantiate(wall, new Vector3(-10, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-15, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 1
+                Instantiate(wall, new Vector3(-5, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-35, 1, -40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 1.5
+                Instantiate(wall, new Vector3(-17.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 1.5
 
-                Instantiate(wall, new Vector3(-40, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2
-                Instantiate(wall, new Vector3(-20, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
-                Instantiate(wall, new Vector3(-10, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-20, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2
+                Instantiate(wall, new Vector3(-10, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-5, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-25, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 2.5
-                Instantiate(wall, new Vector3(-5, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-12.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 2.5
+                Instantiate(wall, new Vector3(-2.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-40, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 3
-                Instantiate(wall, new Vector3(-20, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-20, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 3
+                Instantiate(wall, new Vector3(-10, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-35, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 3.5
-                Instantiate(wall, new Vector3(-15, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
-                Instantiate(wall, new Vector3(-5, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-17.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 3.5
+                Instantiate(wall, new Vector3(-7.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-2.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-30, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 4
-                Instantiate(wall, new Vector3(-10, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-15, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 4
+                Instantiate(wall, new Vector3(-5, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-45, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 4.5
-                Instantiate(wall, new Vector3(-25, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-22.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 4.5
+                Instantiate(wall, new Vector3(-12.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-40, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 5
-                Instantiate(wall, new Vector3(-20, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
-                Instantiate(wall, new Vector3(-10, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-20, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2.5f
+                Instantiate(wall, new Vector3(-10, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-5, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
                 break;
 
             case 1:
-                Instantiate(wall, new Vector3(-20, 1, -45), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 1
+                Instantiate(wall, new Vector3(-10, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 1
 
-                Instantiate(wall, new Vector3(-35, 1, -40), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 1.5
+                Instantiate(wall, new Vector3(-17.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 1.5
 
-                Instantiate(wall, new Vector3(-40, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2
-                Instantiate(wall, new Vector3(-20, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
-                Instantiate(wall, new Vector3(-10, 1, -35), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-20, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2
+                Instantiate(wall, new Vector3(-10, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-5, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-25, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 2.5
-                Instantiate(wall, new Vector3(-15, 1, -30), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-12.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 2.5
+                Instantiate(wall, new Vector3(-7.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-40, 1, -25), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 3
+                Instantiate(wall, new Vector3(-20, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 3
 
-                Instantiate(wall, new Vector3(-35, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 3.5
-                Instantiate(wall, new Vector3(-25, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
-                Instantiate(wall, new Vector3(-15, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-17.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 3.5
+                Instantiate(wall, new Vector3(-12.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-7.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-40, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 4
-                Instantiate(wall, new Vector3(-10, 1, -15), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-20, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 4
+                Instantiate(wall, new Vector3(-5, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-45, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 4.5
-                Instantiate(wall, new Vector3(-25, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-22.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 4.5
+                Instantiate(wall, new Vector3(-12.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
 
-                Instantiate(wall, new Vector3(-30, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 5
-                Instantiate(wall, new Vector3(-10, 1, -5), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-15, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2.5f
+                Instantiate(wall, new Vector3(-5, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                break;
+
+            case 2:
+                Instantiate(wall, new Vector3(-15, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 1
+
+                Instantiate(wall, new Vector3(-17.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 1.5
+                Instantiate(wall, new Vector3(-2.5f, 1, -20), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-10, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2
+
+                Instantiate(wall, new Vector3(-17.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 2.5
+                Instantiate(wall, new Vector3(-12.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-7.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-2.5f, 1, -15), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-10, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 3
+
+                Instantiate(wall, new Vector3(-22.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 3.5
+                Instantiate(wall, new Vector3(-17.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                Instantiate(wall, new Vector3(-2.5f, 1, -10), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-15, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 4
+                Instantiate(wall, new Vector3(-10, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+
+                Instantiate(wall, new Vector3(-7.5f, 1, -5), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform); //row 4.5
+
+                Instantiate(wall, new Vector3(-20, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform); //row 2.5f
+                Instantiate(wall, new Vector3(-15, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
                 break;
         }
     }
