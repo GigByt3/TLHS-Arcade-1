@@ -6,11 +6,18 @@ public class Player_Movement : MonoBehaviour
 {
     public float speed;
 
-    public bool canMoveUp;
-    public bool canMoveRight;
-    public bool canMoveDown;
-    public bool canMoveLeft;
-    
+    public Camera playerCamera;
+
+    private bool canMoveUp;
+    private bool canMoveDown;
+    private bool canMoveLeft;
+    private bool canMoveRight;
+
+    private void Start()
+    {
+        
+    }
+
     void FixedUpdate()
     {
         checkKeys();
@@ -21,6 +28,8 @@ public class Player_Movement : MonoBehaviour
 
         if (Input.GetKey("up"))
         {
+            castRay("forward");
+
             if (canMoveUp)
             {
                 transform.Translate(Vector3.forward * speed);
@@ -73,6 +82,33 @@ public class Player_Movement : MonoBehaviour
         if (!Input.GetKey("right"))
         {
             canMoveRight = true;
+        }
+    }
+
+    void castRay(string direction)
+    {
+        switch (direction)
+        {
+            case "forward":
+
+                if (Physics.Raycast(transform.position, Vector3.forward, 40))
+                {
+                    Debug.Log("hit");
+                    canMoveUp = false;
+                } else
+                {
+                    Debug.Log("not hit");
+                }
+                break;
+
+            case "back":
+                break;
+
+            case "left":
+                break;
+
+            case "right":
+                break;
         }
     }
 }
