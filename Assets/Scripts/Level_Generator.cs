@@ -6,10 +6,16 @@ using Random = UnityEngine.Random;
 
 public class Level_Generator : MonoBehaviour
 {
+    //Define the wall prefab
     public GameObject wall;
+
+    //Define the quarter container prefabs
     public GameObject q1, q2, q3, q4;
     
+    //The number of different options for each quarter
     private int q1Maps, q2Maps, q3Maps, q4Maps;
+
+    //Which option was actually picked by the RNG
     private int q1MapPick, q2MapPick, q3MapPick, q4MapPick;
 
     void Start()
@@ -23,6 +29,7 @@ public class Level_Generator : MonoBehaviour
         CombineMeshes();
     }
 
+    //Define how many options there are for each quarter
     public void GenerateMaps()
     {
         q1Maps = 4;
@@ -31,6 +38,7 @@ public class Level_Generator : MonoBehaviour
         q4Maps = 4;
     }
 
+    //Pick the random number defining each quarter
     public void PickMaps()
     {
         q1MapPick = Random.Range(0, q1Maps);
@@ -43,6 +51,8 @@ public class Level_Generator : MonoBehaviour
         Debug.Log("Q3: " + q3MapPick);
         Debug.Log("Q4: " + q4MapPick);
     }
+
+    //Instaniate the different walls for the chosen quarter 1 option, parented to the quarter container
     public void GenerateQ1()
     {
         switch (q1MapPick)
@@ -161,6 +171,8 @@ public class Level_Generator : MonoBehaviour
                 break;
         }
     }
+
+    //Instaniate the different walls for the chosen quarter 2 option, parented to the quarter container
     public void GenerateQ2()
     {
         switch (q2MapPick)
@@ -283,6 +295,8 @@ public class Level_Generator : MonoBehaviour
                 break;
         }
     }
+
+    //Instaniate the different walls for the chosen quarter 3 option, parented to the quarter container
     public void GenerateQ3()
     {
         switch (q3MapPick)
@@ -406,6 +420,8 @@ public class Level_Generator : MonoBehaviour
                 break;
         }
     }
+
+    //Instaniate the different walls for the chosen quarter 4 option, parented to the quarter container
     public void GenerateQ4()
     {
         switch (q4MapPick)
@@ -529,6 +545,7 @@ public class Level_Generator : MonoBehaviour
         }
     }
 
+    //Combine all the seperate walls into one object / mesh
     public void CombineMeshes()
     {
         MeshFilter[] q1MeshFilters = q1.GetComponentsInChildren<MeshFilter>();
@@ -561,6 +578,7 @@ public class Level_Generator : MonoBehaviour
 
         q1Object.transform.GetComponent<MeshFilter>().mesh = new Mesh();
         q1Object.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(q1Combine);
+        q1Object.AddComponent<MeshCollider>();
         q1Object.transform.gameObject.SetActive(true);
 
         //Q2
@@ -581,6 +599,7 @@ public class Level_Generator : MonoBehaviour
 
         q2Object.transform.GetComponent<MeshFilter>().mesh = new Mesh();
         q2Object.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(q2Combine);
+        q2Object.AddComponent<MeshCollider>();
         q2Object.transform.gameObject.SetActive(true);
 
         //Q3
@@ -601,6 +620,7 @@ public class Level_Generator : MonoBehaviour
 
         q3Object.transform.GetComponent<MeshFilter>().mesh = new Mesh();
         q3Object.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(q3Combine);
+        q3Object.AddComponent<MeshCollider>();
         q3Object.transform.gameObject.SetActive(true);
 
         //Q4
@@ -621,6 +641,7 @@ public class Level_Generator : MonoBehaviour
 
         q4Object.transform.GetComponent<MeshFilter>().mesh = new Mesh();
         q4Object.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(q4Combine);
+        q4Object.AddComponent<MeshCollider>();
         q4Object.transform.gameObject.SetActive(true);
     }
 }

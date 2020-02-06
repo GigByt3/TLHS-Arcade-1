@@ -60,7 +60,7 @@ public class Player_Movement : MonoBehaviour
         {
             if (canMoveLeft)
             {
-                transform.Rotate(0, -90, 0, Space.Self);
+                transform.Rotate(0, -90, 0, Space.World);
                 canMoveLeft = false;
             }
         }
@@ -74,7 +74,7 @@ public class Player_Movement : MonoBehaviour
         {
             if (canMoveRight)
             {
-                transform.Rotate(0, 90, 0, Space.Self);
+                transform.Rotate(0, 90, 0, Space.World);
                 canMoveRight = false;
             }
         }
@@ -91,23 +91,16 @@ public class Player_Movement : MonoBehaviour
         {
             case "forward":
 
-                if (Physics.Raycast(transform.position, Vector3.forward, 40))
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 2.5f, Color.yellow);
+
+                RaycastHit hit = new RaycastHit();
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2.5f))
                 {
-                    Debug.Log("hit");
                     canMoveUp = false;
-                } else
-                {
-                    Debug.Log("not hit");
                 }
                 break;
 
             case "back":
-                break;
-
-            case "left":
-                break;
-
-            case "right":
                 break;
         }
     }
