@@ -26,6 +26,7 @@ public class Level_Generator : MonoBehaviour
         GenerateQ2();
         GenerateQ3();
         GenerateQ4();
+        generateExteriorWalls();
         CombineMeshes();
     }
 
@@ -543,6 +544,54 @@ public class Level_Generator : MonoBehaviour
                 Instantiate(wall, new Vector3(-5, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
                 break;
         }
+    }
+
+    public void generateExteriorWalls()
+    {
+        Instantiate(wall, new Vector3(25, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(25, 1, 22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+
+        Instantiate(wall, new Vector3(-25, 1, -7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, -12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, -17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, -22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, -2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, 2.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, 7.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, 12.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, 17.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-25, 1, 22.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+
+        Instantiate(wall, new Vector3(-7.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-12.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-17.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-22.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-2.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(2.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(7.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(12.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(17.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(22.5f, 1, 25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+
+        Instantiate(wall, new Vector3(-7.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-12.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-17.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-22.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(-2.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(2.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(7.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(12.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(17.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+        Instantiate(wall, new Vector3(22.5f, 1, -25), Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+
     }
 
     //Combine all the seperate walls into one object / mesh
