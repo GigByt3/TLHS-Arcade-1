@@ -87,13 +87,13 @@ public class Player_Movement : MonoBehaviour
 
     void castRay(string direction)
     {
+        RaycastHit hit = new RaycastHit();
         switch (direction)
         {
             case "forward":
 
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 2.5f, Color.yellow);
 
-                RaycastHit hit = new RaycastHit();
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2.5f))
                 {
                     canMoveUp = false;
@@ -101,6 +101,12 @@ public class Player_Movement : MonoBehaviour
                 break;
 
             case "back":
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * 2.5f, Color.yellow);
+                
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 2.5f))
+                {
+                    canMoveDown = false;
+                }
                 break;
         }
     }
