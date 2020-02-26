@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room_Generator : MonoBehaviour
 {
-    public GameObject roomSeed;
+    public GameObject roomSeed, seedContainer;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,7 @@ public class Room_Generator : MonoBehaviour
             !Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(-3, 0, 3)), out hit, 3.5f) ||
             !Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(3, 0, 3)), out hit, 3.5f))
         {
-            Instantiate(roomSeed, this.transform.position, this.transform.rotation);
+            Instantiate(roomSeed, this.transform.position, this.transform.rotation, seedContainer.transform);
             Debug.Log("Left a Room-Seed");
         }
     }
