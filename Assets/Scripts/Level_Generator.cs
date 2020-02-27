@@ -11,6 +11,8 @@ public class Level_Generator : MonoBehaviour
 
     //Define the quarter container prefabs
     public GameObject q1, q2, q3, q4;
+
+    public int torchChance;
     
     //The number of different options for each quarter
     private int q1Maps, q2Maps, q3Maps, q4Maps;
@@ -624,7 +626,7 @@ public class Level_Generator : MonoBehaviour
             q1Combine[i].mesh = q1MeshFilters[i].sharedMesh;
             q1Combine[i].transform = q1MeshFilters[i].transform.localToWorldMatrix;
 
-            int randomTorchChance = Random.Range(0, 4);
+            int randomTorchChance = Random.Range(0, torchChance);
             if (randomTorchChance == 0)
             {
                 if (q1MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
@@ -662,7 +664,7 @@ public class Level_Generator : MonoBehaviour
             q2Combine[i].mesh = q2MeshFilters[i].sharedMesh;
             q2Combine[i].transform = q2MeshFilters[i].transform.localToWorldMatrix;
 
-            int randomTorchChance = Random.Range(0, 4);
+            int randomTorchChance = Random.Range(0, torchChance);
             if (randomTorchChance == 0)
             {
                 if (q2MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
@@ -700,7 +702,7 @@ public class Level_Generator : MonoBehaviour
             q3Combine[i].mesh = q3MeshFilters[i].sharedMesh;
             q3Combine[i].transform = q3MeshFilters[i].transform.localToWorldMatrix;
 
-            int randomTorchChance = Random.Range(0, 4);
+            int randomTorchChance = Random.Range(0, torchChance);
             if (randomTorchChance == 0)
             {
                 if (q3MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
@@ -738,7 +740,7 @@ public class Level_Generator : MonoBehaviour
             q4Combine[i].mesh = q4MeshFilters[i].sharedMesh;
             q4Combine[i].transform = q4MeshFilters[i].transform.localToWorldMatrix;
 
-            int randomTorchChance = Random.Range(0, 4);
+            int randomTorchChance = Random.Range(0, torchChance);
             if (randomTorchChance == 0)
             {
                 if (q4MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
