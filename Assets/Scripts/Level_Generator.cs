@@ -6,8 +6,8 @@ using Random = UnityEngine.Random;
 
 public class Level_Generator : MonoBehaviour
 {
-    //Define the wall prefab
-    public GameObject wall;
+    //Define the wall and torch prefabs
+    public GameObject wall, torch;
 
     //Define the quarter container prefabs
     public GameObject q1, q2, q3, q4;
@@ -619,8 +619,25 @@ public class Level_Generator : MonoBehaviour
         
         for (int i = 0; i < q1MeshFilters.Length; i++)
         {
+            Vector3 wallPos = q1MeshFilters[i].transform.position;
+
             q1Combine[i].mesh = q1MeshFilters[i].sharedMesh;
             q1Combine[i].transform = q1MeshFilters[i].transform.localToWorldMatrix;
+
+            int randomTorchChance = Random.Range(0, 4);
+            if (randomTorchChance == 0)
+            {
+                if (q1MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
+                {
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 180.0f, 0.0f), q1.transform);
+                }
+                else
+                {
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 270.0f, 0.0f), q1.transform);
+                }
+            }
             //q1MeshFilters[i].gameObject.SetActive(false);
             Destroy(q1MeshFilters[i].gameObject);
         }
@@ -640,8 +657,25 @@ public class Level_Generator : MonoBehaviour
 
         for (int i = 0; i < q2MeshFilters.Length; i++)
         {
+            Vector3 wallPos = q2MeshFilters[i].transform.position;
+
             q2Combine[i].mesh = q2MeshFilters[i].sharedMesh;
             q2Combine[i].transform = q2MeshFilters[i].transform.localToWorldMatrix;
+
+            int randomTorchChance = Random.Range(0, 4);
+            if (randomTorchChance == 0)
+            {
+                if (q2MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
+                {
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 180.0f, 0.0f), q2.transform);
+                }
+                else
+                {
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 270.0f, 0.0f), q2.transform);
+                }
+            }
             //q2MeshFilters[i].gameObject.SetActive(false);
             Destroy(q2MeshFilters[i].gameObject);
         }
@@ -661,8 +695,25 @@ public class Level_Generator : MonoBehaviour
 
         for (int i = 0; i < q3MeshFilters.Length; i++)
         {
+            Vector3 wallPos = q3MeshFilters[i].transform.position;
+
             q3Combine[i].mesh = q3MeshFilters[i].sharedMesh;
             q3Combine[i].transform = q3MeshFilters[i].transform.localToWorldMatrix;
+
+            int randomTorchChance = Random.Range(0, 4);
+            if (randomTorchChance == 0)
+            {
+                if (q3MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
+                {
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 180.0f, 0.0f), q3.transform);
+                }
+                else
+                {
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 270.0f, 0.0f), q3.transform);
+                }
+            }
             //q3MeshFilters[i].gameObject.SetActive(false);
             Destroy(q3MeshFilters[i].gameObject);
         }
@@ -682,8 +733,25 @@ public class Level_Generator : MonoBehaviour
 
         for (int i = 0; i < q4MeshFilters.Length; i++)
         {
+            Vector3 wallPos = q4MeshFilters[i].transform.position;
+
             q4Combine[i].mesh = q4MeshFilters[i].sharedMesh;
             q4Combine[i].transform = q4MeshFilters[i].transform.localToWorldMatrix;
+
+            int randomTorchChance = Random.Range(0, 4);
+            if (randomTorchChance == 0)
+            {
+                if (q4MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
+                {
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 180.0f, 0.0f), q4.transform);
+                }
+                else
+                {
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
+                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 270.0f, 0.0f), q4.transform);
+                }
+            }
             //q4MeshFilters[i].gameObject.SetActive(false);
             Destroy(q4MeshFilters[i].gameObject);
         }
