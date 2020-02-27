@@ -156,6 +156,7 @@ MonoBehaviour:
   q2: {fileID: 2126133249}
   q3: {fileID: 1429141556}
   q4: {fileID: 2146354857}
+  torchChance: 4
 --- !u!4 &110838126
 Transform:
   m_ObjectHideFlags: 0
@@ -844,7 +845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &2118620615
 Light:
   m_ObjectHideFlags: 0
