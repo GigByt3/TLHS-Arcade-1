@@ -13,9 +13,9 @@ public class Player_Movement : MonoBehaviour
     private bool canMoveLeft;
     private bool canMoveRight;
 
-    private void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        Debug.Log(other.GetComponent<Room_Seed_Network>().tagOfThisRoom);
     }
 
     void FixedUpdate()

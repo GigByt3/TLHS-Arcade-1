@@ -6,7 +6,7 @@ public class Room_Seed_Network : MonoBehaviour
 {
     public ArrayList Network = new ArrayList();
     private string[] RoomTypes = { "Cult_Den", "Spider_Lair", "Crypt_Room" };
-    private string tagOfThisRoom;
+    public string tagOfThisRoom;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,7 @@ public class Room_Seed_Network : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Room-Seed") { LinkUp(hit.collider); }
         }
-        findNetwork = new Vector3(6, 0, -6);
+        findNetwork = new Vector3(8, 0, -8);
         if (Physics.Raycast(origin, findNetwork, out hit))
         {
             if (hit.collider.gameObject.tag == "Room-Seed") { LinkUp(hit.collider); }
@@ -47,6 +47,7 @@ public class Room_Seed_Network : MonoBehaviour
         foreach (GameObject link in Network)
         {
             link.gameObject.GetComponent<Room_Seed_Network>().tagOfThisRoom = roomTags;
+            Debug.Log("SET ROOM: " + roomTags);
         }
     }
 }
