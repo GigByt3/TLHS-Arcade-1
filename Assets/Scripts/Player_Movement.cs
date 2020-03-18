@@ -13,11 +13,6 @@ public class Player_Movement : MonoBehaviour
     private bool canMoveLeft;
     private bool canMoveRight;
 
-    private void Start()
-    {
-        
-    }
-
     void FixedUpdate()
     {
         checkKeys();
@@ -44,6 +39,8 @@ public class Player_Movement : MonoBehaviour
 
         if (Input.GetKey("down"))
         {
+            castRay("back");
+
             if (canMoveDown)
             {
                 transform.Translate(Vector3.back * speed);
