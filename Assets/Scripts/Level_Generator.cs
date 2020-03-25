@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class Level_Generator : MonoBehaviour
 {
     //Define the wall and torch prefabs
-    public GameObject wall, torch;
+    public GameObject wall;
 
     //Define the quarter container prefabs
     public GameObject q1, q2, q3, q4;
@@ -631,13 +631,13 @@ public class Level_Generator : MonoBehaviour
             {
                 if (q1MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
                 {
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 0.0f, 0.0f), q1.transform);
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 180.0f, 0.0f), q1.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 0.0f, 0.0f)), wallPos, Quaternion.identity, q1.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 180.0f, 0.0f)), wallPos, Quaternion.identity, q1.transform);
                 }
                 else
                 {
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 90.0f, 0.0f), q1.transform);
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 270.0f, 0.0f), q1.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 90.0f, 0.0f)), wallPos, Quaternion.identity, q1.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 270.0f, 0.0f)), wallPos, Quaternion.identity, q1.transform);
                 }
             }
             //q1MeshFilters[i].gameObject.SetActive(false);
@@ -669,13 +669,13 @@ public class Level_Generator : MonoBehaviour
             {
                 if (q2MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
                 {
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 0.0f, 0.0f), q2.transform);
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 180.0f, 0.0f), q2.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 0.0f, 0.0f)), wallPos, Quaternion.identity, q2.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 180.0f, 0.0f)), wallPos, Quaternion.identity, q2.transform);
                 }
                 else
                 {
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 90.0f, 0.0f), q2.transform);
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 270.0f, 0.0f), q2.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 90.0f, 0.0f)), wallPos, Quaternion.identity, q2.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 270.0f, 0.0f)), wallPos, Quaternion.identity, q2.transform);
                 }
             }
             //q2MeshFilters[i].gameObject.SetActive(false);
@@ -707,13 +707,13 @@ public class Level_Generator : MonoBehaviour
             {
                 if (q3MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
                 {
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 0.0f, 0.0f), q3.transform);
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 180.0f, 0.0f), q3.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 0.0f, 0.0f)), wallPos, Quaternion.identity, q3.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 180.0f, 0.0f)), wallPos, Quaternion.identity, q3.transform);
                 }
                 else
                 {
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 90.0f, 0.0f), q3.transform);
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 270.0f, 0.0f), q3.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 90.0f, 0.0f)), wallPos, Quaternion.identity, q3.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 270.0f, 0.0f)), wallPos, Quaternion.identity, q3.transform);
                 }
             }
             //q3MeshFilters[i].gameObject.SetActive(false);
@@ -745,13 +745,13 @@ public class Level_Generator : MonoBehaviour
             {
                 if (q4MeshFilters[i].transform.rotation == Quaternion.Euler(0.0f, 0.0f, 0.0f))
                 {
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 0.0f, 0.0f), q4.transform);
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 180.0f, 0.0f), q4.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 0.0f, 0.0f)), wallPos, Quaternion.identity, q4.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 180.0f, 0.0f)), wallPos, Quaternion.identity, q4.transform);
                 }
                 else
                 {
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 90.0f, 0.0f), q4.transform);
-                    Instantiate(torch, wallPos, Quaternion.Euler(0.0f, 270.0f, 0.0f), q4.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 90.0f, 0.0f)), wallPos, Quaternion.identity, q3.transform);
+                    Instantiate(new Torch(Quaternion.Euler(0.0f, 270.0f, 0.0f)), wallPos, Quaternion.identity, q3.transform);
                 }
             }
             //q4MeshFilters[i].gameObject.SetActive(false);
