@@ -376,7 +376,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6fad9282e4b4721b666c4f0028fb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelEnemy: {fileID: 0}
+  levelEnemy: {fileID: 4116429187595231220, guid: 8bfa952baff7e4828bc43f94c0c34d2e,
+    type: 3}
+  DangerZone: 0
+  gameLevel: 1
 --- !u!4 &637676521
 Transform:
   m_ObjectHideFlags: 0
@@ -385,7 +388,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637676519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6166848, y: 0.5010624, z: 4.536957}
+  m_LocalPosition: {x: 16.84, y: 0, z: -12.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -480,7 +483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953012813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 1.5, z: 2.5}
+  m_LocalPosition: {x: 2.5, y: 1, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 467170352}
