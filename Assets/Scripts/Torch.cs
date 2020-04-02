@@ -21,7 +21,6 @@ public class Torch : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (this.transform.rotation == mBaseRotation)

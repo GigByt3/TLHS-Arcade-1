@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class Level_Generator : MonoBehaviour
 {
     //Define the wall and torch prefabs
-    public GameObject wall;
+    public GameObject wall, torchPrefab;
 
     //Define the quarter container prefabs
     public GameObject q1, q2, q3, q4;
@@ -30,6 +30,14 @@ public class Level_Generator : MonoBehaviour
         GenerateQ4();
         generateExteriorWalls();
         CombineMeshes();
+
+        try
+        {
+            Instantiate(new Torch(Quaternion.Euler(0.0f, 0.0f, 0.0f)), new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+        } catch (Exception e)
+        {
+            Debug.Log(e);
+        }
     }
 
     //Define how many options there are for each quarter
@@ -762,5 +770,11 @@ public class Level_Generator : MonoBehaviour
         q4Object.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(q4Combine);
         q4Object.AddComponent<MeshCollider>();
         q4Object.transform.gameObject.SetActive(true);
+    }
+
+    public void createTorch(Quaternion baseRotation, Vector3 position, Transform transform)
+    {
+        GameObject newTorch = Instantiate(torchPrefab, position, Quaternion.identity, transform) as GameObject;
+        newTorch.AddComponent<Torch>();
     }
 }
