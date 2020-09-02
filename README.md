@@ -8,10 +8,16 @@ Arrow Keys will port to Joystick
 WASDER port to console buttons
 
 Game Flow
+
 [Move Through Maze]
+
 >combat
+
 >loot chest
+
 >exit to a lower level
+
+
 [Progress through dungeon levels 1 -> 5]
 
 Need:
