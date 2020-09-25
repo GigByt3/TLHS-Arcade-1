@@ -10,7 +10,7 @@ public class Maze : MonoBehaviour
 
     public GameObject wallPrefab;
 
-    private float cellWidth;
+    public float cellWidth;
 
     private bool[,,] walls;
 
@@ -25,7 +25,7 @@ public class Maze : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        cellWidth = 1;
+        //cellWidth = 1;
 
         walls = new bool[width + 1, height + 1, 2];
 
@@ -128,6 +128,8 @@ public class Maze : MonoBehaviour
         if (availableWalls.Count <= 0) return -1;
 
         String pickedWall = (String) availableWalls[UnityEngine.Random.Range(0, availableWalls.Count - 1)];
+
+        Debug.Log("Selected wall " + pickedWall + " from " + availableWalls.Count + " choices...");
 
         switch (pickedWall)
         {
