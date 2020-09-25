@@ -14,7 +14,7 @@ public class Maze : MonoBehaviour
 
     private bool[,,] walls;
 
-    private Dictionary<Vector3, GridObject> gridObjectDict;
+    private Dictionary<Vector3Int, GridObject> gridObjectDict;
 
     public Maze(int mWidth, int mHeight)
     {
@@ -55,14 +55,14 @@ public class Maze : MonoBehaviour
         }
 
         //define stack of previous cells
-        Stack<Vector2> previousCellStack = new Stack<Vector2>();
-        Stack<Vector2> visitedCellStack = new Stack<Vector2>();
+        Stack<Vector2Int> previousCellStack = new Stack<Vector2Int>();
+        Stack<Vector2Int> visitedCellStack = new Stack<Vector2Int>();
 
         int currentCellX = UnityEngine.Random.Range(1, width - 2);
         int currentCellY = UnityEngine.Random.Range(1, height - 2);
 
-        //previousCellStack.Push(new Vector2(currentCellX, currentCellY));
-        //visitedCellStack.Push(new Vector2(currentCellX, currentCellY));
+        //previousCellStack.Push(new Vector2Int(currentCellX, currentCellY));
+        //visitedCellStack.Push(new Vector2Int(currentCellX, currentCellY));
 
         Debug.Log("Starting at Cell " + currentCellX + ", " + currentCellY);
         Debug.Log("walls has " + walls.Length);
@@ -80,7 +80,7 @@ public class Maze : MonoBehaviour
                 Debug.Log("No face found to break from Cell " + currentCellX + ", " + currentCellY);
 
                 //add cell to list of visited cells if it isnt already
-                if (!visitedCellStack.Contains(new Vector2(currentCellX, currentCellY))) visitedCellStack.Push(new Vector2(currentCellX, currentCellY));
+                if (!visitedCellStack.Contains(new Vector2Int(currentCellX, currentCellY))) visitedCellStack.Push(new Vector2Int(currentCellX, currentCellY));
 
                 currentCellX = (int)previousCellStack.Peek().x;
                 currentCellY = (int)previousCellStack.Pop().y;
@@ -95,10 +95,10 @@ public class Maze : MonoBehaviour
                 setWallFromDirection(currentCellX, currentCellY, faceToBreak, false);
 
                 //add cell to list of previous cells
-                previousCellStack.Push(new Vector2(currentCellX, currentCellY));
+                previousCellStack.Push(new Vector2Int(currentCellX, currentCellY));
 
                 //add cell to list of visited cells if it isnt already
-                if (!visitedCellStack.Contains(new Vector2(currentCellX, currentCellY))) visitedCellStack.Push(new Vector2(currentCellX, currentCellY));
+                if (!visitedCellStack.Contains(new Vector2Int(currentCellX, currentCellY))) visitedCellStack.Push(new Vector2Int(currentCellX, currentCellY));
 
                 //move through
 
@@ -116,7 +116,7 @@ public class Maze : MonoBehaviour
         } 
     }
 
-    int chooseAdjacentWallToBreak(int x, int y, Stack<Vector2> visitedCellStack)
+    int chooseAdjacentWallToBreak(int x, int y, Stack<Vector2Int> visitedCellStack)
     {
         ArrayList availableWalls = new ArrayList();
 
@@ -225,7 +225,7 @@ public class Maze : MonoBehaviour
         }
     }
 
-    Vector3 cellCoordsToGlobalCoords(float x, float y, float xMod, float yMod)
+    Vector3 cellCoordsToGlobalCoords(int x, int y, float xMod, float yMod)
     {
         return new Vector3((-x * cellWidth) + xMod, 0, (y * cellWidth) + yMod);
     }
@@ -235,20 +235,20 @@ public class Maze : MonoBehaviour
         return walls[x, y, side];
     }
 
-    public Vector2 getNewThroughWallCoords(int x, int y, int side)
+    public Vector2Int getNewThroughWallCoords(int x, int y, int side)
     {
         switch (side)
         {
             case 0:
-                return new Vector2(x, y - 1.0f);
+                return new Vector2Int(x, y - 1);
             case 1:
-                return new Vector2(x + 1.0f, y);
+                return new Vector2Int(x + 1, y);
             case 2:
-                return new Vector2(x, y + 1.0f);
+                return new Vector2Int(x, y + 1);
             case 3:
-                return new Vector2(x - 1.0f, y);
+                return new Vector2Int(x - 1, y);
             default:
-                return new Vector2(x, y);
+                return new Vector2Int(x, y);
         }
     }
 
