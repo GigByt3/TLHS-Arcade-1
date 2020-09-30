@@ -67,10 +67,9 @@ public class Maze : MonoBehaviour
         Debug.Log("Starting at Cell " + currentCellX + ", " + currentCellY);
         Debug.Log("walls has " + walls.Length);
 
-
         while (visitedCellStack.Count < width * height)
         {
-            int faceToBreak = chooseAdjacentWallToBreak(currentCellX, currentCellY, visitedCellStack);
+            int faceToBreak = chooseAdjacentWallToBreak(currentCellX, currentCellY, previousCellStack, visitedCellStack);
 
             Debug.Log("Trying to break face " + faceToBreak + " from Cell " + currentCellX + ", " + currentCellY);
 
@@ -82,8 +81,8 @@ public class Maze : MonoBehaviour
                 //add cell to list of visited cells if it isnt already
                 if (!visitedCellStack.Contains(new Vector2Int(currentCellX, currentCellY))) visitedCellStack.Push(new Vector2Int(currentCellX, currentCellY));
 
-                currentCellX = (int)previousCellStack.Peek().x;
-                currentCellY = (int)previousCellStack.Pop().y;
+                currentCellX = previousCellStack.Peek().x;
+                currentCellY = previousCellStack.Pop().y;
 
                 Debug.Log("Going back to Cell " + currentCellX + ", " + currentCellY);
             }
@@ -105,8 +104,8 @@ public class Maze : MonoBehaviour
                 int oldCellX = currentCellX;
                 int oldCellY = currentCellY;
 
-                currentCellX = (int)getNewThroughWallCoords(oldCellX, oldCellY, faceToBreak).x;
-                currentCellY = (int)getNewThroughWallCoords(oldCellX, oldCellY, faceToBreak).y;
+                currentCellX = getNewThroughWallCoords(oldCellX, oldCellY, faceToBreak).x;
+                currentCellY = getNewThroughWallCoords(oldCellX, oldCellY, faceToBreak).y;
 
                 Debug.Log("Moved from currentCell into Cell " + currentCellX + ", " + currentCellY);
             }
@@ -116,34 +115,53 @@ public class Maze : MonoBehaviour
         } 
     }
 
-    int chooseAdjacentWallToBreak(int x, int y, Stack<Vector2Int> visitedCellStack)
+    int chooseAdjacentWallToBreak(int x, int y, Stack<Vector2Int> previousCellStack, Stack<Vector2Int> visitedCellStack)
     {
         ArrayList availableWalls = new ArrayList();
 
-        if (y > 0 && getWallFromDirection(x, y, 0) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 0))) availableWalls.Add("NORTH");
-        if (x < width - 1 && getWallFromDirection(x, y, 1) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 1))) availableWalls.Add("EAST");
-        if (y < height - 1 && getWallFromDirection(x, y, 2) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 2))) availableWalls.Add("SOUTH");
-        if (x > 0 && getWallFromDirection(x, y, 3) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 3))) availableWalls.Add("WEST");
+        int lastFaceBroken = -1;
 
-        if (availableWalls.Count <= 0) return -1;
+        if (previousCellStack.Count > 0)
+        {
+            int previousCellX = previousCellStack.Peek().x;
+            int previousCellY = previousCellStack.Peek().y;
 
-        String pickedWall = (String) availableWalls[UnityEngine.Random.Range(0, availableWalls.Count - 1)];
+            if (previousCellX - x == 0 && previousCellY - y == 0)
+            {
+                //idfk clearly something went wrong
+            }
+            else if (previousCellX - x >= 1 && previousCellY - y == 0)
+            {
+                lastFaceBroken = 1;
+            }
+            else if (previousCellX - x <= -1 && previousCellY - y == 0)
+            {
+                lastFaceBroken = 3;
+            }
+            else if (previousCellX - x == 0 && previousCellY - y >= 1)
+            {
+                lastFaceBroken = 0;
+            }
+            else if (previousCellX - x == 0 && previousCellY - y <= -1)
+            {
+                lastFaceBroken = 2;
+            }
+        }
+
+        if (y > 0 && getWallFromDirection(x, y, 0) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 0))) availableWalls.Add(0);
+        if (x < width - 1 && getWallFromDirection(x, y, 1) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 1))) availableWalls.Add(1);
+        if (y < height - 1 && getWallFromDirection(x, y, 2) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 2))) availableWalls.Add(2);
+        if (x > 0 && getWallFromDirection(x, y, 3) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 3))) availableWalls.Add(3);
+
+        if (availableWalls.Contains(lastFaceBroken)) availableWalls.Remove(lastFaceBroken);
+
+        if (availableWalls.Count <= 0) /*availableWalls.Add(lastFaceBroken)*/ return -1;
+
+        int pickedWall = (int) availableWalls[UnityEngine.Random.Range(0, availableWalls.Count - 1)];
 
         Debug.Log("Selected wall " + pickedWall + " from " + availableWalls.Count + " choices...");
 
-        switch (pickedWall)
-        {
-            case "NORTH":
-                return 0;
-            case "EAST":
-                return 1;
-            case "SOUTH":
-                return 2;
-            case "WEST":
-                return 3;
-            default:
-                return -1;
-        }
+        return pickedWall;
     }
 
     void populateGridObjects()
