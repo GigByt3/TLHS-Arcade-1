@@ -6,7 +6,7 @@ using UnityEngine.XR.WSA.Input;
 
 public class Maze : MonoBehaviour
 {
-    public int width, height;
+    public int mazeWidth, mazeHeight;
 
     public GameObject wallPrefab;
 
@@ -18,8 +18,8 @@ public class Maze : MonoBehaviour
 
     public Maze(int mWidth, int mHeight)
     {
-        width = mWidth;
-        height = mHeight;
+        mazeWidth = mWidth;
+        mazeHeight = mHeight;
     }
     
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class Maze : MonoBehaviour
     {
         //cellWidth = 1;
 
-        walls = new bool[width + 1, height + 1, 2];
+        walls = new bool[mazeWidth + 1, mazeHeight + 1, 2];
 
         populateMazeArray();
 
@@ -42,12 +42,12 @@ public class Maze : MonoBehaviour
         
     }
 
-    void populateMazeArray()
+    /* void populateMazeArray()
     {
         //set all walls true
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < mazeWidth; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < mazeHeight; j++)
             {
                 walls[i, j, 0] = true;
                 walls[i, j, 1] = true;
@@ -58,8 +58,8 @@ public class Maze : MonoBehaviour
         Stack<Vector2Int> previousCellStack = new Stack<Vector2Int>();
         Stack<Vector2Int> visitedCellStack = new Stack<Vector2Int>();
 
-        int currentCellX = UnityEngine.Random.Range(1, width - 2);
-        int currentCellY = UnityEngine.Random.Range(1, height - 2);
+        int currentCellX = UnityEngine.Random.Range(1, mazeWidth - 2);
+        int currentCellY = UnityEngine.Random.Range(1, mazeHeight - 2);
 
         //previousCellStack.Push(new Vector2Int(currentCellX, currentCellY));
         //visitedCellStack.Push(new Vector2Int(currentCellX, currentCellY));
@@ -67,7 +67,7 @@ public class Maze : MonoBehaviour
         Debug.Log("Starting at Cell " + currentCellX + ", " + currentCellY);
         Debug.Log("walls has " + walls.Length);
 
-        while (visitedCellStack.Count < width * height)
+        while (visitedCellStack.Count < mazeWidth * mazeHeight)
         {
             int faceToBreak = chooseAdjacentWallToBreak(currentCellX, currentCellY, previousCellStack, visitedCellStack);
 
@@ -78,7 +78,7 @@ public class Maze : MonoBehaviour
                 //go back
                 Debug.Log("No face found to break from Cell " + currentCellX + ", " + currentCellY);
 
-                //add cell to list of visited cells if it isnt already
+                //Add cell to list of visited cells if it isnt already
                 if (!visitedCellStack.Contains(new Vector2Int(currentCellX, currentCellY))) visitedCellStack.Push(new Vector2Int(currentCellX, currentCellY));
 
                 currentCellX = previousCellStack.Peek().x;
@@ -93,10 +93,10 @@ public class Maze : MonoBehaviour
                 //break wall
                 setWallFromDirection(currentCellX, currentCellY, faceToBreak, false);
 
-                //add cell to list of previous cells
+                //Add cell to list of previous cells
                 previousCellStack.Push(new Vector2Int(currentCellX, currentCellY));
 
-                //add cell to list of visited cells if it isnt already
+                //Add cell to list of visited cells if it isnt already
                 if (!visitedCellStack.Contains(new Vector2Int(currentCellX, currentCellY))) visitedCellStack.Push(new Vector2Int(currentCellX, currentCellY));
 
                 //move through
@@ -149,19 +149,66 @@ public class Maze : MonoBehaviour
         }
 
         if (y > 0 && getWallFromDirection(x, y, 0) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 0))) availableWalls.Add(0);
-        if (x < width - 1 && getWallFromDirection(x, y, 1) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 1))) availableWalls.Add(1);
-        if (y < height - 1 && getWallFromDirection(x, y, 2) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 2))) availableWalls.Add(2);
+        if (x < mazeWidth - 1 && getWallFromDirection(x, y, 1) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 1))) availableWalls.Add(1);
+        if (y < mazeHeight - 1 && getWallFromDirection(x, y, 2) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 2))) availableWalls.Add(2);
         if (x > 0 && getWallFromDirection(x, y, 3) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 3))) availableWalls.Add(3);
 
         if (availableWalls.Contains(lastFaceBroken)) availableWalls.Remove(lastFaceBroken);
 
-        if (availableWalls.Count <= 0) /*availableWalls.Add(lastFaceBroken)*/ return -1;
+        if (availableWalls.Count <= 0) /*availableWalls.Add(lastFaceBroken)*//* return -1;
 
         int pickedWall = (int) availableWalls[UnityEngine.Random.Range(0, availableWalls.Count - 1)];
 
         Debug.Log("Selected wall " + pickedWall + " from " + availableWalls.Count + " choices...");
 
         return pickedWall;
+    } */
+
+    void populateMazeArray()
+    {
+        for (int i = 0; i < mazeWidth; i++)
+        {
+            for (int j = 0; j < mazeHeight; j++)
+            {
+                for (int k = 0; k < 2; k++)
+                {
+                    if (doesWallExist(new Vector3Int(i,j,k)))
+                    {
+                        walls[i,j,k] = true;
+                    }
+                }
+            }
+        }
+
+        Vector2Int initialCell = new Vector2Int(UnityEngine.Random.Range(1, mazeWidth), UnityEngine.Random.Range(1, mazeHeight));
+
+        List<Vector2Int> visitedCells = new List<Vector2Int>();
+        List<Vector3Int> wallList = new List<Vector3Int>();
+
+        visitedCells.Add(initialCell);
+        wallList.AddRange(getNeighbouringWalls(initialCell));
+
+        while(wallList.Count != 0)
+        {
+            Vector3Int activeWall = wallList.Item[UnityEngine.Random.Range(0, wallList.Count - 1)];
+            List<Vector2Int> dividedCells = getNeighbouringCells(activeWall);
+
+            List<Vector2Int> unvisitedCells;
+            foreach (Vector2Int cell in dividedCells)
+            {
+                if (!visitedCells.Contains(cell)) unvisitedCells.Add(cell);
+            }
+
+            if (unvisitedCells.Count == 1)
+            {
+                walls[activeWall.x, activeWall.y, activeWall.z] = false;
+                visitedCells.Add(unvisitedCells[0]);
+
+                wallList.Add(getNeighbouringWalls(unvisitedCells[0]));
+            }
+
+            wallList.Remove(activeWall);
+        }
     }
 
     void populateGridObjects()
@@ -177,19 +224,19 @@ public class Maze : MonoBehaviour
         GameObject southWalls = new GameObject("South Walls");
         southWalls.transform.parent = this.transform;
         
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < mazeWidth; i++)
         {
             GameObject southWall = Instantiate(wallPrefab);
             southWall.name = i + " South Wall";
             southWall.transform.parent = southWalls.transform;
-            southWall.transform.position = cellCoordsToGlobalCoords(i, height, 0, -0.5f);
+            southWall.transform.position = cellCoordsToGlobalCoords(i, mazeHeight, 0, -0.5f);
             southWall.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         }
 
         GameObject westWalls = new GameObject("West Walls");
         westWalls.transform.parent = this.transform;
 
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < mazeWidth; j++)
         {
             GameObject westWall = Instantiate(wallPrefab);
             westWall.name = j + " West Wall";
@@ -198,9 +245,9 @@ public class Maze : MonoBehaviour
             westWall.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
         }
 
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < mazeWidth; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < mazeHeight; j++)
             {
                 GameObject cell = new GameObject("Cell " + i + ", " + j);
                 cell.transform.position = cellCoordsToGlobalCoords(i, j, 0, 0);
@@ -224,6 +271,41 @@ public class Maze : MonoBehaviour
                     eastWall.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
                 }
             }
+        }
+    }
+
+    List<Vector3Int> getNeighbouringWalls(Vector2Int cellCoords)
+    {
+        List<Vector3Int> neighbouringWalls = new List<Vector3Int>();
+        neighbouringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 0));
+        neighbouringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 1));
+        neighbouringWalls.Add(new Vector3Int(cellCoords.x - 1, cellCoords.y, 0));
+        neighbouringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y - 1, 1));
+
+        foreach(Vector3Int wall in neighbouringWalls)
+        {
+            if (!doesWallExist(wall)) neighboringWalls.Remove(wall);
+        }
+    }
+
+    List<Vector2Int> getNeighbouringCells(Vector3Int wallCoords)
+    {
+        List<Vector2Int> neighbouringCells = new List<Vector2Int>();
+        int wallX = wallCoords.x;
+        int wallY = wallCoords.y;
+        int wallDir = wallCoords.z;
+
+        switch(wallDir)
+        {
+            case 0:
+                break;
+            case 1:
+                if (!(wallX <= 0) && !(wallY >= mazeWidth))
+                {
+                    neighbouringCells.Add(new Vector2Int(wallX, wallY));
+                    neighbouringCells.Add(new Vector2Int(wallX + 1, wallY));
+                }
+                break;
         }
     }
 
@@ -270,7 +352,7 @@ public class Maze : MonoBehaviour
         }
     }
 
-    public void setWallFromDirection(int x, int y, int side, bool newValue)
+    void setWallFromDirection(int x, int y, int side, bool newValue)
     {
         switch (side)
         {
@@ -281,13 +363,13 @@ public class Maze : MonoBehaviour
                 }
                 break;
             case 1:
-                if (x < width - 1)
+                if (x < mazeWidth - 1)
                 {
                     walls[x, y, side] = newValue;
                 }
                 break;
             case 2:
-                if (y < height  -1)
+                if (y < mazeHeight  -1)
                 {
                     walls[x, y + 1, 0] = newValue;
                 }
@@ -301,7 +383,7 @@ public class Maze : MonoBehaviour
         }
     }
 
-    public bool getWallFromDirection(int x, int y, int side)
+    /*public bool getWallFromDirection(int x, int y, int side)
     {
         switch (side)
         {
@@ -315,7 +397,7 @@ public class Maze : MonoBehaviour
                     return walls[x, y, side];
                 }
             case 1:
-                if (x >= width)
+                if (x >= mazeWidth)
                 {
                     return true;
                 }
@@ -324,7 +406,7 @@ public class Maze : MonoBehaviour
                     return walls[x, y, side];
                 }
             case 2:
-                if (y >= height)
+                if (y >= mazeHeight)
                 {
                     return true;
                 }
@@ -343,6 +425,52 @@ public class Maze : MonoBehaviour
                 }
             default:
                 return true;
+        }
+    } */
+
+    bool doesCellExist(Vector2Int cell)
+    {
+        return (cell.x <= 0) || (cell.x > mazeWidth) || (cell.y <= 0) || (cell.y > mazeHeight);
+    }
+
+    bool doesWallExist(Vector3Int wall)
+    {
+        if (!doesCellExist(new Vector2Int(wall.x, wall.y))) return false;
+        if (wall.x == 0 && wall.y == 0) return false;
+
+        if (wall.y == 0 && (1 <= wall.x && wall.x <= mazeWidth))
+        {
+            switch (wall.z)
+            {
+                case 0:
+                    return false;
+                    break;
+
+                case 1:
+                    return true;
+                    break;
+
+                default:
+                    Debug.Log("wall direction index isn't 0 or 1");
+            }
+        } else if (wall.x == 0 && (1 <= wall.y && wall.y <= mazeHeight))
+        {
+            switch (wall.z)
+            {
+                case 0:
+                    return true;
+                    break;
+
+                case 1:
+                    return false;
+                    break;
+
+                default:
+                    Debug.Log("wall direction index isn't 0 or 1");
+            }
+        } else 
+        {
+            return true;
         }
     }
 }
