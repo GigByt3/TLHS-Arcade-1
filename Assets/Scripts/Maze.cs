@@ -180,20 +180,20 @@ public class Maze : MonoBehaviour
             }
         }
 
-        Vector2Int initialCell = new Vector2Int(UnityEngine.Random.Range(1, mazeWidth), UnityEngine.Random.Range(1, mazeHeight));
-
         List<Vector2Int> visitedCells = new List<Vector2Int>();
         List<Vector3Int> wallList = new List<Vector3Int>();
 
+        Vector2Int initialCell = new Vector2Int(UnityEngine.Random.Range(1, mazeWidth), UnityEngine.Random.Range(1, mazeHeight));
+
         visitedCells.Add(initialCell);
-        wallList.AddRange(getNeighbouringWalls(initialCell));
+        wallList.AddRange(getNeighboringWalls(initialCell));
 
         while(wallList.Count != 0)
         {
             Vector3Int activeWall = wallList.Item[UnityEngine.Random.Range(0, wallList.Count - 1)];
-            List<Vector2Int> dividedCells = getNeighbouringCells(activeWall);
+            List<Vector2Int> dividedCells = getNeighboringCells(activeWall);
 
-            List<Vector2Int> unvisitedCells;
+            List<Vector2Int> unvisitedCells = new List<Vector2Int>();
             foreach (Vector2Int cell in dividedCells)
             {
                 if (!visitedCells.Contains(cell)) unvisitedCells.Add(cell);
@@ -204,7 +204,7 @@ public class Maze : MonoBehaviour
                 walls[activeWall.x, activeWall.y, activeWall.z] = false;
                 visitedCells.Add(unvisitedCells[0]);
 
-                wallList.Add(getNeighbouringWalls(unvisitedCells[0]));
+                wallList.AddRange(getNeighboringWalls(unvisitedCells[0]));
             }
 
             wallList.Remove(activeWall);
@@ -274,23 +274,25 @@ public class Maze : MonoBehaviour
         }
     }
 
-    List<Vector3Int> getNeighbouringWalls(Vector2Int cellCoords)
+    List<Vector3Int> getNeighboringWalls(Vector2Int cellCoords)
     {
-        List<Vector3Int> neighbouringWalls = new List<Vector3Int>();
-        neighbouringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 0));
-        neighbouringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 1));
-        neighbouringWalls.Add(new Vector3Int(cellCoords.x - 1, cellCoords.y, 0));
-        neighbouringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y - 1, 1));
+        List<Vector3Int> neighboringWalls = new List<Vector3Int>();
+       neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 0));
+       neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 1));
+       neighboringWalls.Add(new Vector3Int(cellCoords.x - 1, cellCoords.y, 0));
+       neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y - 1, 1));
 
-        foreach(Vector3Int wall in neighbouringWalls)
+        foreach(Vector3Int wall in neighboringWalls)
         {
-            if (!doesWallExist(wall)) neighboringWalls.Remove(wall);
+            if (!doesWallExist(wall))neighboringWalls.Remove(wall);
         }
+
+        return neighboringWalls;
     }
 
-    List<Vector2Int> getNeighbouringCells(Vector3Int wallCoords)
+    List<Vector2Int> getNeighboringCells(Vector3Int wallCoords)
     {
-        List<Vector2Int> neighbouringCells = new List<Vector2Int>();
+        List<Vector2Int> neighboringCells = new List<Vector2Int>();
         int wallX = wallCoords.x;
         int wallY = wallCoords.y;
         int wallDir = wallCoords.z;
@@ -298,15 +300,27 @@ public class Maze : MonoBehaviour
         switch(wallDir)
         {
             case 0:
+                Vector2Int westCell = new Vector2Int(wallX, wallY);
+                if(doesCellExist(westCell)) neighboringCells.Add(westCell);
+
+                Vector2Int eastCell = new Vector2Int(wallX + 1, wallY);
+                if(doesCellExist(eastCell)) neighboringCells.Add(eastCell);
+
                 break;
             case 1:
-                if (!(wallX <= 0) && !(wallY >= mazeWidth))
-                {
-                    neighbouringCells.Add(new Vector2Int(wallX, wallY));
-                    neighbouringCells.Add(new Vector2Int(wallX + 1, wallY));
-                }
+                Vector2Int northCell = new Vector2Int(wallX, wallY - 1);
+                if(doesCellExist(northCell)) neighboringCells.Add(northCell);
+
+                Vector2Int southCell = new Vector2Int(wallX + 1, wallY);
+                if(doesCellExist(southCell)) neighboringCells.Add(southCell);
+                
+                break;
+            default:
+                Debug.Log("Input Wall direction was (" + wallDir + "). Why TF is this happening");
                 break;
         }
+
+        return neighboringCells;
     }
 
     void teleportObject(GridObject objectToMove, int x, int y)
@@ -444,14 +458,13 @@ public class Maze : MonoBehaviour
             {
                 case 0:
                     return false;
-                    break;
 
                 case 1:
                     return true;
-                    break;
 
                 default:
                     Debug.Log("wall direction index isn't 0 or 1");
+                    return false;
             }
         } else if (wall.x == 0 && (1 <= wall.y && wall.y <= mazeHeight))
         {
@@ -459,14 +472,13 @@ public class Maze : MonoBehaviour
             {
                 case 0:
                     return true;
-                    break;
 
                 case 1:
                     return false;
-                    break;
 
                 default:
                     Debug.Log("wall direction index isn't 0 or 1");
+                    return false;
             }
         } else 
         {
