@@ -190,7 +190,7 @@ public class Maze : MonoBehaviour
 
         while(wallList.Count != 0)
         {
-            Vector3Int activeWall = wallList.ToArray()[(int )UnityEngine.Random.Range(0, wallList.Count - 1)];
+            Vector3Int activeWall = wallList[(int )UnityEngine.Random.Range(0, wallList.Count - 1)];
             List<Vector2Int> dividedCells = getNeighboringCells(activeWall);
 
             List<Vector2Int> unvisitedCells = new List<Vector2Int>();
