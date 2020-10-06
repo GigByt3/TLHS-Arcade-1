@@ -23,7 +23,7 @@ public class Maze : MonoBehaviour
     }
     
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         //cellWidth = 1;
 
@@ -183,14 +183,14 @@ public class Maze : MonoBehaviour
         List<Vector2Int> visitedCells = new List<Vector2Int>();
         List<Vector3Int> wallList = new List<Vector3Int>();
 
-        Vector2Int initialCell = new Vector2Int(UnityEngine.Random.Range(1, mazeWidth), UnityEngine.Random.Range(1, mazeHeight));
+        Vector2Int initialCell = new Vector2Int((int) UnityEngine.Random.Range(1, mazeWidth), UnityEngine.Random.Range(1, mazeHeight));
 
         visitedCells.Add(initialCell);
         wallList.AddRange(getNeighboringWalls(initialCell));
 
         while(wallList.Count != 0)
         {
-            Vector3Int activeWall = wallList.Item[UnityEngine.Random.Range(0, wallList.Count - 1)];
+            Vector3Int activeWall = wallList.ToArray()[(int )UnityEngine.Random.Range(0, wallList.Count - 1)];
             List<Vector2Int> dividedCells = getNeighboringCells(activeWall);
 
             List<Vector2Int> unvisitedCells = new List<Vector2Int>();
@@ -209,6 +209,8 @@ public class Maze : MonoBehaviour
 
             wallList.Remove(activeWall);
         }
+
+        Debug.Log("PopulateMazeArray is running");
     }
 
     void populateGridObjects()
@@ -277,14 +279,14 @@ public class Maze : MonoBehaviour
     List<Vector3Int> getNeighboringWalls(Vector2Int cellCoords)
     {
         List<Vector3Int> neighboringWalls = new List<Vector3Int>();
-       neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 0));
-       neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 1));
-       neighboringWalls.Add(new Vector3Int(cellCoords.x - 1, cellCoords.y, 0));
-       neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y - 1, 1));
+        neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 0));
+        neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 1));
+        neighboringWalls.Add(new Vector3Int(cellCoords.x - 1, cellCoords.y, 0));
+        neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y - 1, 1));
 
         foreach(Vector3Int wall in neighboringWalls)
         {
-            if (!doesWallExist(wall))neighboringWalls.Remove(wall);
+            if (!doesWallExist(wall)) neighboringWalls.Remove(wall);
         }
 
         return neighboringWalls;
