@@ -29,8 +29,8 @@ public class soundmanager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("This did appen");
-        StartCoroutine(DoIt(2));
+        //Debug.Log("This did appen");
+        //StartCoroutine(DoIt(2));
     }
 
     public void PlaySound(int index)
