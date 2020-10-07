@@ -16,10 +16,14 @@ public class soundmanager : MonoBehaviour
     public AudioClip[] music;
     /*
      * MUSIC DIRECTORY
-     * 
+     * 0 - Epic Music
+     * 1 - Light Music INTRO
+     * 2 - Light Music LOOP
      */
 
     private AudioSource source;
+
+    private AudioClip nextTrack;
     
     private void Awake()
     {
@@ -30,7 +34,14 @@ public class soundmanager : MonoBehaviour
     void Start()
     {
         //Debug.Log("This did appen");
-        //StartCoroutine(DoIt(2));
+        StartCoroutine(DoIt(2));
+    }
+
+    void Update()
+    {
+        if (source.isPlaying) return;
+        source.clip = nextTrack;
+        source.Play();
     }
 
     public void PlaySound(int index)
@@ -52,7 +63,7 @@ public class soundmanager : MonoBehaviour
         }
     }
 
-    public static IEnumerator Transition(AudioSource audioSource, float fadeTime, AudioClip through, AudioClip too)
+    public IEnumerator Transition(AudioSource audioSource, float fadeTime, AudioClip through, AudioClip too)
     {
         float startVolume = audioSource.volume;
 
@@ -72,9 +83,7 @@ public class soundmanager : MonoBehaviour
 
         audioSource.clip = through;
         audioSource.Play();
-        double duration = (double)through.samples / through.frequency;
-        //audioSource.clip = too;
-        audioSource.PlayScheduled(AudioSettings.dspTime + duration);
+        nextTrack = too;
     }   
 
     public IEnumerator DoIt(int pauseTime)
