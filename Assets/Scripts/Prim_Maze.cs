@@ -66,10 +66,16 @@ public class Maze : MonoBehaviour
                 visitedCells.Add(unvisitedCells[0]);
 
                 wallList.AddRange(getNeighboringWalls(unvisitedCells[0]));
+                Debug.Log("unvisitedCells was 1");
             }
             
             wallList.Remove(activeWall);
         }
+
+        /*foreach (bool wall in walls)
+        {
+            Debug.Log("[" + wall + "] ");
+        } */
         
     }
 
@@ -191,7 +197,6 @@ public class Maze : MonoBehaviour
 
         return neighboringCells;
     }
-
     public void teleportObject(GridObject objectToMove, int x, int y)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
