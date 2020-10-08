@@ -4,24 +4,20 @@ using UnityEngine;
 
 public abstract class GridObject : MonoBehaviour
 {
-    private Vector3 gridCoords;
+    public Vector3Int gridCoords;
 
-    private Maze maze;
+    public Maze maze;
 
-    public GridObject(int x, int y, int facing)
+    public void Ready()
     {
-        //define maze here
+        maze = GameObject.Find("LevelController").GetComponent<LevelController>().maze;
 
-        //clamp x & y here
+        if (gridCoords.x < 0) gridCoords.x = 0;
+        if (gridCoords.x >= maze.width) gridCoords.x = maze.width - 1;
+        if (gridCoords.y < 0) gridCoords.y = 0;
+        if (gridCoords.y >= maze.height) gridCoords.y = maze.height - 1;
 
-        facing %= 4;
-
-        gridCoords = new Vector3(x, y, facing);
-    }
-
-    void Start()
-    {
-
+        gridCoords.z %= 4;
     }
 
     void Update()
@@ -29,27 +25,38 @@ public abstract class GridObject : MonoBehaviour
         
     }
 
-    void move()
+    void updatePosition()
     {
-        
+
     }
 
-    void rotate(string direction)
+    public void move(int distance)
     {
+        maze.moveObject(this, distance);
+    }
+
+    public void rotate(string direction)
+    {
+        int newdir = gridCoords.z;
         switch (direction)
         {
             case "left":
-                gridCoords.z--;
+                newdir--;
                 break;
             case "right":
-                gridCoords.z++;
+                newdir++;
                 break;
         }
 
-        gridCoords.z %= 4;
+        if (newdir < 0) newdir = 3;
+        newdir %= 4;
+
+        maze.setObjectRotation(this, newdir);
+
+        gridCoords.z = newdir;
     }
 
-    void faceDirection(string direction)
+    public void faceDirection(string direction)
     {
         switch (direction)
         {
