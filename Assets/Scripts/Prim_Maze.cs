@@ -15,7 +15,6 @@ public class Maze : MonoBehaviour
     private bool[,,] walls;
 
     public Dictionary<Vector3Int, GridObject> gridObjectDict;
-    
     public void Ready()
     {
         walls = new bool[width + 1, height + 1, 2];
@@ -29,125 +28,55 @@ public class Maze : MonoBehaviour
         populateGridObjects();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void populateMazeArray()
     {
-        //set all walls true
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                walls[i, j, 0] = true;
-                walls[i, j, 1] = true;
+                for (int k = 0; k < 2; k++)
+                {
+                    walls[i,j,k] = true;
+                }
             }
         }
 
-        //define stack of previous cells
-        Stack<Vector2Int> previousCellStack = new Stack<Vector2Int>();
-        HashSet<Vector2Int> visitedCellStack = new HashSet<Vector2Int>();
+        List<Vector2Int> visitedCells = new List<Vector2Int>();
+        List<Vector3Int> wallList = new List<Vector3Int>();
 
-        int currentCellX = UnityEngine.Random.Range(1, width - 2);
-        int currentCellY = UnityEngine.Random.Range(1, height - 2);
+        Vector2Int initialCell = new Vector2Int((int) UnityEngine.Random.Range(1, width), UnityEngine.Random.Range(1, height));
+        visitedCells.Add(initialCell);
 
-        Debug.Log("Starting at Cell " + currentCellX + ", " + currentCellY);
+        wallList.AddRange(getNeighboringWalls(initialCell));
 
-        while (visitedCellStack.Count < width * height)
+        while(wallList.Count != 0)
         {
-            int faceToBreak = chooseAdjacentWallToBreak(currentCellX, currentCellY, previousCellStack, visitedCellStack);
+            Vector3Int activeWall = wallList[(int) UnityEngine.Random.Range(0, wallList.Count - 1)];
+            List<Vector2Int> dividedCells = getNeighboringCells(activeWall);
+            List<Vector2Int> unvisitedCells = new List<Vector2Int>();
 
-            if (faceToBreak == -1)
+            foreach (Vector2Int cell in dividedCells)
             {
-                //add cell to list of visited cells if it isnt already
-                if (!visitedCellStack.Contains(new Vector2Int(currentCellX, currentCellY))) visitedCellStack.Add(new Vector2Int(currentCellX, currentCellY));
-
-                currentCellX = previousCellStack.Peek().x;
-                currentCellY = previousCellStack.Pop().y;
+                if (!visitedCells.Contains(cell)) unvisitedCells.Add(cell);
             }
-            else
+
+            if (unvisitedCells.Count == 1)
             {
-                //break wall
-                setWallFromDirection(currentCellX, currentCellY, faceToBreak, false);
+                walls[activeWall.x, activeWall.y, activeWall.z] = false;
+                visitedCells.Add(unvisitedCells[0]);
 
-                //add cell to list of previous cells
-                previousCellStack.Push(new Vector2Int(currentCellX, currentCellY));
-
-                //add cell to list of visited cells if it isnt already
-                if (!visitedCellStack.Contains(new Vector2Int(currentCellX, currentCellY))) visitedCellStack.Add(new Vector2Int(currentCellX, currentCellY));
-
-                //move through
-
-                int oldCellX = currentCellX;
-                int oldCellY = currentCellY;
-
-                currentCellX = getNewThroughWallCoords(oldCellX, oldCellY, faceToBreak).x;
-                currentCellY = getNewThroughWallCoords(oldCellX, oldCellY, faceToBreak).y;
+                wallList.AddRange(getNeighboringWalls(unvisitedCells[0]));
+                Debug.Log("unvisitedCells was 1");
             }
+            
+            wallList.Remove(activeWall);
         }
-        Debug.Log("Maze generation finished!");
-    }
 
-    int chooseAdjacentWallToBreak(int x, int y, Stack<Vector2Int> previousCellStack, HashSet<Vector2Int> visitedCellStack)
-    {
-        ArrayList availableWalls = new ArrayList();
-
-        int lastFaceBroken = -1;
-
-        if (previousCellStack.Count > 0)
+        /*foreach (bool wall in walls)
         {
-            int previousCellX = previousCellStack.Peek().x;
-            int previousCellY = previousCellStack.Peek().y;
-
-            if (previousCellX - x == 0 && previousCellY - y == 0)
-            {
-                //idfk clearly something went wrong
-            }
-            else if (previousCellX - x >= 1 && previousCellY - y == 0)
-            {
-                lastFaceBroken = 1;
-            }
-            else if (previousCellX - x <= -1 && previousCellY - y == 0)
-            {
-                lastFaceBroken = 3;
-            }
-            else if (previousCellX - x == 0 && previousCellY - y >= 1)
-            {
-                lastFaceBroken = 0;
-            }
-            else if (previousCellX - x == 0 && previousCellY - y <= -1)
-            {
-                lastFaceBroken = 2;
-            }
-        }
-
-        if (y > 0 && getWallFromDirection(x, y, 0) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 0))) availableWalls.Add(0);
-        if (x < width - 1 && getWallFromDirection(x, y, 1) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 1))) availableWalls.Add(1);
-        if (y < height - 1 && getWallFromDirection(x, y, 2) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 2))) availableWalls.Add(2);
-        if (x > 0 && getWallFromDirection(x, y, 3) && !visitedCellStack.Contains(getNewThroughWallCoords(x, y, 3))) availableWalls.Add(3);
-
-        bool lastFaceRemoved = false;
-        if (availableWalls.Contains(lastFaceBroken) && UnityEngine.Random.Range(0, 1) <= 0.1)
-        {
-            availableWalls.Remove(lastFaceBroken);
-            lastFaceRemoved = true;
-        }
-
-        if (availableWalls.Count <= 0 && lastFaceRemoved)
-        {
-            availableWalls.Add(lastFaceBroken);
-        }
-        else if (availableWalls.Count <= 0)
-        {
-            return -1;
-        }
-
-        int pickedWall = (int) availableWalls[UnityEngine.Random.Range(0, availableWalls.Count - 1)];
-
-        return pickedWall;
+            Debug.Log("[" + wall + "] ");
+        } */
+        
     }
 
     void populateGridObjects()
@@ -159,10 +88,10 @@ public class Maze : MonoBehaviour
     {
         //ALL CODE IN HERE WILL BE REWRITTEN ENTIRELY
         //JUST TEMPORARY FOR MAKING MAZE GEN ALGORITHM
-        
+
         GameObject northWalls = new GameObject("North Walls");
         northWalls.transform.parent = this.transform;
-        
+
         for (int i = 0; i < width; i++)
         {
             GameObject northWall = Instantiate(wallPrefab);
@@ -213,6 +142,61 @@ public class Maze : MonoBehaviour
         }
     }
 
+    List<Vector3Int> getNeighboringWalls(Vector2Int cellCoords)
+    {
+        List<Vector3Int> neighboringWalls = new List<Vector3Int>();
+        List<Vector3Int> wallsThatDontExist = new List<Vector3Int>();
+
+        neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 0));
+        neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y, 1));
+        neighboringWalls.Add(new Vector3Int(cellCoords.x - 1, cellCoords.y, 0));
+        neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y - 1, 1));
+
+        foreach(Vector3Int wall in neighboringWalls)
+        {
+            if (!doesWallExist(wall)) wallsThatDontExist.Add(wall);
+        }
+
+        foreach(Vector3Int wall in wallsThatDontExist)
+        {
+            neighboringWalls.Remove(wall);
+        }
+
+        return neighboringWalls;
+    }
+
+    List<Vector2Int> getNeighboringCells(Vector3Int wallCoords)
+    {
+        List<Vector2Int> neighboringCells = new List<Vector2Int>();
+        int wallX = wallCoords.x;
+        int wallY = wallCoords.y;
+        int wallDir = wallCoords.z;
+
+        switch(wallDir)
+        {
+            case 0:
+                Vector2Int westCell = new Vector2Int(wallX, wallY);
+                if(doesCellExist(westCell)) neighboringCells.Add(westCell);
+
+                Vector2Int eastCell = new Vector2Int(wallX + 1, wallY);
+                if(doesCellExist(eastCell)) neighboringCells.Add(eastCell);
+
+                break;
+            case 1:
+                Vector2Int northCell = new Vector2Int(wallX, wallY - 1);
+                if(doesCellExist(northCell)) neighboringCells.Add(northCell);
+
+                Vector2Int southCell = new Vector2Int(wallX, wallY);
+                if(doesCellExist(southCell)) neighboringCells.Add(southCell);
+                
+                break;
+            default:
+                Debug.Log("Input Wall direction was (" + wallDir + "). Why TF is this happening");
+                break;
+        }
+
+        return neighboringCells;
+    }
     public void teleportObject(GridObject objectToMove, int x, int y)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
@@ -241,7 +225,7 @@ public class Maze : MonoBehaviour
             {
                 faceToCheck = objectToMove.gridCoords.z;
             }
-            
+
             if (!getWallFromDirection(objectToMove.gridCoords.x, objectToMove.gridCoords.y, faceToCheck))
             {
                 switch (faceToCheck)
@@ -293,7 +277,6 @@ public class Maze : MonoBehaviour
             }
         }
     }
-
     public void setObjectRotation(GridObject objectToRotate, int direction)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
@@ -309,23 +292,6 @@ public class Maze : MonoBehaviour
     public bool getWallFromCoords(int x, int y, int side)
     {
         return walls[x, y, side];
-    }
-
-    public Vector2Int getNewThroughWallCoords(int x, int y, int side)
-    {
-        switch (side)
-        {
-            case 0:
-                return new Vector2Int(x, y - 1);
-            case 1:
-                return new Vector2Int(x + 1, y);
-            case 2:
-                return new Vector2Int(x, y + 1);
-            case 3:
-                return new Vector2Int(x - 1, y);
-            default:
-                return new Vector2Int(x, y);
-        }
     }
 
     public void setWallFromDirection(int x, int y, int side, bool newValue)
@@ -402,5 +368,16 @@ public class Maze : MonoBehaviour
             default:
                 return true;
         }
+    }
+
+    bool doesCellExist(Vector2Int cell)
+    {
+        return !((cell.x < 0) || (cell.x >= width) || (cell.y < 0) || (cell.y >= height));
+    }
+
+    bool doesWallExist(Vector3Int wall)
+    {
+        if (!doesCellExist(new Vector2Int(wall.x, wall.y)) || wall.z > 1) return false;
+        return walls[wall.x, wall.y, wall.z];
     }
 }

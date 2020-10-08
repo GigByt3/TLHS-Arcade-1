@@ -23,6 +23,7 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //in the future, should be only run on move event
         updateGridObjectPositions();
     }
 
