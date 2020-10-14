@@ -70,17 +70,10 @@ public class Maze : MonoBehaviour
                 visitedCells.Add(unvisitedCells[0]);
 
                 wallList.AddRange(getNeighboringWalls(unvisitedCells[0]));
-                Debug.Log("unvisitedCells was 1");
             }
             
             wallList.Remove(activeWall);
         }
-
-        /*foreach (bool wall in walls)
-        {
-            Debug.Log("[" + wall + "] ");
-        } */
-        
     }
 
     void populateGridObjects()
