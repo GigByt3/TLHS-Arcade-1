@@ -15,6 +15,8 @@ public class Maze : MonoBehaviour
     private bool[,,] walls;
 
     public Dictionary<Vector3Int, GridObject> gridObjectDict;
+
+    private List<Vector2Int> deadEndCells;
     public void Ready()
     {
         walls = new bool[width + 1, height + 1, 2];
@@ -24,6 +26,8 @@ public class Maze : MonoBehaviour
         populateMazeArray();
 
         generateMazeMesh();
+
+        markDeadEndCells();
 
         populateGridObjects();
     }
@@ -81,7 +85,23 @@ public class Maze : MonoBehaviour
 
     void populateGridObjects()
     {
+        //places objects at dead ends using deadEndCells()
+    }
 
+    void markDeadEndCells()
+    {
+        deadEndCells = new List<Vector2Int>();
+        
+        for (int i = 0; i < width - 1; i++)
+        {
+            for (int j = 0; j < height - 1; j++)
+            {
+                if (getNeighboringWalls(new Vector2Int(i ,j)).Count == 3)
+                {
+                    deadEndCells.Add(new Vector2Int(i, j));
+                }
+            }
+        }
     }
 
     void generateMazeMesh()
@@ -183,10 +203,10 @@ public class Maze : MonoBehaviour
 
                 break;
             case 1:
-                Vector2Int northCell = new Vector2Int(wallX, wallY - 1);
+                Vector2Int northCell = new Vector2Int(wallX, wallY);
                 if(doesCellExist(northCell)) neighboringCells.Add(northCell);
 
-                Vector2Int southCell = new Vector2Int(wallX, wallY);
+                Vector2Int southCell = new Vector2Int(wallX, wallY + 1);
                 if(doesCellExist(southCell)) neighboringCells.Add(southCell);
                 
                 break;
