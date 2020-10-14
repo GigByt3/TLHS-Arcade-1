@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameSceneManager : MonoBehaviour
+public class sceneManager : MonoBehaviour
 {
+    public soundManager _soundManager;
+    
+    private GameObject[] TransitionText;
 
     static float position = 0;
     /*
@@ -20,19 +23,68 @@ public class GameSceneManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Scene Manager Awake.");
         DontDestroyOnLoad(transform.gameObject);
+    }
+
+    //OnEnable comes first
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += Setup;
+        Debug.Log("OnEnable");
+    }
+
+    //OnDisable last.
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= Setup;
+        Debug.Log("OnDisable");
+    }
+
+    private void Setup(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Manager New Scene Loaded.");
         switch (position)
         {
-            case 1;
+            case 0.5f:
+                SetUpTransition("Wellcome To ZORK! READY TO BEGIN LEVEL 1 IN 4 SECONDS");
+                break;
+            case 1:
+                SetUpGame();
+                break;
+            case 1.5f:
+                SetUpTransition("READY TO BEGIN LEVEL 2 IN 4 SECONDS");
+                break;
+            case 2:
+                SetUpGame();
+                break;
+            case 2.5f:
+                SetUpTransition("READY TO BEGIN LEVEL 3 IN 4 SECONDS");
+                break;
+            case 3:
+                SetUpGame();
                 break;
             case 402:
                 //call a method.
                 break;
             default:
-                //generate a maze ig.
+                //generate victory-scene probably? (That'll probably just be a transition)
                 break;
         }
     }
+
+    private void SetUpGame()
+    {
+        _soundManager.MusicTransition(1, 2);
+        GenerateMaze(); //Call this presumably
+    }
+
+    private void SetUpTransition(string Transition)
+    {
+        StartCoroutine(SwitchOutOfTransition(4));
+        TransitionText = GameObject.FindGameObjectsWithTag("TransitionTextOne");
+        TransitionText[0].GetComponent<UnityEngine.UI.Text>().text = Transition;
+    }   
 
     public void NextScene()
     {
@@ -57,6 +109,14 @@ public class GameSceneManager : MonoBehaviour
 
     public void GenerateMaze()
     {
+        //Fire Maze Generation
+    }
 
+    private IEnumerator SwitchOutOfTransition(int pauseTime)
+    {
+        Debug.Log("In Transition, Starting " + pauseTime + " second wait. [TIME: " + Time.deltaTime + "]");
+        yield return new WaitForSeconds(pauseTime);
+        Debug.Log("In Transition, Proscess Complete. [TIME: " + Time.deltaTime + "]");
+        NextScene();
     }
 }

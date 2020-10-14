@@ -27,14 +27,16 @@ public class soundManager : MonoBehaviour
     
     private void Awake()
     {
+        Debug.Log("Sound Manager Awake.");
         DontDestroyOnLoad(transform.gameObject);
         source = GetComponent<AudioSource>();
     }
 
     void Start()
     {
-        //Debug.Log("This did appen");
-        StartCoroutine(DoIt(2));
+        Debug.Log("Sound Manager Start.");
+        PlayMusic(0);
+        nextTrack = music[0];
     }
 
     void Update()
@@ -60,10 +62,13 @@ public class soundManager : MonoBehaviour
         {
             Debug.Log(source.isPlaying);
             StartCoroutine(Transition(source, 2, music[TransitionIndex], music[TrackIndex]));
+        } else
+        {
+            PlayMusic(TrackIndex);
         }
     }
-
-    public IEnumerator Transition(AudioSource audioSource, float fadeTime, AudioClip through, AudioClip too)
+    
+    private IEnumerator Transition(AudioSource audioSource, float fadeTime, AudioClip through, AudioClip too)
     {
         float startVolume = audioSource.volume;
 
@@ -71,28 +76,13 @@ public class soundManager : MonoBehaviour
         {
             audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
 
-            Debug.Log("eternal loop");
-
             yield return null;
         }
 
         audioSource.Stop();
         audioSource.volume = startVolume;
-
-        Debug.Log("This happens");
-
         audioSource.clip = through;
         audioSource.Play();
         nextTrack = too;
     }   
-
-    public IEnumerator DoIt(int pauseTime)
-    {
-        PlayMusic(0);
-        Debug.Log("waiting... " + Time.time);
-        yield return new WaitForSeconds(pauseTime);
-        Debug.Log("play!" + Time.time);
-        MusicTransition(1, 2);
-    }
-
 }

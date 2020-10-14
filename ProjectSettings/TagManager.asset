@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Room-Seed
   - Enemy
+  - TransitionTextOne
   layers:
   - Default
   - TransparentFX
