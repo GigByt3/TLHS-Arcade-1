@@ -656,6 +656,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5960576392989821715, guid: 8c65e8de2ac7046feab9d9ed6cf7f084,
+        type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5960576392989821724, guid: 8c65e8de2ac7046feab9d9ed6cf7f084,
         type: 3}
       propertyPath: m_LocalPosition.x

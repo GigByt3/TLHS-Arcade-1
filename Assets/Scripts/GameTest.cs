@@ -15,6 +15,6 @@ public class GameTest : MonoBehaviour
         Debug.Log("Yay! I'm playing a game level!");
         yield return new WaitForSeconds(2);
         Debug.Log("I won the level!");
-        GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<sceneManager>().NextScene();
+        GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().NextScene();
     }
 }
