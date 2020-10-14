@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 1266800232}
   m_Layer: 0
   m_Name: Game Manager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -650,6 +650,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sound Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5960576392989821714, guid: 8c65e8de2ac7046feab9d9ed6cf7f084,
+        type: 3}
+      propertyPath: m_TagString
+      value: SoundManager
       objectReference: {fileID: 0}
     - target: {fileID: 5960576392989821724, guid: 8c65e8de2ac7046feab9d9ed6cf7f084,
         type: 3}

@@ -27,7 +27,7 @@ public class soundManager : MonoBehaviour
     
     private void Awake()
     {
-        Debug.Log("Sound Manager Awake.");
+        Debug.Log("Sound Manager Awake.");  
         DontDestroyOnLoad(transform.gameObject);
         source = GetComponent<AudioSource>();
     }
