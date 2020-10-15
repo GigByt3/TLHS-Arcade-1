@@ -6,7 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameSceneManager : MonoBehaviour
 {
     public SoundManager _soundManager;
-    
+
+    public GameObject wallPrefab, playerPrefab;
+
+    public Maze maze;
+
     private GameObject[] TransitionText;
 
     static float position = 0;
@@ -50,19 +54,19 @@ public class GameSceneManager : MonoBehaviour
                 SetUpTransition("Wellcome To ZORK! READY TO BEGIN LEVEL 1 IN 4 SECONDS");
                 break;
             case 1:
-                SetUpGame();
+                SetUpGame(8);
                 break;
             case 1.5f:
                 SetUpTransition("READY TO BEGIN LEVEL 2 IN 4 SECONDS");
                 break;
             case 2:
-                SetUpGame();
+                SetUpGame(8);
                 break;
             case 2.5f:
                 SetUpTransition("READY TO BEGIN LEVEL 3 IN 4 SECONDS");
                 break;
             case 3:
-                SetUpGame();
+                SetUpGame(12);
                 break;
             case 402:
                 //call a method.
@@ -73,10 +77,20 @@ public class GameSceneManager : MonoBehaviour
         }
     }
 
-    private void SetUpGame()
+    private void SetUpGame(int mazeSize)
     {
         _soundManager.MusicTransition(1, 2);
-        GenerateMaze(); //Call this presumably
+
+        GameObject mazeContainer = new GameObject("Maze");
+        mazeContainer.AddComponent<Maze>();
+        maze = mazeContainer.GetComponent<Maze>();
+        maze.width = mazeSize;
+        maze.height = mazeSize;
+        //maze.wallPrefab = (GameObject) Resources.Load("prefabs/wall", typeof(GameObject));
+        maze.wallPrefab = wallPrefab;
+        maze.playerPrefab = playerPrefab;
+        maze.cellWidth = 4.0f;
+        maze.Ready();
     }
 
     private void SetUpTransition(string Transition)
