@@ -8,9 +8,18 @@ public class Maze : MonoBehaviour
 {
     public int width, height;
 
+    public float cellWidth;
+
     public GameObject wallPrefab, playerPrefab;
 
-    public float cellWidth;
+    public void MazeConstructor(int _width, int _height, GameObject _wallPrefab, GameObject _playerPrefab, float _cellWidth)
+    {
+        width = _width;
+        height = _height;
+        wallPrefab = _wallPrefab;
+        playerPrefab = _playerPrefab;
+        cellWidth = _cellWidth;
+    }
 
     private bool[,,] walls;
 

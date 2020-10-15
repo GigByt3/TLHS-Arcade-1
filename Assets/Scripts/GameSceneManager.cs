@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
-    public SoundManager _soundManager;
+    // FEILDS ==============================================================================================
 
-    public GameObject wallPrefab, playerPrefab;
+    public GameSoundManager _soundManager;
 
     public Maze maze;
 
@@ -19,86 +19,95 @@ public class GameSceneManager : MonoBehaviour
      * 0 - Main Menu
      * 0.5 - First Transition
      * 1 - First Level
-     * 1.5 Second Transition
-     * ...
-     * x - End Sceen
+     * 1.5 - Second Transition
+     * 2 - Second Level
+     * 2.5 - Third Transition
+     * 3 - Third Level
+     * 3.5 - Victory Transtion
      * 402 - Death Sceen
+     * Default - Victory Transtion
      */
 
+    // SETUP ==============================================================================================
+
+    //All the Game Management Objects live in DontDestroyOnLoad!
     void Awake()
     {
         Debug.Log("Scene Manager Awake.");
         DontDestroyOnLoad(transform.gameObject);
     }
 
-    //OnEnable comes first
+    //Subscribing Setup
     void OnEnable()
     {
         SceneManager.sceneLoaded += Setup;
         Debug.Log("OnEnable");
     }
 
-    //OnDisable last.
+    //Unsubscribing Setup
     void OnDisable()
     {
         SceneManager.sceneLoaded -= Setup;
         Debug.Log("OnDisable");
     }
 
+    //Checking Position and thus what Sub-Setup Class to call
     private void Setup(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Manager New Scene Loaded.");
         switch (position)
         {
             case 0.5f:
-                SetUpTransition("Wellcome To ZORK! READY TO BEGIN LEVEL 1 IN 4 SECONDS");
+                SetUpTransition("Wellcome To ZORK! READY TO BEGIN LEVEL 1 IN 4 SECONDS", false);
                 break;
             case 1:
-                SetUpGame(8);
+                SetUpGame(18, 0, 1);
                 break;
             case 1.5f:
-                SetUpTransition("READY TO BEGIN LEVEL 2 IN 4 SECONDS");
+                SetUpTransition("READY TO BEGIN LEVEL 2 IN 4 SECONDS", false);
                 break;
             case 2:
-                SetUpGame(8);
+                SetUpGame(18, 2, 3);
                 break;
             case 2.5f:
-                SetUpTransition("READY TO BEGIN LEVEL 3 IN 4 SECONDS");
+                SetUpTransition("READY TO BEGIN LEVEL 3 IN 4 SECONDS", false);
                 break;
             case 3:
-                SetUpGame(12);
+                SetUpGame(24, 4, 4);
+                break;
+            case 3.5f:
+                SetUpTransition("Victory Screen", true);
                 break;
             case 402:
-                //call a method.
+                SetUpTransition(PoemGenerator(), true);
                 break;
             default:
-                //generate victory-scene probably? (That'll probably just be a transition)
+                // DO NOTHING HERE OR ALL HELL WILL BREAK LOSE AND WREAK TERRIBLE VENGENCE UPON AN UNSUSPECTING EARTH
                 break;
         }
     }
 
-    private void SetUpGame(int mazeSize)
+    //Set Game Music & Generate Maze
+    private void SetUpGame(int mazeSize, int INTROindex, int LOOPindex)
     {
-        _soundManager.MusicTransition(1, 2);
+        _soundManager.MusicTransition(INTROindex, LOOPindex);
 
+        //Maze Generation
         GameObject mazeContainer = new GameObject("Maze");
-        mazeContainer.AddComponent<Maze>();
-        maze = mazeContainer.GetComponent<Maze>();
-        maze.width = mazeSize;
-        maze.height = mazeSize;
-        //maze.wallPrefab = (GameObject) Resources.Load("prefabs/wall", typeof(GameObject));
-        maze.wallPrefab = wallPrefab;
-        maze.playerPrefab = playerPrefab;
-        maze.cellWidth = 4.0f;
+        maze = mazeContainer.AddComponent<Maze>();
+        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Wall"), Resources.Load<GameObject>("Player"), 4.0f);
         maze.Ready();
     }
 
-    private void SetUpTransition(string Transition)
+    //Check if Dead & Give Story Byte
+    private void SetUpTransition(string Transition, bool isGameOver)
     {
-        StartCoroutine(SwitchOutOfTransition(4));
+        StartCoroutine(SwitchOutOfTransition(4, isGameOver));
         TransitionText = GameObject.FindGameObjectsWithTag("TransitionTextOne");
         TransitionText[0].GetComponent<UnityEngine.UI.Text>().text = Transition;
-    }   
+    }
+
+    // PUBLIC METHODS ==========================================================================================
 
     public void NextScene()
     {
@@ -113,24 +122,38 @@ public class GameSceneManager : MonoBehaviour
         }
     }
 
+    //This Method Should Not Be Called Internaly!
     public void Death()
     {
         position = 402;
         SceneManager.LoadScene("Transition_Area");
     }
 
-    //Tools
+    // PRIVATE METHODS (CLASS TOOLS) ====================================================================================
 
-    public void GenerateMaze()
+    private void BackToTitle()
     {
-        //Fire Maze Generation
+        position = 0;
+        SceneManager.LoadScene("Title_Scene");
+        //Any other system reset goes here like clearing inventory or experience.
     }
 
-    private IEnumerator SwitchOutOfTransition(int pauseTime)
+    private string PoemGenerator()
+    {
+        //find a haiku? Or summink... idk? This is where that script goes.
+        return "You may be wondering how you got here. You died. Congratulations.";
+    }
+
+    private IEnumerator SwitchOutOfTransition(int pauseTime, bool isGameOver)
     {
         Debug.Log("In Transition, Starting " + pauseTime + " second wait. [TIME: " + Time.deltaTime + "]");
         yield return new WaitForSeconds(pauseTime);
         Debug.Log("In Transition, Proscess Complete. [TIME: " + Time.deltaTime + "]");
-        NextScene();
+        if (isGameOver)
+        {
+            BackToTitle();
+        } else {
+            NextScene();
+        }
     }
 }
