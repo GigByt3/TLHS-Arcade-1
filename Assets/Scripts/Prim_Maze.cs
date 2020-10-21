@@ -133,7 +133,7 @@ public class Maze : MonoBehaviour
             GameObject northWall = Instantiate(wallPrefab);
             northWall.name = i + " North Wall";
             northWall.transform.parent = northWalls.transform;
-            northWall.transform.position = cellCoordsToGlobalCoords(i, 0, 0, -0.5f * cellWidth);
+            northWall.transform.position = cellCoordsToGlobalCoords(i, 0) + Vector3.back * cellWidth / 2.0f;
             northWall.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         }
 
@@ -145,7 +145,7 @@ public class Maze : MonoBehaviour
             GameObject westWall = Instantiate(wallPrefab);
             westWall.name = j + " West Wall";
             westWall.transform.parent = westWalls.transform;
-            westWall.transform.position = cellCoordsToGlobalCoords(0, j, 0.5f * cellWidth, 0);
+            westWall.transform.position = cellCoordsToGlobalCoords(0, j) + Vector3.right * cellWidth / 2.0f;
             westWall.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
         }
 
@@ -154,7 +154,7 @@ public class Maze : MonoBehaviour
             for (int j = 0; j < height; j++)
             {
                 GameObject cell = new GameObject("Cell " + i + ", " + j);
-                cell.transform.position = cellCoordsToGlobalCoords(i, j, 0, 0);
+                cell.transform.position = cellCoordsToGlobalCoords(i, j);
                 cell.transform.parent = transform;
 
                 if (walls[i, j, 0])
@@ -162,7 +162,7 @@ public class Maze : MonoBehaviour
                     GameObject eastWall = Instantiate(wallPrefab);
                     eastWall.name = i + ", " + j + " East Wall";
                     eastWall.transform.parent = cell.transform;
-                    eastWall.transform.position = cellCoordsToGlobalCoords(i, j, -0.5f * cellWidth, 0);
+                    eastWall.transform.position = cellCoordsToGlobalCoords(i, j) + Vector3.left * cellWidth / 2.0f;
                     eastWall.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
                 }
 
@@ -171,7 +171,7 @@ public class Maze : MonoBehaviour
                     GameObject southWall = Instantiate(wallPrefab);
                     southWall.name = i + ", " + j + " South Wall";
                     southWall.transform.parent = cell.transform;
-                    southWall.transform.position = cellCoordsToGlobalCoords(i, j, 0, 0.5f * cellWidth);
+                    southWall.transform.position = cellCoordsToGlobalCoords(i, j) + Vector3.forward * cellWidth / 2.0f;
                     southWall.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                 }
             }
@@ -307,7 +307,7 @@ public class Maze : MonoBehaviour
     {
         foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)
         {
-            kvp.Value.transform.position = cellCoordsToGlobalCoords(kvp.Key.x, kvp.Key.y, 0, 0);
+            kvp.Value.transform.position = cellCoordsToGlobalCoords(kvp.Key.x, kvp.Key.y);
             switch (kvp.Key.z)
             {
                 case 0:
@@ -329,9 +329,9 @@ public class Maze : MonoBehaviour
         }
     }
 
-    public Vector3 cellCoordsToGlobalCoords(int x, int y, float xMod, float yMod)
+    public Vector3 cellCoordsToGlobalCoords(int x, int y)
     {
-        return new Vector3((-x * cellWidth) + xMod, cellWidth / 2.0f, (y * cellWidth) + yMod);
+        return new Vector3((-x * cellWidth), cellWidth / 2.0f, (y * cellWidth));
     }
 
     public bool getWallFromCoords(int x, int y, int side)
