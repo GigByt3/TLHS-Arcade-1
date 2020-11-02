@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class Player : GridObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         checkKeys();
@@ -19,8 +13,10 @@ public class Player : GridObject
     void checkKeys()
     {
         if (Input.GetKeyDown("up")) move(1);
-        if (Input.GetKeyDown("down")) move(-1);
         if (Input.GetKeyDown("left")) rotate("left");
         if (Input.GetKeyDown("right")) rotate("right");
+
+        //The following is a TESTING SCRIPT
+        if (Input.GetKeyDown("n")) GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().NextScene();
     }
 }

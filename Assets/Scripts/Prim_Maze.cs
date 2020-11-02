@@ -8,9 +8,18 @@ public class Maze : MonoBehaviour
 {
     public int width, height;
 
-    public GameObject wallPrefab;
-
     public float cellWidth;
+
+    public GameObject wallPrefab, playerPrefab;
+
+    public void MazeConstructor(int _width, int _height, GameObject _wallPrefab, GameObject _playerPrefab, float _cellWidth)
+    {
+        width = _width;
+        height = _height;
+        wallPrefab = _wallPrefab;
+        playerPrefab = _playerPrefab;
+        cellWidth = _cellWidth;
+    }
 
     private bool[,,] walls;
 
@@ -30,6 +39,11 @@ public class Maze : MonoBehaviour
         markDeadEndCells();
 
         populateGridObjects();
+    }
+
+    void Update()
+    {
+        updateGridObjectPositions();
     }
 
     void populateMazeArray()
@@ -78,7 +92,16 @@ public class Maze : MonoBehaviour
 
     void populateGridObjects()
     {
-        //places objects at dead ends using deadEndCells()
+        //GameObject playerObject = Instantiate((GameObject) Resources.Load("Prefabs/player", typeof(GameObject)));
+        GameObject playerObject = Instantiate(playerPrefab);
+        playerObject.name = "Player";
+        playerObject.GetComponent<Player>().Ready();
+
+        Vector3Int playerStartCoords = new Vector3Int(0, 0, 2);
+
+        playerObject.GetComponent<Player>().gridCoords = playerStartCoords;
+        gridObjectDict = new Dictionary<Vector3Int, GridObject>();
+        gridObjectDict.Add(playerStartCoords, playerObject.GetComponent<Player>());
     }
 
     void markDeadEndCells()
@@ -110,7 +133,7 @@ public class Maze : MonoBehaviour
             GameObject northWall = Instantiate(wallPrefab);
             northWall.name = i + " North Wall";
             northWall.transform.parent = northWalls.transform;
-            northWall.transform.position = cellCoordsToGlobalCoords(i, 0, 0, -0.5f * cellWidth);
+            northWall.transform.position = cellCoordsToGlobalCoords(i, 0) + Vector3.back * cellWidth / 2.0f;
             northWall.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         }
 
@@ -122,7 +145,7 @@ public class Maze : MonoBehaviour
             GameObject westWall = Instantiate(wallPrefab);
             westWall.name = j + " West Wall";
             westWall.transform.parent = westWalls.transform;
-            westWall.transform.position = cellCoordsToGlobalCoords(0, j, 0.5f * cellWidth, 0);
+            westWall.transform.position = cellCoordsToGlobalCoords(0, j) + Vector3.right * cellWidth / 2.0f;
             westWall.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
         }
 
@@ -131,7 +154,7 @@ public class Maze : MonoBehaviour
             for (int j = 0; j < height; j++)
             {
                 GameObject cell = new GameObject("Cell " + i + ", " + j);
-                cell.transform.position = cellCoordsToGlobalCoords(i, j, 0, 0);
+                cell.transform.position = cellCoordsToGlobalCoords(i, j);
                 cell.transform.parent = transform;
 
                 if (walls[i, j, 0])
@@ -139,7 +162,7 @@ public class Maze : MonoBehaviour
                     GameObject eastWall = Instantiate(wallPrefab);
                     eastWall.name = i + ", " + j + " East Wall";
                     eastWall.transform.parent = cell.transform;
-                    eastWall.transform.position = cellCoordsToGlobalCoords(i, j, -0.5f * cellWidth, 0);
+                    eastWall.transform.position = cellCoordsToGlobalCoords(i, j) + Vector3.left * cellWidth / 2.0f;
                     eastWall.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
                 }
 
@@ -148,7 +171,7 @@ public class Maze : MonoBehaviour
                     GameObject southWall = Instantiate(wallPrefab);
                     southWall.name = i + ", " + j + " South Wall";
                     southWall.transform.parent = cell.transform;
-                    southWall.transform.position = cellCoordsToGlobalCoords(i, j, 0, 0.5f * cellWidth);
+                    southWall.transform.position = cellCoordsToGlobalCoords(i, j) + Vector3.forward * cellWidth / 2.0f;
                     southWall.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                 }
             }
@@ -220,36 +243,19 @@ public class Maze : MonoBehaviour
     public void moveObject(GridObject objectToMove, int distance)
     {
         int tilesMoved = 0;
-        int moveMod = 1;
-        if (distance < 0)
-        {
-            moveMod = -1;
-            distance = Math.Abs(distance);
-        }
         while (tilesMoved < distance)
         {
-            int faceToCheck = 0;
-            if (moveMod == -1)
+            if (!getWallFromDirection(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z))
             {
-                faceToCheck += 2;
-                faceToCheck %= 4;
-            }
-            else
-            {
-                faceToCheck = objectToMove.gridCoords.z;
-            }
-
-            if (!getWallFromDirection(objectToMove.gridCoords.x, objectToMove.gridCoords.y, faceToCheck))
-            {
-                switch (faceToCheck)
+                switch (objectToMove.gridCoords.z)
                 {
                     case 0:
                         if (objectToMove.gridCoords.y > 0)
                         {
                             if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
                                 gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y - moveMod, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.y = objectToMove.gridCoords.y - (moveMod);
+                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y - 1, objectToMove.gridCoords.z), objectToMove);
+                            objectToMove.gridCoords.y--;
                         }
                         break;
                     case 1:
@@ -257,8 +263,8 @@ public class Maze : MonoBehaviour
                         {
                             if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
                                 gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x + moveMod, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.x = objectToMove.gridCoords.x + (moveMod);
+                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x + 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
+                            objectToMove.gridCoords.x++;
                         }
                         break;
                     case 2:
@@ -266,8 +272,8 @@ public class Maze : MonoBehaviour
                         {
                             if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
                                 gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y + moveMod, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.y = objectToMove.gridCoords.y + (moveMod);
+                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y + 1, objectToMove.gridCoords.z), objectToMove);
+                            objectToMove.gridCoords.y++;
                         }
                         break;
                     case 3:
@@ -275,8 +281,8 @@ public class Maze : MonoBehaviour
                         {
                             if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
                                 gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x - moveMod, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.x = objectToMove.gridCoords.x - (moveMod);
+                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x - 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
+                            objectToMove.gridCoords.x--;
                         }
                         break;
                     default:
@@ -290,16 +296,42 @@ public class Maze : MonoBehaviour
             }
         }
     }
+    
     public void setObjectRotation(GridObject objectToRotate, int direction)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
             gridObjectDict.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
         gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
     }
-
-    public Vector3 cellCoordsToGlobalCoords(int x, int y, float xMod, float yMod)
+    public void updateGridObjectPositions()
     {
-        return new Vector3((-x * cellWidth) + xMod, cellWidth / 2.0f, (y * cellWidth) + yMod);
+        foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)
+        {
+            kvp.Value.transform.position = cellCoordsToGlobalCoords(kvp.Key.x, kvp.Key.y);
+            switch (kvp.Key.z)
+            {
+                case 0:
+                    kvp.Value.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+                    break;
+                case 1:
+                    kvp.Value.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+                    break;
+                case 2:
+                    kvp.Value.transform.rotation = Quaternion.identity;
+                    break;
+                case 3:
+                    kvp.Value.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+                    break;
+                default:
+                    kvp.Value.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+                    break;
+            }
+        }
+    }
+
+    public Vector3 cellCoordsToGlobalCoords(int x, int y)
+    {
+        return new Vector3((-x * cellWidth), cellWidth / 2.0f, (y * cellWidth));
     }
 
     public bool getWallFromCoords(int x, int y, int side)

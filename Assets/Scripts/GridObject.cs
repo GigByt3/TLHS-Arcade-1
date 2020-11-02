@@ -10,7 +10,7 @@ public abstract class GridObject : MonoBehaviour
 
     public void Ready()
     {
-        maze = GameObject.Find("LevelController").GetComponent<LevelController>().maze;
+        maze = GameObject.Find("Game Manager").GetComponent<GameSceneManager>().maze;
 
         if (gridCoords.x < 0) gridCoords.x = 0;
         if (gridCoords.x >= maze.width) gridCoords.x = maze.width - 1;
