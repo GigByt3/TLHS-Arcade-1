@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e7febbf204dca1941bcd5c13eb5af55e
+=======
+<<<<<<< HEAD:Assets/Scripts/Prim_Maze.cs.meta
+guid: aae5c5d5b99536849ad6e70227663e8c
+=======
+guid: e7febbf204dca1941bcd5c13eb5af55e
+>>>>>>> master:Assets/Scripts/Player.cs.meta
+>>>>>>> master
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

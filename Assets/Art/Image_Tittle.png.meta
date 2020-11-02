@@ -1,4 +1,22 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/Art/Image_Tittle.png.meta
+guid: f41a5f7dbf623b34db0325acf3d4e90e
+=======
+guid: cede4a0694b4a5e4187b5ce9b68a2596
+>>>>>>> master:Assets/Textures/GameWallDetermination.png.meta
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+<<<<<<< HEAD:Assets/Art/Image_Tittle.png.meta
+    enableMipMap: 0
+=======
+    enableMipMap: 1
+>>>>>>> master:Assets/Textures/GameWallDetermination.png.meta
+=======
 guid: f41a5f7dbf623b34db0325acf3d4e90e
 TextureImporter:
   internalIDToNameTable: []
@@ -7,6 +25,7 @@ TextureImporter:
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+>>>>>>> master
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -23,6 +42,10 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+<<<<<<< HEAD
+  vTOnly: 0
+=======
+>>>>>>> master
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -34,10 +57,23 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -100
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/Art/Image_Tittle.png.meta
+=======
+>>>>>>> master
     wrapU: 1
     wrapV: 1
     wrapW: -1
   nPOTScale: 0
+<<<<<<< HEAD
+=======
+    wrapU: -1
+    wrapV: -1
+    wrapW: -1
+  nPOTScale: 1
+>>>>>>> master:Assets/Textures/GameWallDetermination.png.meta
+=======
+>>>>>>> master
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
@@ -57,6 +93,11 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+<<<<<<< HEAD
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+=======
+>>>>>>> master
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -70,6 +111,10 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/Art/Image_Tittle.png.meta
+=======
+>>>>>>> master
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -94,6 +139,11 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<< HEAD
+=======
+>>>>>>> master:Assets/Textures/GameWallDetermination.png.meta
+=======
+>>>>>>> master
   spriteSheet:
     serializedVersion: 2
     sprites: []

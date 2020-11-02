@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Room-Seed
   - Enemy
+<<<<<<< HEAD
+=======
+  - TransitionTextOne
+  - GameManager
+  - SoundManager
+>>>>>>> master
   layers:
   - Default
   - TransparentFX

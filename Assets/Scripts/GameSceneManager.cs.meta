@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/GridObject.cs.meta
+guid: 15f29fcc425f02941b98086f4683e2c7
+=======
+guid: c0c60759c894a4a3bb612d08c44515df
+>>>>>>> master:Assets/Scripts/GameSceneManager.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
