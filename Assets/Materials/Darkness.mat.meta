@@ -1,13 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-<<<<<<< HEAD:Assets/Materials/Darkness.mat.meta
 guid: bb1642bfd418f44f18885e348c44f462
-=======
-guid: 12d2e103beff6cc49a566cfec2e25bce
->>>>>>> master:Assets/Animations/TorchAnim.anim.meta
-=======
-guid: bb1642bfd418f44f18885e348c44f462
->>>>>>> master
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0

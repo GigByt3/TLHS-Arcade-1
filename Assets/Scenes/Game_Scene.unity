@@ -124,11 +124,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &1692566192
-=======
---- !u!1 &2118620614
->>>>>>> master
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,7 +132,6 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
   - component: {fileID: 1692566193}
   - component: {fileID: 1692566194}
   m_Layer: 0
@@ -189,8 +184,6 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-=======
->>>>>>> master
   - component: {fileID: 2118620616}
   - component: {fileID: 2118620615}
   m_Layer: 0

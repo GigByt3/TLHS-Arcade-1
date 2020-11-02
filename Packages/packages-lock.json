@@ -1,14 +1,5 @@
 {
   "dependencies": {
-<<<<<<< HEAD
-=======
-    "com.unity.2d.sprite": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
->>>>>>> master
     "com.unity.collab-proxy": {
       "version": "1.3.9",
       "depth": 0,
