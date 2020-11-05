@@ -10,11 +10,13 @@ public class PlayerCombatController : ParentCombatController
     void OnEnable()
     {
         EnemyCombatController._attack += wasHit;
+        Player._sendKey += combatAction;
     }
 
     void OnDisable()
     {
         EnemyCombatController._attack -= wasHit;
+        Player._sendKey -= combatAction;
     }
 
     private void Start()
@@ -47,6 +49,45 @@ public class PlayerCombatController : ParentCombatController
         } else
         {
             health -= hitBy.damage;
+        }
+    }
+
+    protected void combatAction(string code)
+    {
+        switch(code)
+        {
+            case "up":
+                // up
+                break;
+            case "right":
+                // right
+                break;
+            case "left":
+                // left
+                break;
+            case "down":
+                // down
+                break;
+
+            case "q":
+                // q
+                break;
+            case "w":
+                // w
+                break;
+            case "e":
+                // e
+                break;
+
+            case "a":
+                // a
+                break;
+            case "s":
+                // s
+                break;
+            case "d":
+                // d
+                break;
         }
     }
 }
