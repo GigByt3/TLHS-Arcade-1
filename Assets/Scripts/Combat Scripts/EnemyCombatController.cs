@@ -4,16 +4,19 @@ using UnityEngine;
 
 public abstract class EnemyCombatController : ParentCombatController
 {
-
+    // Percentage out of 100
+    protected int difficulty = 30;
 
     void OnEnable()
     {
         PlayerCombatController._attack += wasHit;
+        PlayerCombatController._projection += react;
     }
 
     void OnDisable()
     {
         PlayerCombatController._attack -= wasHit;
+        PlayerCombatController._projection -= react;
     }
 
     protected override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)
@@ -37,6 +40,21 @@ public abstract class EnemyCombatController : ParentCombatController
         } else
         {
             health -= hitBy.damage;
+        }
+    }
+
+    protected void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide)
+    {
+        if (Random.Range(0.0f, 100.0f) > difficulty) return;
+
+        if (blocking != actionHeight.NONE && dodging != dodgeDir.NONE && canStrike)
+        {
+            //  strike
+        }
+
+        if (striking)
+        {
+            //  block or dodge
         }
     }
 }

@@ -17,7 +17,7 @@ public abstract class ParentCombatController : MonoBehaviour
     protected bool canDodge;
     protected bool canBlock;
 
-    protected strikeSide isBlocking;
+    protected actionHeight isBlocking;
     protected dodgeDir isDodging;
     protected bool isStriking;
 
@@ -59,7 +59,7 @@ public abstract class ParentCombatController : MonoBehaviour
 
     protected bool canAct()
     {
-        if (isStriking || isDodging != dodgeDir.NONE || isBlocking != strikeSide.NONE)
+        if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
             return true;
         }
