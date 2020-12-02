@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
+[RequireComponent(typeof(MeshFilter))]
 public class Maze : MonoBehaviour
 {
     public int width, height;
-
     public float cellWidth;
-
     public GameObject wallPrefab, playerPrefab;
+
+    private bool[,,] walls;
+    private List<Vector2Int> deadEndCells;
+    private Dictionary<Vector3Int, GridObject> gridObjects;
 
     public void MazeConstructor(int _width, int _height, GameObject _wallPrefab, GameObject _playerPrefab, float _cellWidth)
     {
@@ -21,11 +24,6 @@ public class Maze : MonoBehaviour
         cellWidth = _cellWidth;
     }
 
-    private bool[,,] walls;
-
-    public Dictionary<Vector3Int, GridObject> gridObjectDict;
-
-    private List<Vector2Int> deadEndCells;
     public void Ready()
     {
         walls = new bool[width + 1, height + 1, 2];
@@ -100,8 +98,8 @@ public class Maze : MonoBehaviour
         Vector3Int playerStartCoords = new Vector3Int(0, 0, 2);
 
         playerObject.GetComponent<Player>().gridCoords = playerStartCoords;
-        gridObjectDict = new Dictionary<Vector3Int, GridObject>();
-        gridObjectDict.Add(playerStartCoords, playerObject.GetComponent<Player>());
+        gridObjects = new Dictionary<Vector3Int, GridObject>();
+        gridObjects.Add(playerStartCoords, playerObject.GetComponent<Player>());
     }
 
     void markDeadEndCells()
@@ -125,7 +123,7 @@ public class Maze : MonoBehaviour
         //ALL CODE IN HERE WILL BE REWRITTEN ENTIRELY
         //JUST TEMPORARY FOR MAKING MAZE GEN ALGORITHM
 
-        GameObject northWalls = new GameObject("North Walls");
+        /*GameObject northWalls = new GameObject("North Walls");
         northWalls.transform.parent = this.transform;
 
         for (int i = 0; i < width; i++)
@@ -175,7 +173,66 @@ public class Maze : MonoBehaviour
                     southWall.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                 }
             }
+        } */
+
+        Mesh mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
+
+        List<Vector3> vertices = new List<Vector3>();
+        List<int> triangles = new List<int>();
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                for (int k = 0; k < 2; k++)
+                {
+                    if (walls[i, j, k])
+                    {
+                        Mesh currentWallSegment = generateWallSegment(new Vector3Int(i, j, k), cellWidth);
+                        int currentVertCount = vertices.Count;
+
+                        vertices.AddRange(currentWallSegment.vertices);
+                        foreach (int triangleVert in currentWallSegment.triangles)
+                        {
+                            triangles.Add(triangleVert + currentVertCount);
+                        }
+                    }
+                }
+            }
         }
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+    }
+
+    Mesh generateWallSegment(Vector3Int wall, float wallHeight)
+    {
+        Mesh mesh = new Mesh();
+
+        Vector3[] vertices = new Vector3[4];
+        int[] triangles = { 0, 1, 2, 2, 3, 0, 2, 1, 0, 0, 3, 2 };
+
+        switch(wall.z)
+        {
+            case 0:
+                vertices[0] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f);
+                vertices[1] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f) + Vector3.up * wallHeight;
+                vertices[2] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
+                vertices[3] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
+                break;
+
+            case 1:
+                vertices[0] = cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f);
+                vertices[1] = cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
+                vertices[2] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
+                vertices[3] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
+                break;
+        }
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+
+        return mesh;
     }
 
     List<Vector3Int> getNeighboringWalls(Vector2Int cellCoords)
@@ -235,9 +292,9 @@ public class Maze : MonoBehaviour
     }
     public void teleportObject(GridObject objectToMove, int x, int y)
     {
-        if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-            gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-        gridObjectDict.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
+        if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+            gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+        gridObjects.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
     }
 
     public void moveObject(GridObject objectToMove, int distance)
@@ -252,36 +309,36 @@ public class Maze : MonoBehaviour
                     case 0:
                         if (objectToMove.gridCoords.y > 0)
                         {
-                            if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y - 1, objectToMove.gridCoords.z), objectToMove);
+                            if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+                                gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+                            gridObjects.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y - 1, objectToMove.gridCoords.z), objectToMove);
                             objectToMove.gridCoords.y--;
                         }
                         break;
                     case 1:
                         if (objectToMove.gridCoords.x + 1 < width)
                         {
-                            if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x + 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
+                            if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+                                gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+                            gridObjects.Add(new Vector3Int(objectToMove.gridCoords.x + 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
                             objectToMove.gridCoords.x++;
                         }
                         break;
                     case 2:
                         if (objectToMove.gridCoords.y + 1 < height)
                         {
-                            if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y + 1, objectToMove.gridCoords.z), objectToMove);
+                            if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+                                gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+                            gridObjects.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y + 1, objectToMove.gridCoords.z), objectToMove);
                             objectToMove.gridCoords.y++;
                         }
                         break;
                     case 3:
                         if (objectToMove.gridCoords.x > 0)
                         {
-                            if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x - 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
+                            if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+                                gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+                            gridObjects.Add(new Vector3Int(objectToMove.gridCoords.x - 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
                             objectToMove.gridCoords.x--;
                         }
                         break;
@@ -299,13 +356,13 @@ public class Maze : MonoBehaviour
     
     public void setObjectRotation(GridObject objectToRotate, int direction)
     {
-        if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
-            gridObjectDict.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
-        gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
+        if (gridObjects.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
+            gridObjects.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
+        gridObjects.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
     }
     public void updateGridObjectPositions()
     {
-        foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)
+        foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjects)
         {
             kvp.Value.transform.position = cellCoordsToGlobalCoords(kvp.Key.x, kvp.Key.y);
             switch (kvp.Key.z)
@@ -329,7 +386,7 @@ public class Maze : MonoBehaviour
         }
     }
 
-    public Vector3 cellCoordsToGlobalCoords(int x, int y)
+    public Vector3 cellCoordsToGlobalCoords(float x, float y)
     {
         return new Vector3((-x * cellWidth), cellWidth / 2.0f, (y * cellWidth));
     }
@@ -425,4 +482,6 @@ public class Maze : MonoBehaviour
         if (!doesCellExist(new Vector2Int(wall.x, wall.y)) || wall.z > 1) return false;
         return walls[wall.x, wall.y, wall.z];
     }
+
+    
 }
