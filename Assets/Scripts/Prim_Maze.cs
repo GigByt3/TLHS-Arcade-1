@@ -12,13 +12,18 @@ public class Maze : MonoBehaviour
 
     public GameObject wallPrefab, playerPrefab;
 
-    public void MazeConstructor(int _width, int _height, GameObject _wallPrefab, GameObject _playerPrefab, float _cellWidth)
+    public int numberOfStartingEnemies;
+    public float enemyDifficulty;
+
+    public void MazeConstructor(int _width, int _height, GameObject _wallPrefab, GameObject _playerPrefab, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty)
     {
         width = _width;
         height = _height;
         wallPrefab = _wallPrefab;
         playerPrefab = _playerPrefab;
         cellWidth = _cellWidth;
+        numberOfStartingEnemies = _numberOfStartingEnemies;
+        enemyDifficulty = _enemyDifficulty;
     }
 
     private bool[,,] walls;
@@ -92,7 +97,6 @@ public class Maze : MonoBehaviour
 
     void populateGridObjects()
     {
-        //GameObject playerObject = Instantiate((GameObject) Resources.Load("Prefabs/player", typeof(GameObject)));
         GameObject playerObject = Instantiate(playerPrefab);
         playerObject.name = "Player";
         playerObject.GetComponent<Player>().Ready();
@@ -102,6 +106,25 @@ public class Maze : MonoBehaviour
         playerObject.GetComponent<Player>().gridCoords = playerStartCoords;
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
         gridObjectDict.Add(playerStartCoords, playerObject.GetComponent<Player>());
+
+        for (int i = 0; i < numberOfStartingEnemies; i++)
+        {
+            bool startCoordsFound = false;
+            Vector3Int possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+            while (!startCoordsFound)
+            {
+                if (!isObjectAtCoords(possibleStartCoords.x, possibleStartCoords.y))
+                {
+                    startCoordsFound = true;
+                }
+                else
+                {
+                    possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+                }
+            }
+
+            Debug.Log("Placing enemy at " + possibleStartCoords.x + ", " + possibleStartCoords.y + " with rotation " + possibleStartCoords.z);
+        }
     }
 
     void markDeadEndCells()
@@ -240,6 +263,15 @@ public class Maze : MonoBehaviour
         gridObjectDict.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
     }
 
+    public bool isObjectAtCoords(int x, int y)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (gridObjectDict.ContainsKey(new Vector3Int(x, y, i))) return true;
+        }
+        return false;
+    }
+
     public void moveObject(GridObject objectToMove, int distance)
     {
         int tilesMoved = 0;
@@ -252,37 +284,61 @@ public class Maze : MonoBehaviour
                     case 0:
                         if (objectToMove.gridCoords.y > 0)
                         {
-                            if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y - 1, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.y--;
+                            int xToMoveTo = objectToMove.gridCoords.x;
+                            int yToMoveTo = objectToMove.gridCoords.y - 1;
+
+                            if (!isObjectAtCoords(xToMoveTo, yToMoveTo))
+                            {
+                                if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+                                    gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+                                gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y - 1, objectToMove.gridCoords.z), objectToMove);
+                                objectToMove.gridCoords.y--;
+                            }
                         }
                         break;
                     case 1:
                         if (objectToMove.gridCoords.x + 1 < width)
                         {
-                            if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x + 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.x++;
+                            int xToMoveTo = objectToMove.gridCoords.x + 1;
+                            int yToMoveTo = objectToMove.gridCoords.y;
+
+                            if (!isObjectAtCoords(xToMoveTo, yToMoveTo))
+                            {
+                                if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+                                    gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+                                gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x + 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
+                                objectToMove.gridCoords.x++;
+                            }
                         }
                         break;
                     case 2:
                         if (objectToMove.gridCoords.y + 1 < height)
                         {
-                            if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y + 1, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.y++;
+                            int xToMoveTo = objectToMove.gridCoords.x;
+                            int yToMoveTo = objectToMove.gridCoords.y + 1;
+
+                            if (!isObjectAtCoords(xToMoveTo, yToMoveTo))
+                            {
+                                if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+                                    gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+                                gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y + 1, objectToMove.gridCoords.z), objectToMove);
+                                objectToMove.gridCoords.y++;
+                            }
                         }
                         break;
                     case 3:
                         if (objectToMove.gridCoords.x > 0)
                         {
-                            if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x - 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.x--;
+                            int xToMoveTo = objectToMove.gridCoords.x - 1;
+                            int yToMoveTo = objectToMove.gridCoords.y;
+
+                            if (!isObjectAtCoords(xToMoveTo, yToMoveTo))
+                            {
+                                if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+                                    gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+                                gridObjectDict.Add(new Vector3Int(objectToMove.gridCoords.x - 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
+                                objectToMove.gridCoords.x--;
+                            }
                         }
                         break;
                     default:
