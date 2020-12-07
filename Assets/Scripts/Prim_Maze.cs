@@ -180,19 +180,44 @@ public class Maze : MonoBehaviour
 
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
+        List<Vector2> uv = new List<Vector2>();
+
+        Mesh currentWallSegment;
+        int currentVertCount;
 
         for (int i = 0; i < width; i++)
         {
+            currentWallSegment = generateWallSegment(new Vector3Int(i, -1, 1), cellWidth);
+            currentVertCount = vertices.Count;
+
+            vertices.AddRange(currentWallSegment.vertices);
+            uv.AddRange(currentWallSegment.uv);
+            foreach (int triangleVert in currentWallSegment.triangles)
+            {
+                triangles.Add(triangleVert + currentVertCount);
+            }
+
             for (int j = 0; j < height; j++)
             {
+                currentWallSegment = generateWallSegment(new Vector3Int(-1, j, 0), cellWidth);
+                currentVertCount = vertices.Count;
+
+                vertices.AddRange(currentWallSegment.vertices);
+                uv.AddRange(currentWallSegment.uv);
+                foreach (int triangleVert in currentWallSegment.triangles)
+                {
+                    triangles.Add(triangleVert + currentVertCount);
+                }
+
                 for (int k = 0; k < 2; k++)
                 {
                     if (walls[i, j, k])
                     {
-                        Mesh currentWallSegment = generateWallSegment(new Vector3Int(i, j, k), cellWidth);
-                        int currentVertCount = vertices.Count;
+                        currentWallSegment = generateWallSegment(new Vector3Int(i, j, k), cellWidth);
+                        currentVertCount = vertices.Count;
 
                         vertices.AddRange(currentWallSegment.vertices);
+                        uv.AddRange(currentWallSegment.uv);
                         foreach (int triangleVert in currentWallSegment.triangles)
                         {
                             triangles.Add(triangleVert + currentVertCount);
@@ -202,7 +227,11 @@ public class Maze : MonoBehaviour
             }
         }
         mesh.vertices = vertices.ToArray();
+        mesh.uv = uv.ToArray();
         mesh.triangles = triangles.ToArray();
+
+        mesh.RecalculateNormals();
+        mesh.RecalculateTangents();
     }
 
     Mesh generateWallSegment(Vector3Int wall, float wallHeight)
@@ -210,27 +239,42 @@ public class Maze : MonoBehaviour
         Mesh mesh = new Mesh();
 
         Vector3[] vertices = new Vector3[4];
+        Vector2[] uv = new Vector2[4];
         int[] triangles = { 0, 1, 2, 2, 3, 0, 2, 1, 0, 0, 3, 2 };
+        
+        Vector3 correction = new Vector3(0, -0.5f * cellWidth, 0);
+        
+        Vector2 textureOffset = new Vector2(0.0f, 0.0f);
+        if (UnityEngine.Random.Range(0, 6) == 0)
+        {
+            textureOffset.x = UnityEngine.Random.Range(0, 5) * 0.2f;
+        }
 
         switch(wall.z)
         {
             case 0:
-                vertices[0] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f);
-                vertices[1] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f) + Vector3.up * wallHeight;
-                vertices[2] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
-                vertices[3] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
+                vertices[0] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f);
+                vertices[1] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f) + Vector3.up * wallHeight;
+                vertices[2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
+                vertices[3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
                 break;
 
             case 1:
-                vertices[0] = cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f);
-                vertices[1] = cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
-                vertices[2] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
-                vertices[3] = cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
+                vertices[0] = correction + cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f);
+                vertices[1] = correction + cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
+                vertices[2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
+                vertices[3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
                 break;
         }
 
+        uv[0] = new Vector2(0, 0) + textureOffset;
+        uv[1] = new Vector2(0, 1) + textureOffset;
+        uv[2] = new Vector2(0.2f, 1) + textureOffset;
+        uv[3] = new Vector2(0.2f, 0) + textureOffset;
+
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+        mesh.uv = uv;
 
         return mesh;
     }
@@ -290,6 +334,7 @@ public class Maze : MonoBehaviour
 
         return neighboringCells;
     }
+
     public void teleportObject(GridObject objectToMove, int x, int y)
     {
         if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
