@@ -5,15 +5,20 @@ using UnityEngine;
 
 public class Enemy : GridObject
 {
+    public EnemyType type;
+    
     Player player;
 
-    // Start is called before the first frame update
+    public void EnemyConstructor(EnemyType _type)
+    {
+        type = _type;
+    }
+    
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -53,22 +58,40 @@ public class Enemy : GridObject
         }
         else
         {
-            switch (UnityEngine.Random.Range(0, 4))
+            bool hasMoved = false;
+            while (!hasMoved)
             {
-                case 0:
-                    faceDirection("north");
-                    break;
-                case 1:
-                    faceDirection("east");
-                    break;
-                case 2:
-                    faceDirection("south");
-                    break;
-                case 3:
-                    faceDirection("west");
-                    break;
+                switch (UnityEngine.Random.Range(0, 4))
+                {
+                    case 0:
+                        faceDirection("north");
+                        break;
+                    case 1:
+                        faceDirection("east");
+                        break;
+                    case 2:
+                        faceDirection("south");
+                        break;
+                    case 3:
+                        faceDirection("west");
+                        break;
+                }
+                if (canMoveForwards())
+                {
+                    move(1);
+                    hasMoved = true;
+                }
+                else
+                {
+                    hasMoved = false;
+                    continue;
+                }
             }
-            move(1);
         }
+    }
+
+    public enum EnemyType
+    {
+        Zombie
     }
 }

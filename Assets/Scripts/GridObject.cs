@@ -20,16 +20,6 @@ public abstract class GridObject : MonoBehaviour
         gridCoords.z %= 4;
     }
 
-    void Update()
-    {
-        
-    }
-
-    void updatePosition()
-    {
-
-    }
-
     /*
     public List<Vector2Int> visibleCells(Vector2Int cell)
     {
@@ -285,6 +275,11 @@ public abstract class GridObject : MonoBehaviour
     public void move(int distance)
     {
         maze.moveObject(this, distance);
+    }
+
+    public bool canMoveForwards()
+    {
+        return !maze.getWallFromDirection(gridCoords.x, gridCoords.y, gridCoords.z);
     }
 
     public void rotate(string direction)
