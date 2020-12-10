@@ -9,9 +9,24 @@ public class Enemy : GridObject
     
     Player player;
 
+    private int actionsPerTurn;
+
     public void EnemyConstructor(EnemyType _type)
     {
         type = _type;
+
+        switch (type)
+        {
+            case EnemyType.Zombie:
+                actionsPerTurn = 1;
+                break;
+            case EnemyType.Skeleton:
+                actionsPerTurn = 2;
+                break;
+            default:
+                actionsPerTurn = 1;
+                break;
+        }
     }
     
     void Start()
@@ -36,55 +51,58 @@ public class Enemy : GridObject
 
     public void AI()
     {
-        if (player.isInCell(visibleNorthCells()))
+        for (int i = 0; i < actionsPerTurn; i++)
         {
-            faceDirection("north");
-            move(1);
-        }
-        else if (player.isInCell(visibleEastCells()))
-        {
-            faceDirection("east");
-            move(1);
-        } 
-        else if (player.isInCell(visibleSouthCells()))
-        {
-            faceDirection("south");
-            move(1);
-        }
-        else if (player.isInCell(visibleWestCells()))
-        {
-            faceDirection("west");
-            move(1);
-        }
-        else
-        {
-            bool hasMoved = false;
-            while (!hasMoved)
+            if (player.isInCell(visibleNorthCells()))
             {
-                switch (UnityEngine.Random.Range(0, 4))
+                faceDirection("north");
+                move(1);
+            }
+            else if (player.isInCell(visibleEastCells()))
+            {
+                faceDirection("east");
+                move(1);
+            }
+            else if (player.isInCell(visibleSouthCells()))
+            {
+                faceDirection("south");
+                move(1);
+            }
+            else if (player.isInCell(visibleWestCells()))
+            {
+                faceDirection("west");
+                move(1);
+            }
+            else
+            {
+                bool hasMoved = false;
+                while (!hasMoved)
                 {
-                    case 0:
-                        faceDirection("north");
-                        break;
-                    case 1:
-                        faceDirection("east");
-                        break;
-                    case 2:
-                        faceDirection("south");
-                        break;
-                    case 3:
-                        faceDirection("west");
-                        break;
-                }
-                if (canMoveForwards())
-                {
-                    move(1);
-                    hasMoved = true;
-                }
-                else
-                {
-                    hasMoved = false;
-                    continue;
+                    switch (UnityEngine.Random.Range(0, 4))
+                    {
+                        case 0:
+                            faceDirection("north");
+                            break;
+                        case 1:
+                            faceDirection("east");
+                            break;
+                        case 2:
+                            faceDirection("south");
+                            break;
+                        case 3:
+                            faceDirection("west");
+                            break;
+                    }
+                    if (canMoveForwards())
+                    {
+                        move(1);
+                        hasMoved = true;
+                    }
+                    else
+                    {
+                        hasMoved = false;
+                        continue;
+                    }
                 }
             }
         }
@@ -92,6 +110,6 @@ public class Enemy : GridObject
 
     public enum EnemyType
     {
-        Zombie
+        Zombie, Skeleton
     }
 }

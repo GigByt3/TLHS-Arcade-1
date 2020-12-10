@@ -7,6 +7,9 @@ public class Player : GridObject
 {
     public delegate void MoveDelegate();
     public static event MoveDelegate moveEvent;
+
+    private const float PLAYER_MOVE_COOLDOWN = 0.5f;
+    private float playerMoveCooldownCount;
     
     void Update()
     {
@@ -15,20 +18,22 @@ public class Player : GridObject
 
     void checkKeys()
     {
-        if (Input.GetKeyDown("up"))
+        playerMoveCooldownCount++;
+        if (Input.GetKeyDown("up") && playerMoveCooldownCount * Time.deltaTime > PLAYER_MOVE_COOLDOWN)
         {
             move(1);
             moveEvent?.Invoke();
+            playerMoveCooldownCount = 0;
         }
         if (Input.GetKeyDown("left"))
         {
             rotate("left");
-            moveEvent?.Invoke();
+            //moveEvent?.Invoke();
         }
         if (Input.GetKeyDown("right"))
         {
             rotate("right");
-            moveEvent?.Invoke();
+            //moveEvent?.Invoke();
         }
 
         //The following is a TESTING SCRIPT

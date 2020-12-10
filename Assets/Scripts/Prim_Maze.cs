@@ -103,7 +103,7 @@ public class Maze : MonoBehaviour
         playerObject.name = "Player";
         playerObject.GetComponent<Player>().Ready();
 
-        Vector3Int playerStartCoords = new Vector3Int(0, 0, 2);
+        Vector3Int playerStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
 
         playerObject.GetComponent<Player>().gridCoords = playerStartCoords;
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
@@ -357,10 +357,7 @@ public class Maze : MonoBehaviour
                 }
                 tilesMoved++;
             }
-            else
-            {
-                return;
-            }
+            else return;
         }
     }
     
