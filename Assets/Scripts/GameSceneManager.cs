@@ -92,13 +92,23 @@ public class GameSceneManager : MonoBehaviour
     {
         _soundManager.MusicTransition(INTROindex, LOOPindex);
 
+        float cellWidth = 4.0f;
+
+        //Generate floor & ceiling
+        GameObject floorPrefab = Resources.Load<GameObject>("Floor");
+        GameObject floor = Instantiate(floorPrefab, new Vector3(-(mazeSize - 1) * (cellWidth / 2), 0.0f, (mazeSize - 1) * (cellWidth / 2)), Quaternion.identity);
+        floor.transform.localScale = new Vector3(mazeSize * (cellWidth / 10), 1.0f, mazeSize * (cellWidth / 10));
+
+        GameObject ceiling = Instantiate(floorPrefab, new Vector3(-(mazeSize - 1) * (cellWidth / 2), cellWidth, (mazeSize - 1) * (cellWidth / 2)), Quaternion.Euler(0.0f, 0.0f, 180.0f));
+        ceiling.transform.localScale = new Vector3(mazeSize * (cellWidth / 10), 1.0f, mazeSize * (cellWidth / 10));
+
         //Maze Generation
         GameObject mazeContainer = new GameObject("Maze");
         mazeContainer.AddComponent<MeshFilter>();
         mazeContainer.AddComponent<MeshRenderer>();
         maze = mazeContainer.AddComponent<Maze>();
         GameObject[] enemyPrefabs = {Resources.Load<GameObject>("Zombie")};
-        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), enemyPrefabs, Resources.Load<Material>("Wall"), 4.0f, 5, 1.0f);
+        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 5, 1.0f);
         maze.Ready();
     }
 
