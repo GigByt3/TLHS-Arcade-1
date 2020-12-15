@@ -87,6 +87,15 @@ public abstract class GridObject : MonoBehaviour
         return !maze.getWallFromDirection(gridCoords.x, gridCoords.y, gridCoords.z);
     }
 
+    public bool isPlayerAdjacent()
+    {
+        if (maze.isPlayerAtCoords(gridCoords.x, gridCoords.y - 1)) return maze.isPlayerAtCoords(gridCoords.x, gridCoords.y - 1);
+        if (maze.isPlayerAtCoords(gridCoords.x + 1, gridCoords.y)) return maze.isPlayerAtCoords(gridCoords.x + 1, gridCoords.y);
+        if (maze.isPlayerAtCoords(gridCoords.x, gridCoords.y + 1)) return maze.isPlayerAtCoords(gridCoords.x, gridCoords.y + 1);
+        if (maze.isPlayerAtCoords(gridCoords.x - 1, gridCoords.y)) return maze.isPlayerAtCoords(gridCoords.x - 1, gridCoords.y);
+        return false;
+    }
+
     public void rotate(string direction)
     {
         int newdir = gridCoords.z;
