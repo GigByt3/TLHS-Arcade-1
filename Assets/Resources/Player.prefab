@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4499617594145283476}
   - component: {fileID: 4499617594145283477}
+  - component: {fileID: 276271636146228874}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -47,6 +48,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridCoords: {x: 0, y: 0, z: 0}
   maze: {fileID: 0}
+--- !u!114 &276271636146228874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4499617594145283483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0eedc3cd20d64c27bef340beee9f7fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  damage: 2
 --- !u!1 &4499617594627649153
 GameObject:
   m_ObjectHideFlags: 0

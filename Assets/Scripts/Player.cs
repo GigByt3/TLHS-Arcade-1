@@ -59,6 +59,8 @@ public class Player : GridObject
         if (enemyXPosDif == 0 && enemyYPosDif == 1) faceDirection("south");
         if (enemyXPosDif == -1 && enemyYPosDif == 0) faceDirection("west");
 
+        Debug.Log(enemy + " is entering combat with the player!");
+
         inCombat = true;
     }
 
@@ -67,26 +69,28 @@ public class Player : GridObject
         return cells.Contains(new Vector2Int(gridCoords.x, gridCoords.y));
     }
 
-    private void checkKeysCombat()
-    {
-        //Joystick positions
-        if (Input.GetKeyDown("up")) _sendKey("up");
-        if (Input.GetKeyDown("left")) _sendKey("left");
-        if (Input.GetKeyDown("right")) _sendKey("right");
-        if (Input.GetKeyDown("down")) _sendKey("down");
-
-        //Top row buttons
-        if (Input.GetKeyDown("q")) _sendKey("q");
-        if (Input.GetKeyDown("w")) _sendKey("w");
-        if (Input.GetKeyDown("e")) _sendKey("e");
-
-        //Bottom row buttons
-        if (Input.GetKeyDown("a")) _sendKey("a");
-        if (Input.GetKeyDown("s")) _sendKey("s");
-        if (Input.GetKeyDown("d")) _sendKey("d");
-    }
-
     public delegate void sendKey(string code);
 
     public static event sendKey _sendKey;
+
+    private void checkKeysCombat()
+    {
+        //Joystick positions
+        if (Input.GetKeyDown("up")) _sendKey?.Invoke("up");
+        if (Input.GetKeyDown("left")) _sendKey?.Invoke("left");
+        if (Input.GetKeyDown("right")) _sendKey?.Invoke("right");
+        if (Input.GetKeyDown("down")) _sendKey?.Invoke("down");
+
+        //Top row buttons
+        if (Input.GetKeyDown("q")) _sendKey?.Invoke("q");
+        if (Input.GetKeyDown("w")) _sendKey?.Invoke("w");
+        if (Input.GetKeyDown("e")) _sendKey?.Invoke("e");
+
+        //Bottom row buttons
+        if (Input.GetKeyDown("a")) _sendKey?.Invoke("a");
+        if (Input.GetKeyDown("s")) _sendKey?.Invoke("s");
+        if (Input.GetKeyDown("d")) _sendKey?.Invoke("d");
+    }
+
+    
 }

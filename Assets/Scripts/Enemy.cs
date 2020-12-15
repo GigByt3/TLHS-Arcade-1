@@ -56,7 +56,7 @@ public class Enemy : GridObject
             if (isPlayerAdjacent())
             {
                 player.enterCombat(this);
-                Debug.Log(this + " is entering combat with the player!");
+                
                 return;
             }
 

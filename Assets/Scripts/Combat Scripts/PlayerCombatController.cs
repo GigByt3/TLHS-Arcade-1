@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerCombatController : ParentCombatController
 {
-    new public int damage = 2;
-    new private int id = 0;
+    //new public int damage = 2;
+    //new private int id = 0;
 
     void OnEnable()
     {
@@ -54,15 +54,19 @@ public class PlayerCombatController : ParentCombatController
 
     protected void combatAction(string code)
     {
+        code = "up";
+        
         actionHeight attackHeight = actionHeight.NONE;
         strikeSide attackSide = strikeSide.NONE;
+
+        Debug.Log("Player taking combat action " + code);
 
         switch (code)
         {
             case "up":
                 isDodging = dodgeDir.BACK;
                 // Preform Animation
-
+                
                 // up
                 break;
             case "right":
