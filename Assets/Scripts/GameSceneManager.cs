@@ -97,10 +97,12 @@ public class GameSceneManager : MonoBehaviour
         //Generate floor & ceiling
         GameObject floorPrefab = Resources.Load<GameObject>("Floor");
         GameObject floor = Instantiate(floorPrefab, new Vector3(-(mazeSize - 1) * (cellWidth / 2), 0.0f, (mazeSize - 1) * (cellWidth / 2)), Quaternion.identity);
+        floor.name = "Floor";
         floor.transform.localScale = new Vector3(mazeSize * (cellWidth / 10), 1.0f, mazeSize * (cellWidth / 10));
 
         GameObject ceiling = Instantiate(floorPrefab, new Vector3(-(mazeSize - 1) * (cellWidth / 2), cellWidth, (mazeSize - 1) * (cellWidth / 2)), Quaternion.Euler(0.0f, 0.0f, 180.0f));
         ceiling.transform.localScale = new Vector3(mazeSize * (cellWidth / 10), 1.0f, mazeSize * (cellWidth / 10));
+        ceiling.name = "Ceiling";
 
         //Maze Generation
         GameObject mazeContainer = new GameObject("Maze");
