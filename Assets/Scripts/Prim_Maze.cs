@@ -9,6 +9,7 @@ public class Maze : MonoBehaviour
 {
     public int width, height;
     public float cellWidth;
+    public float cellHeight;
     public GameObject wallPrefab, playerPrefab;
 
     private bool[,,] walls;
@@ -22,6 +23,7 @@ public class Maze : MonoBehaviour
         wallPrefab = _wallPrefab;
         playerPrefab = _playerPrefab;
         cellWidth = _cellWidth;
+        cellHeight = cellWidth;
     }
 
     public void Ready()
@@ -120,78 +122,25 @@ public class Maze : MonoBehaviour
 
     void generateMazeMesh()
     {
-        //ALL CODE IN HERE WILL BE REWRITTEN ENTIRELY
-        //JUST TEMPORARY FOR MAKING MAZE GEN ALGORITHM
-
-        /*GameObject northWalls = new GameObject("North Walls");
-        northWalls.transform.parent = this.transform;
-
-        for (int i = 0; i < width; i++)
-        {
-            GameObject northWall = Instantiate(wallPrefab);
-            northWall.name = i + " North Wall";
-            northWall.transform.parent = northWalls.transform;
-            northWall.transform.position = cellCoordsToGlobalCoords(i, 0) + Vector3.back * cellWidth / 2.0f;
-            northWall.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-        }
-
-        GameObject westWalls = new GameObject("West Walls");
-        westWalls.transform.parent = this.transform;
-
-        for (int j = 0; j < width; j++)
-        {
-            GameObject westWall = Instantiate(wallPrefab);
-            westWall.name = j + " West Wall";
-            westWall.transform.parent = westWalls.transform;
-            westWall.transform.position = cellCoordsToGlobalCoords(0, j) + Vector3.right * cellWidth / 2.0f;
-            westWall.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-        }
-
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                GameObject cell = new GameObject("Cell " + i + ", " + j);
-                cell.transform.position = cellCoordsToGlobalCoords(i, j);
-                cell.transform.parent = transform;
-
-                if (walls[i, j, 0])
-                {
-                    GameObject eastWall = Instantiate(wallPrefab);
-                    eastWall.name = i + ", " + j + " East Wall";
-                    eastWall.transform.parent = cell.transform;
-                    eastWall.transform.position = cellCoordsToGlobalCoords(i, j) + Vector3.left * cellWidth / 2.0f;
-                    eastWall.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-                }
-
-                if (walls[i, j, 1])
-                {
-                    GameObject southWall = Instantiate(wallPrefab);
-                    southWall.name = i + ", " + j + " South Wall";
-                    southWall.transform.parent = cell.transform;
-                    southWall.transform.position = cellCoordsToGlobalCoords(i, j) + Vector3.forward * cellWidth / 2.0f;
-                    southWall.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-                }
-            }
-        } */
-
         Mesh mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
         List<Vector2> uv = new List<Vector2>();
+        List<Vector3> normals = new List<Vector3>();
 
         Mesh currentWallSegment;
         int currentVertCount;
 
         for (int i = 0; i < width; i++)
         {
-            currentWallSegment = generateWallSegment(new Vector3Int(i, -1, 1), cellWidth);
+            currentWallSegment = generateWallSegment(new Vector3Int(i, -1, 1));
             currentVertCount = vertices.Count;
 
             vertices.AddRange(currentWallSegment.vertices);
             uv.AddRange(currentWallSegment.uv);
+            normals.AddRange(currentWallSegment.normals);
             foreach (int triangleVert in currentWallSegment.triangles)
             {
                 triangles.Add(triangleVert + currentVertCount);
@@ -199,11 +148,12 @@ public class Maze : MonoBehaviour
 
             for (int j = 0; j < height; j++)
             {
-                currentWallSegment = generateWallSegment(new Vector3Int(-1, j, 0), cellWidth);
+                currentWallSegment = generateWallSegment(new Vector3Int(-1, j, 0));
                 currentVertCount = vertices.Count;
 
                 vertices.AddRange(currentWallSegment.vertices);
                 uv.AddRange(currentWallSegment.uv);
+                normals.AddRange(currentWallSegment.normals);
                 foreach (int triangleVert in currentWallSegment.triangles)
                 {
                     triangles.Add(triangleVert + currentVertCount);
@@ -213,11 +163,12 @@ public class Maze : MonoBehaviour
                 {
                     if (walls[i, j, k])
                     {
-                        currentWallSegment = generateWallSegment(new Vector3Int(i, j, k), cellWidth);
+                        currentWallSegment = generateWallSegment(new Vector3Int(i, j, k));
                         currentVertCount = vertices.Count;
 
                         vertices.AddRange(currentWallSegment.vertices);
                         uv.AddRange(currentWallSegment.uv);
+                        normals.AddRange(currentWallSegment.normals);
                         foreach (int triangleVert in currentWallSegment.triangles)
                         {
                             triangles.Add(triangleVert + currentVertCount);
@@ -229,18 +180,18 @@ public class Maze : MonoBehaviour
         mesh.vertices = vertices.ToArray();
         mesh.uv = uv.ToArray();
         mesh.triangles = triangles.ToArray();
-
-        mesh.RecalculateNormals();
-        mesh.RecalculateTangents();
+        mesh.normals = normals.ToArray();
     }
 
-    Mesh generateWallSegment(Vector3Int wall, float wallHeight)
+    Mesh generateWallSegment(Vector3Int wall)
     {
         Mesh mesh = new Mesh();
 
-        Vector3[] vertices = new Vector3[4];
-        Vector2[] uv = new Vector2[4];
-        int[] triangles = { 0, 1, 2, 2, 3, 0, 2, 1, 0, 0, 3, 2 };
+        Vector3[] vertices = new Vector3[8];
+        int[] triangles = { 0, 1, 2, 2, 3, 0, 6, 5, 4, 4, 7, 6 };
+
+        Vector2[] uv = new Vector2[8];
+        Vector3[] normals = new Vector3[8];
         
         Vector3 correction = new Vector3(0, -0.5f * cellWidth, 0);
         
@@ -253,28 +204,49 @@ public class Maze : MonoBehaviour
         switch(wall.z)
         {
             case 0:
-                vertices[0] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f);
-                vertices[1] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f) + Vector3.up * wallHeight;
-                vertices[2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
-                vertices[3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
+                for (int i = 0; i < 8; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        vertices[i + 0] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f);
+                        vertices[i + 1] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y - 0.5f) + Vector3.up * cellHeight;
+                        vertices[i + 2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
+                        vertices[i + 3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
+                    }
+                    normals[i] = Vector3.right;
+                    //normals[i] = (i >= 4) ? Vector3.left : Vector3.right;
+                    //Debug.Log(i + " " + normals[i]);
+                }
                 break;
 
             case 1:
-                vertices[0] = correction + cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f);
-                vertices[1] = correction + cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
-                vertices[2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * wallHeight;
-                vertices[3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
+                for (int i = 0; i < 8; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        vertices[i + 0] = correction + cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f);
+                        vertices[i + 1] = correction + cellCoordsToGlobalCoords(wall.x - 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
+                        vertices[i + 2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
+                        vertices[i + 3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
+                    }
+                    normals[i] = Vector3.back;
+                    //normals[i] = (i >= 4) ? Vector3.forward : Vector3.back;
+                    //Debug.Log(i + " " + normals[i]);
+                }
                 break;
         }
 
-        uv[0] = new Vector2(0, 0) + textureOffset;
-        uv[1] = new Vector2(0, 1) + textureOffset;
-        uv[2] = new Vector2(0.2f, 1) + textureOffset;
-        uv[3] = new Vector2(0.2f, 0) + textureOffset;
-
+        for (int i = 0; i < 2; i++)
+        {
+            uv[i * 4 + 0] = new Vector2(0, 0) + textureOffset;
+            uv[i * 4 + 1] = new Vector2(0, 1) + textureOffset;
+            uv[i * 4 + 2] = new Vector2(0.2f, 1) + textureOffset;
+            uv[i * 4 + 3] = new Vector2(0.2f, 0) + textureOffset;
+        }
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.uv = uv;
+        mesh.normals = normals;
 
         return mesh;
     }
@@ -405,6 +377,7 @@ public class Maze : MonoBehaviour
             gridObjects.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
         gridObjects.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
     }
+
     public void updateGridObjectPositions()
     {
         foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjects)
