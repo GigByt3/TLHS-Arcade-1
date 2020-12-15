@@ -13,7 +13,7 @@ public class Maze : MonoBehaviour
     public float cellWidth;
     public float cellHeight;
 
-    public GameObject wallPrefab, playerPrefab;
+    public GameObject playerPrefab;
     public GameObject[] enemyPrefabs;
 
     public int numberOfStartingEnemies;
@@ -24,13 +24,15 @@ public class Maze : MonoBehaviour
 
     private bool[,,] walls;
     private List<Vector2Int> deadEndCells;
+
+    private Material material;
     
-    public void MazeConstructor(int _width, int _height, GameObject _wallPrefab, GameObject _playerPrefab, GameObject[] _enemyPrefabs, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty)
+    public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty)
     {
         width = _width;
         height = _height;
-        wallPrefab = _wallPrefab;
         playerPrefab = _playerPrefab;
+        material = _material;
         enemyDifficulty = _enemyDifficulty;
         cellWidth = _cellWidth;
         cellHeight = _cellWidth;
@@ -217,6 +219,8 @@ public class Maze : MonoBehaviour
         mesh.uv = uv.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.normals = normals.ToArray();
+
+        GetComponent<MeshRenderer>().material = material;
     }
 
     Mesh generateWallSegment(Vector3Int wall)
