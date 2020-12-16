@@ -52,7 +52,7 @@ public abstract class ParentCombatController : MonoBehaviour
 
     public void strike(actionHeight _strikeHeight, strikeSide _strikeSide)
     {
-        if (canAct()) return;
+        if (!canAct()) return;
         blockCombo = 0;
         _attack(_strikeHeight, _strikeSide, this, id);
     }

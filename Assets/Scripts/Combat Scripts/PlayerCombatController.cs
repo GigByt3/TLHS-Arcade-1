@@ -53,14 +53,12 @@ public class PlayerCombatController : ParentCombatController
     }
 
     protected void combatAction(string code)
-    {
-        code = "up";
-        
+    {   
         actionHeight attackHeight = actionHeight.NONE;
         strikeSide attackSide = strikeSide.NONE;
 
         Debug.Log("Player taking combat action " + code);
-
+        
         switch (code)
         {
             case "up":
@@ -91,7 +89,7 @@ public class PlayerCombatController : ParentCombatController
             case "q":
                 isStriking = true;
                 // Preform Animation
-                // strike(actionHeight.HIGH, strikeSide.LEFT);
+                strike(actionHeight.HIGH, strikeSide.LEFT);
 
                 // q
                 break;
@@ -104,7 +102,7 @@ public class PlayerCombatController : ParentCombatController
             case "e":
                 isStriking = true;
                 // Preform Animation
-                // strike(actionHeight.LOW, strikeSide.LEFT);
+                strike(actionHeight.LOW, strikeSide.LEFT);
 
                 // e
                 break;
@@ -112,7 +110,8 @@ public class PlayerCombatController : ParentCombatController
             case "a":
                 isStriking = true;
                 // Preform Animation
-                // strike(actionHeight.HGIH, strikeSide.RIGHT);
+                strike(actionHeight.HIGH, strikeSide.RIGHT);
+
                 // a
                 break;
             case "s":
@@ -125,7 +124,7 @@ public class PlayerCombatController : ParentCombatController
             case "d":
                 isStriking = true;
                 // Preform Animation
-                // strike(actionHeight.LOW, strikeSide.RIGHT);
+                strike(actionHeight.LOW, strikeSide.RIGHT);
 
                 // d
                 break;

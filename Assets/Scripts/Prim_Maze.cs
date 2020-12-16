@@ -353,6 +353,11 @@ public class Maze : MonoBehaviour
         gridObjectDict.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
     }
 
+    public void removeObject(GridObject objectToMove, int x, int y)
+    {
+        gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+    }
+
     public bool isObjectAtCoords(int x, int y)
     {
         for (int i = 0; i < 4; i++)
@@ -376,6 +381,7 @@ public class Maze : MonoBehaviour
 
     public void moveObject(GridObject objectToMove, int distance)
     {
+        Debug.Log("movement registered");
         int tilesMoved = 0;
         while (tilesMoved < distance)
         {
