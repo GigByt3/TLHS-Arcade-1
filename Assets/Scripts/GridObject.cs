@@ -87,12 +87,29 @@ public abstract class GridObject : MonoBehaviour
         return !maze.getWallFromDirection(gridCoords.x, gridCoords.y, gridCoords.z);
     }
 
+    public bool isExitInFront()
+    {
+        switch (gridCoords.z)
+        {
+            case 0:
+                if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, 0)) return maze.isExitAtCoords(gridCoords.x, gridCoords.y - 1); else return false;
+            case 1:
+                if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, 1)) return maze.isExitAtCoords(gridCoords.x + 1, gridCoords.y); else return false;
+            case 2:
+                if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, 2)) return maze.isExitAtCoords(gridCoords.x, gridCoords.y + 1); else return false;
+            case 3:
+                if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, 3)) return maze.isExitAtCoords(gridCoords.x - 1, gridCoords.y); else return false;
+            default:
+                return false;
+        }
+    }
+
     public bool isPlayerAdjacent()
     {
-        if (maze.isPlayerAtCoords(gridCoords.x, gridCoords.y - 1)) return maze.isPlayerAtCoords(gridCoords.x, gridCoords.y - 1);
-        if (maze.isPlayerAtCoords(gridCoords.x + 1, gridCoords.y)) return maze.isPlayerAtCoords(gridCoords.x + 1, gridCoords.y);
-        if (maze.isPlayerAtCoords(gridCoords.x, gridCoords.y + 1)) return maze.isPlayerAtCoords(gridCoords.x, gridCoords.y + 1);
-        if (maze.isPlayerAtCoords(gridCoords.x - 1, gridCoords.y)) return maze.isPlayerAtCoords(gridCoords.x - 1, gridCoords.y);
+        if (maze.isPlayerAtCoords(gridCoords.x, gridCoords.y - 1) && !maze.getWallFromDirection(gridCoords.x, gridCoords.y, 0)) return true;
+        if (maze.isPlayerAtCoords(gridCoords.x + 1, gridCoords.y) && !maze.getWallFromDirection(gridCoords.x, gridCoords.y, 1)) return true;
+        if (maze.isPlayerAtCoords(gridCoords.x, gridCoords.y + 1) && !maze.getWallFromDirection(gridCoords.x, gridCoords.y, 2)) return true;
+        if (maze.isPlayerAtCoords(gridCoords.x - 1, gridCoords.y) && !maze.getWallFromDirection(gridCoords.x, gridCoords.y, 3)) return true;
         return false;
     }
 

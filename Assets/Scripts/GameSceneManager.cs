@@ -110,7 +110,7 @@ public class GameSceneManager : MonoBehaviour
         mazeContainer.AddComponent<MeshRenderer>();
         maze = mazeContainer.AddComponent<Maze>();
         GameObject[] enemyPrefabs = {Resources.Load<GameObject>("Zombie")};
-        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 20, 1.0f);
+        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), Resources.Load<GameObject>("ExitDoor"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 0, 1.0f);
         maze.Ready();
     }
 

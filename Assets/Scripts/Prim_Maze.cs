@@ -13,13 +13,15 @@ public class Maze : MonoBehaviour
     public float cellWidth;
     public float cellHeight;
 
-    public GameObject playerPrefab;
+    public GameObject playerPrefab, exitPrefab;
     public GameObject[] enemyPrefabs;
 
     public int numberOfStartingEnemies;
     public float enemyDifficulty;
     public Player player;
-    
+    public ExitDoor exitDoor;
+
+
     public Dictionary<Vector3Int, GridObject> gridObjectDict;
 
     private bool[,,] walls;
@@ -27,11 +29,12 @@ public class Maze : MonoBehaviour
 
     private Material material;
     
-    public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty)
+    public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject _exitPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty)
     {
         width = _width;
         height = _height;
         playerPrefab = _playerPrefab;
+        exitPrefab = _exitPrefab;
         material = _material;
         enemyDifficulty = _enemyDifficulty;
         cellWidth = _cellWidth;
@@ -106,6 +109,7 @@ public class Maze : MonoBehaviour
 
     void populateGridObjects()
     {
+        //Place Player
         GameObject playerObject = Instantiate(playerPrefab);
         playerObject.name = "Player";
         player = playerObject.GetComponent<Player>();
@@ -117,6 +121,7 @@ public class Maze : MonoBehaviour
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
         gridObjectDict.Add(playerStartCoords, player);
 
+        //Place enemies
         for (int i = 0; i < numberOfStartingEnemies; i++)
         {
             bool startCoordsFound = false;
@@ -140,6 +145,35 @@ public class Maze : MonoBehaviour
             newZombie.GetComponent<Enemy>().Ready();
             gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
         }
+
+        //Place exit
+        bool exitCoordsFound = false;
+        Vector3Int possibleExitCoords = new Vector3Int();
+        while (!exitCoordsFound)
+        {
+            int deadEndCellIndex = UnityEngine.Random.Range(0, deadEndCells.Count);
+            Vector2Int chosenDeadEndCell = deadEndCells[deadEndCellIndex];
+            if (!isObjectAtCoords(chosenDeadEndCell.x ,chosenDeadEndCell.y))
+            {
+                int openSide = 0;
+                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 0)) openSide = 0;
+                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 1)) openSide = 1;
+                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 2)) openSide = 2;
+                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 3)) openSide = 3;
+
+                possibleExitCoords = new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, openSide);
+
+                exitCoordsFound = true;
+            }
+        }
+        
+        GameObject exitDoorObject = Instantiate(exitPrefab);
+        exitDoor = exitDoorObject.GetComponent<ExitDoor>();
+        exitDoor.ExitDoorConstructor(cellWidth, cellHeight);
+        exitDoor.Ready();
+
+        exitDoor.gridCoords = possibleExitCoords;
+        gridObjectDict.Add(possibleExitCoords, exitDoor);
     }
 
     void markDeadEndCells()
@@ -374,6 +408,18 @@ public class Maze : MonoBehaviour
             if (gridObjectDict.ContainsKey(new Vector3Int(x, y, i)))
             {
                 if (gridObjectDict[new Vector3Int(x, y, i)] == player) return true;
+            }
+        }
+        return false;
+    }
+
+    public bool isExitAtCoords(int x, int y)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (gridObjectDict.ContainsKey(new Vector3Int(x, y, i)))
+            {
+                if (gridObjectDict[new Vector3Int(x, y, i)] == exitDoor) return true;
             }
         }
         return false;

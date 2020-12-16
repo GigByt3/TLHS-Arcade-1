@@ -40,6 +40,12 @@ public class Player : GridObject
         playerMoveCooldownCount++;
         if (Input.GetKeyDown("up") && playerMoveCooldownCount * Time.deltaTime > PLAYER_MOVE_COOLDOWN)
         {
+            if (isExitInFront())
+            {
+                GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().NextScene();
+                return;
+            }
+
             move(1);
             moveEvent?.Invoke();
             playerMoveCooldownCount = 0;
