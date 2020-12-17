@@ -52,19 +52,23 @@ public class PlayerCombatController : ParentCombatController
         }
     }
 
+    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide);
+
+    public static event projection _projection;
+
     protected void combatAction(string code)
-    {   
+    {
         actionHeight attackHeight = actionHeight.NONE;
         strikeSide attackSide = strikeSide.NONE;
 
         Debug.Log("Player taking combat action " + code);
-        
+
         switch (code)
         {
             case "up":
                 isDodging = dodgeDir.BACK;
                 // Preform Animation
-                
+
                 // up
                 break;
             case "right":
@@ -129,10 +133,6 @@ public class PlayerCombatController : ParentCombatController
                 // d
                 break;
         }
-        _projection(isStriking, isDodging, isBlocking, attackHeight, attackSide);
+        _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide);
     }
-
-    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide);
-
-    public static event projection _projection;
 }

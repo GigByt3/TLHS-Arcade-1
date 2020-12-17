@@ -428,7 +428,7 @@ public class Maze : MonoBehaviour
 
     public void moveObject(GridObject objectToMove, int distance)
     {
-        Debug.Log("movement registered");
+        //Debug.Log("movement registered");
         int tilesMoved = 0;
         while (tilesMoved < distance)
         {
