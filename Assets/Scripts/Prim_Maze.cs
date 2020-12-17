@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
@@ -26,8 +27,12 @@ public class Maze : MonoBehaviour
     private List<Vector2Int> deadEndCells;
 
     private Material material;
+
+    private float torchDensity;
+    private int numOfTorches;
+    private GameObject torchPrefab;
     
-    public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty)
+    public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty, float _torchDensity)
     {
         width = _width;
         height = _height;
@@ -38,11 +43,15 @@ public class Maze : MonoBehaviour
         cellHeight = _cellWidth;
         numberOfStartingEnemies = _numberOfStartingEnemies;
         enemyDifficulty = _enemyDifficulty;
+        torchDensity = _torchDensity;
     }
 
     public void Ready()
     {
         walls = new bool[width + 1, height + 1, 2];
+        numOfTorches = (int) (width * height * torchDensity);
+        Debug.Log(numOfTorches);
+        torchPrefab = Resources.Load<GameObject>("Torch");
 
         Debug.Log("Made new maze of size " + width + ", " + height);
 
@@ -53,6 +62,8 @@ public class Maze : MonoBehaviour
         markDeadEndCells();
 
         populateGridObjects();
+
+        placeTorches();
     }
 
     void Update()
@@ -223,6 +234,54 @@ public class Maze : MonoBehaviour
         GetComponent<MeshRenderer>().material = material;
     }
 
+    void placeTorches()
+    {
+        for (int i = 0; i < numOfTorches; i++)
+        {
+            int x = 0;
+            int y = 0;
+            List<int> adjacentWalls = new List<int>();
+
+            while (adjacentWalls.Count <= 0)
+            {
+                x = UnityEngine.Random.Range(0, width - 1);
+                y = UnityEngine.Random.Range(0, height - 1);
+                adjacentWalls = getNeighboringWallsLocal(new Vector2Int(x, y));
+            }
+
+            int z = adjacentWalls[UnityEngine.Random.Range(0, adjacentWalls.Count - 1)];
+
+            Vector3 torchOffset;
+
+            switch (z)
+            {
+                case 0:
+                    torchOffset = new Vector3(0, 0, -cellWidth / 2 + 0.5f);
+                    break;
+
+                case 1:
+                    torchOffset = new Vector3(-cellWidth / 2 - 0.5f, 0, 0);
+                    break;
+
+                case 2:
+                    torchOffset = new Vector3(0, 0, cellWidth / 2 - 0.5f);
+                    break;
+
+                case 3:
+                    torchOffset = new Vector3(cellWidth / 2 + 0.5f, 0, 0);
+                    break;
+
+                default:
+                    torchOffset = new Vector3(0, 0, 0);
+                    break;
+            }
+            Debug.Log("Placing torch with coords" + x + " " + y + " " + z);
+            GameObject torch = Instantiate(torchPrefab, cellCoordsToGlobalCoords(x, y) + torchOffset + Vector3.up, Quaternion.identity);
+            torch.transform.localScale = new Vector3(2, 2, 2);
+            torch.transform.parent = gameObject.transform;
+        }
+    }
+
     Mesh generateWallSegment(Vector3Int wall)
     {
         Mesh mesh = new Mesh();
@@ -291,6 +350,35 @@ public class Maze : MonoBehaviour
         return mesh;
     }
 
+    List<int> getNeighboringWallsLocal(Vector2Int cellCoords)
+    {
+        List<int> neighboringWalls = new List<int>();
+
+        if (cellCoords.x > 0 && cellCoords.y > 0)
+        {
+            if (walls[cellCoords.x, cellCoords.y - 1, 1]) neighboringWalls.Add(0);
+            if (walls[cellCoords.x, cellCoords.y, 0]) neighboringWalls.Add(1);
+            if (walls[cellCoords.x, cellCoords.y, 1]) neighboringWalls.Add(2);
+            if (walls[cellCoords.x - 1, cellCoords.y, 0]) neighboringWalls.Add(3);
+            Debug.Log("Neighboring walls:" + neighboringWalls);
+        }
+        else if (cellCoords.x == 0 && cellCoords.y > 0)
+        {
+            if (walls[cellCoords.x, cellCoords.y - 1, 1]) neighboringWalls.Add(0);
+            if (walls[cellCoords.x, cellCoords.y, 0]) neighboringWalls.Add(1);
+            if (walls[cellCoords.x, cellCoords.y, 1]) neighboringWalls.Add(2);
+            neighboringWalls.Add(3);
+        }
+        else if (cellCoords.x > 0 && cellCoords.y == 0)
+        {
+            neighboringWalls.Add(0);
+            if (walls[cellCoords.x, cellCoords.y, 0]) neighboringWalls.Add(1);
+            if (walls[cellCoords.x, cellCoords.y, 1]) neighboringWalls.Add(2);
+            if (walls[cellCoords.x - 1, cellCoords.y, 0]) neighboringWalls.Add(3);
+        }
+        return neighboringWalls;
+    }
+
     List<Vector3Int> getNeighboringWalls(Vector2Int cellCoords)
     {
         List<Vector3Int> neighboringWalls = new List<Vector3Int>();
@@ -301,12 +389,12 @@ public class Maze : MonoBehaviour
         neighboringWalls.Add(new Vector3Int(cellCoords.x - 1, cellCoords.y, 0));
         neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y - 1, 1));
 
-        foreach(Vector3Int wall in neighboringWalls)
+        foreach (Vector3Int wall in neighboringWalls)
         {
             if (!doesWallExist(wall)) wallsThatDontExist.Add(wall);
         }
 
-        foreach(Vector3Int wall in wallsThatDontExist)
+        foreach (Vector3Int wall in wallsThatDontExist)
         {
             neighboringWalls.Remove(wall);
         }
@@ -346,6 +434,7 @@ public class Maze : MonoBehaviour
 
         return neighboringCells;
     }
+
     public void teleportObject(GridObject objectToMove, int x, int y)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
@@ -462,6 +551,7 @@ public class Maze : MonoBehaviour
             gridObjectDict.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
         gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
     }
+
     public void updateGridObjectPositions()
     {
         foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)

@@ -83,6 +83,7 @@ public class GameSceneManager : MonoBehaviour
                 break;
             default:
                 // DO NOTHING HERE OR ALL HELL WILL BREAK LOSE AND WREAK TERRIBLE VENGENCE UPON AN UNSUSPECTING EARTH
+                Debug.Log(":)");
                 break;
         }
     }
@@ -110,7 +111,7 @@ public class GameSceneManager : MonoBehaviour
         mazeContainer.AddComponent<MeshRenderer>();
         maze = mazeContainer.AddComponent<Maze>();
         GameObject[] enemyPrefabs = {Resources.Load<GameObject>("Zombie")};
-        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 20, 1.0f);
+        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 20, 1.0f, 0.2f);
         maze.Ready();
     }
 
