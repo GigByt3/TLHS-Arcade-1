@@ -11,6 +11,7 @@ public class Enemy : GridObject
 
     private int actionsPerTurn;
 
+
     public void EnemyConstructor(EnemyType _type)
     {
         type = _type;

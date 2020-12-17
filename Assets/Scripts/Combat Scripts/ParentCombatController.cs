@@ -44,7 +44,7 @@ public abstract class ParentCombatController : MonoBehaviour
         NONE = 4
     }
 
-    protected abstract void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id);
+    public abstract void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id);
 
     public delegate void attack(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id);
 
