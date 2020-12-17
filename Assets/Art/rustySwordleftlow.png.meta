@@ -1,10 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: a251a6670d8f33a49b31cbc8e165a7d8
-TextureImporter:
-  internalIDToNameTable: []
-=======
-guid: d13561d5449bb4ecdaac5e5175bb65b4
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -46,16 +41,11 @@ TextureImporter:
   - first:
       213: -5115634835354907403
     second: rustySwordleftlow_12
->>>>>>> 510aa675a8de32e56eb3c5705f402ce2408205ca
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
     mipMapMode: 0
-<<<<<<< HEAD
-    enableMipMap: 1
-=======
     enableMipMap: 0
->>>>>>> 510aa675a8de32e56eb3c5705f402ce2408205ca
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -84,15 +74,6 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -100
-<<<<<<< HEAD
-    wrapU: -1
-    wrapV: -1
-    wrapW: -1
-  nPOTScale: 1
-  lightmap: 0
-  compressionQuality: 50
-  spriteMode: 0
-=======
     wrapU: 1
     wrapV: 1
     wrapW: -1
@@ -100,7 +81,6 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
->>>>>>> 510aa675a8de32e56eb3c5705f402ce2408205ca
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -109,50 +89,35 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-<<<<<<< HEAD
-  alphaIsTransparency: 0
-  spriteTessellationDetail: -1
-  textureType: 0
-=======
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
->>>>>>> 510aa675a8de32e56eb3c5705f402ce2408205ca
   textureShape: 1
   singleChannelComponent: 0
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
-  spriteSheet:
-    serializedVersion: 2
-    sprites: []
-    outline: []
-    physicsShape: []
-    bones: []
-    spriteID: 
-=======
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -438,8 +403,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a9a899f8d8d694a85ae462742a9bafd5
->>>>>>> 510aa675a8de32e56eb3c5705f402ce2408205ca
+    spriteID: 0f488eb15f5d34d0b8e01415f4e8ab78
     internalID: 0
     vertices: []
     indices: 
