@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerCombatController : ParentCombatController
 {
-    //new public int damage = 2;
-    //new private int id = 0;
+    new int damage = 2;
+    new int id = 0;
+
+    
 
     void OnEnable()
     {
