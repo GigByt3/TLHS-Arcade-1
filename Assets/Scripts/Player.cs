@@ -12,7 +12,17 @@ public class Player : GridObject
 
     private const float PLAYER_MOVE_COOLDOWN = 0.5f;
     private float playerMoveCooldownCount;
-    
+
+    void OnEnable()
+    {
+        EnemyCombatController._death += exitCombat;
+    }
+
+    void OnDisable()
+    {
+        EnemyCombatController._death -= exitCombat;
+    }
+
     void Update()
     {
         if (inCombat)
@@ -30,6 +40,12 @@ public class Player : GridObject
         playerMoveCooldownCount++;
         if (Input.GetKeyDown("up") && playerMoveCooldownCount * Time.deltaTime > PLAYER_MOVE_COOLDOWN)
         {
+            if (isExitInFront())
+            {
+                GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().NextScene();
+                return;
+            }
+
             move(1);
             moveEvent?.Invoke();
             playerMoveCooldownCount = 0;
@@ -63,6 +79,12 @@ public class Player : GridObject
 
         inCombat = true;
     }
+
+    public void exitCombat()
+    {
+        // gain xp maybe?
+        inCombat = false;
+}
 
     public bool isInCell(List<Vector2Int> cells)
     {

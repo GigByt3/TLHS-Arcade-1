@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerCombatController : ParentCombatController
 {
-    //new public int damage = 2;
-    //new private int id = 0;
+    new int damage = 2;
+    new int id = 0;
+
+    
 
     void OnEnable()
     {
@@ -52,10 +54,12 @@ public class PlayerCombatController : ParentCombatController
         }
     }
 
+    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide);
+
+    public static event projection _projection;
+
     protected void combatAction(string code)
     {
-        code = "up";
-        
         actionHeight attackHeight = actionHeight.NONE;
         strikeSide attackSide = strikeSide.NONE;
 
@@ -66,7 +70,7 @@ public class PlayerCombatController : ParentCombatController
             case "up":
                 isDodging = dodgeDir.BACK;
                 // Preform Animation
-                
+
                 // up
                 break;
             case "right":
@@ -91,7 +95,7 @@ public class PlayerCombatController : ParentCombatController
             case "q":
                 isStriking = true;
                 // Preform Animation
-                // strike(actionHeight.HIGH, strikeSide.LEFT);
+                strike(actionHeight.HIGH, strikeSide.LEFT);
 
                 // q
                 break;
@@ -104,7 +108,7 @@ public class PlayerCombatController : ParentCombatController
             case "e":
                 isStriking = true;
                 // Preform Animation
-                // strike(actionHeight.LOW, strikeSide.LEFT);
+                strike(actionHeight.LOW, strikeSide.LEFT);
 
                 // e
                 break;
@@ -112,7 +116,8 @@ public class PlayerCombatController : ParentCombatController
             case "a":
                 isStriking = true;
                 // Preform Animation
-                // strike(actionHeight.HGIH, strikeSide.RIGHT);
+                strike(actionHeight.HIGH, strikeSide.RIGHT);
+
                 // a
                 break;
             case "s":
@@ -125,15 +130,11 @@ public class PlayerCombatController : ParentCombatController
             case "d":
                 isStriking = true;
                 // Preform Animation
-                // strike(actionHeight.LOW, strikeSide.RIGHT);
+                strike(actionHeight.LOW, strikeSide.RIGHT);
 
                 // d
                 break;
         }
-        _projection(isStriking, isDodging, isBlocking, attackHeight, attackSide);
+        _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide);
     }
-
-    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide);
-
-    public static event projection _projection;
 }
