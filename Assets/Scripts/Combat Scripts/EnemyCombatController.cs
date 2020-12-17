@@ -49,7 +49,7 @@ public abstract class EnemyCombatController : ParentCombatController
             if (health <= 0)
             {
                 _death();
-                gameObject.GetComponent<Enemy>().maze.removeObject(gameObject.GetComponent<Enemy>(), 1000, 1000);
+                gameObject.GetComponent<Enemy>().maze.removeObject(gameObject.GetComponent<Enemy>());
             }
         }
 

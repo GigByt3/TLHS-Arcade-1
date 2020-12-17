@@ -387,9 +387,10 @@ public class Maze : MonoBehaviour
         gridObjectDict.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
     }
 
-    public void removeObject(GridObject objectToMove, int x, int y)
+    public void removeObject(GridObject objectToRemove)
     {
-        gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+        if (gridObjectDict.ContainsKey(objectToRemove.gridCoords))
+            gridObjectDict.Remove(objectToRemove.gridCoords);
     }
 
     public bool isObjectAtCoords(int x, int y)
