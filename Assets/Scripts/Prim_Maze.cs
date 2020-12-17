@@ -203,6 +203,54 @@ public class Maze : MonoBehaviour
         }
     }
 
+    void placeTorches()
+    {
+        for (int i = 0; i < numOfTorches; i++)
+        {
+            int x = 0;
+            int y = 0;
+            List<int> adjacentWalls = new List<int>();
+
+            while (adjacentWalls.Count <= 0)
+            {
+                x = UnityEngine.Random.Range(0, width - 1);
+                y = UnityEngine.Random.Range(0, height - 1);
+                adjacentWalls = getNeighboringWallsLocal(new Vector2Int(x, y));
+            }
+
+            int z = adjacentWalls[UnityEngine.Random.Range(0, adjacentWalls.Count - 1)];
+
+            Vector3 torchOffset;
+
+            switch (z)
+            {
+                case 0:
+                    torchOffset = new Vector3(0, 0, -cellWidth / 2 + 0.5f);
+                    break;
+
+                case 1:
+                    torchOffset = new Vector3(-cellWidth / 2 - 0.5f, 0, 0);
+                    break;
+
+                case 2:
+                    torchOffset = new Vector3(0, 0, cellWidth / 2 - 0.5f);
+                    break;
+
+                case 3:
+                    torchOffset = new Vector3(cellWidth / 2 + 0.5f, 0, 0);
+                    break;
+
+                default:
+                    torchOffset = new Vector3(0, 0, 0);
+                    break;
+            }
+            Debug.Log("Placing torch with coords" + x + " " + y + " " + z);
+            GameObject torch = Instantiate(torchPrefab, cellCoordsToGlobalCoords(x, y) + torchOffset + Vector3.up, Quaternion.identity);
+            torch.transform.localScale = new Vector3(2, 2, 2);
+            torch.transform.parent = gameObject.transform;
+        }
+    }
+
     void generateMazeMesh()
     {
         Mesh mesh = new Mesh();
@@ -268,53 +316,7 @@ public class Maze : MonoBehaviour
         GetComponent<MeshRenderer>().material = material;
     }
 
-    void placeTorches()
-    {
-        for (int i = 0; i < numOfTorches; i++)
-        {
-            int x = 0;
-            int y = 0;
-            List<int> adjacentWalls = new List<int>();
-
-            while (adjacentWalls.Count <= 0)
-            {
-                x = UnityEngine.Random.Range(0, width - 1);
-                y = UnityEngine.Random.Range(0, height - 1);
-                adjacentWalls = getNeighboringWallsLocal(new Vector2Int(x, y));
-            }
-
-            int z = adjacentWalls[UnityEngine.Random.Range(0, adjacentWalls.Count - 1)];
-
-            Vector3 torchOffset;
-
-            switch (z)
-            {
-                case 0:
-                    torchOffset = new Vector3(0, 0, -cellWidth / 2 + 0.5f);
-                    break;
-
-                case 1:
-                    torchOffset = new Vector3(-cellWidth / 2 - 0.5f, 0, 0);
-                    break;
-
-                case 2:
-                    torchOffset = new Vector3(0, 0, cellWidth / 2 - 0.5f);
-                    break;
-
-                case 3:
-                    torchOffset = new Vector3(cellWidth / 2 + 0.5f, 0, 0);
-                    break;
-
-                default:
-                    torchOffset = new Vector3(0, 0, 0);
-                    break;
-            }
-            Debug.Log("Placing torch with coords" + x + " " + y + " " + z);
-            GameObject torch = Instantiate(torchPrefab, cellCoordsToGlobalCoords(x, y) + torchOffset + Vector3.up, Quaternion.identity);
-            torch.transform.localScale = new Vector3(2, 2, 2);
-            torch.transform.parent = gameObject.transform;
-        }
-    }
+    
 
     Mesh generateWallSegment(Vector3Int wall)
     {
@@ -346,8 +348,8 @@ public class Maze : MonoBehaviour
                         vertices[i + 2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
                         vertices[i + 3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
                     }
-                    normals[i] = Vector3.right;
-                    //normals[i] = (i >= 4) ? Vector3.left : Vector3.right;
+                    //normals[i] = Vector3.right;
+                    normals[i] = (i >= 4) ? Vector3.left : Vector3.right;
                     //Debug.Log(i + " " + normals[i]);
                 }
                 break;
@@ -362,8 +364,8 @@ public class Maze : MonoBehaviour
                         vertices[i + 2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
                         vertices[i + 3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
                     }
-                    normals[i] = Vector3.back;
-                    //normals[i] = (i >= 4) ? Vector3.forward : Vector3.back;
+                    //normals[i] = Vector3.back;
+                    normals[i] = (i >= 4) ? Vector3.back : Vector3.forward;
                     //Debug.Log(i + " " + normals[i]);
                 }
                 break;
