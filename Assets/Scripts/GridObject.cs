@@ -151,5 +151,6 @@ public abstract class GridObject : MonoBehaviour
                 gridCoords.z = 3;
                 break;
         }
+        maze.updateGridObjectPositions();
     }
 }

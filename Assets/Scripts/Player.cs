@@ -75,7 +75,7 @@ public class Player : GridObject
         if (enemyXPosDif == 0 && enemyYPosDif == 1) faceDirection("south");
         if (enemyXPosDif == -1 && enemyYPosDif == 0) faceDirection("west");
 
-        Debug.Log(enemy + " is entering combat with the player!");
+        Debug.Log(enemy + " is entering combat with the player, facing direction " + gridCoords.z);
 
         inCombat = true;
     }
