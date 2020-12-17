@@ -482,6 +482,7 @@ public class Maze : MonoBehaviour
     {
         if (gridObjectDict.ContainsKey(objectToRemove.gridCoords))
             gridObjectDict.Remove(objectToRemove.gridCoords);
+        updateGridObjectPositions();
     }
 
     public bool isObjectAtCoords(int x, int y)
