@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Potion : Item
 {
 
-    public void superinit()
+    public override void superinit()
     {
         type = ItemType.POTION;
     }

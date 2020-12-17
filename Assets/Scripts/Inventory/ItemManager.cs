@@ -9,25 +9,21 @@ public class ItemManager
 
     public void init()
     {
-        // \/ \/ \/  ! Add All Items Here ! \/ \/ \/         OLD
+        // \/ \/ \/  ! Add All Items Here ! \/ \/ \/
 
         //id 1 - 20
-        //items.Add(new WoodenShield());
+        items.Add(new IronSword());
 
         //21 - 40
-        //items.Add(new WoodenShield());
+        items.Add(new WoodenShield());
 
 
         //id  41 - 60
-        //items.Add(new HealthPotion());
-
-        //items.Add(new OkDagger());   Example
+        items.Add(new HealthPotion());
 
 
-        //------------------------------------------        OLD
 
-
-        // Items are added to item List in the Item supersuperinnit
+        //------------------------------------------
 
         foreach (Item item in items)
         {
@@ -36,9 +32,6 @@ public class ItemManager
 
             //parent sub class
             item.superinit();
-
-            //parent class
-            item.supersuperinit();
         }
     }
 

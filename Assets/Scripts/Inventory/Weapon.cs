@@ -8,7 +8,7 @@ public abstract class Weapon : Item
     public float cooldown;
 
 
-    public void superinit()
+    public override void superinit()
     {
         type = ItemType.COMBAT;
     }

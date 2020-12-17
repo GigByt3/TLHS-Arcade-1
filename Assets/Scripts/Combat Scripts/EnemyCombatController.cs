@@ -25,7 +25,7 @@ public abstract class EnemyCombatController : ParentCombatController
         PlayerCombatController._projection -= react;
     }
 
-    protected override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)
+    public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)
     {
         Debug.Log("Ouch");
 

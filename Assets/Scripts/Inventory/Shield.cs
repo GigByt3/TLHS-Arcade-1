@@ -7,7 +7,7 @@ public abstract class Shield : Item
 
     public float defense;
 
-    public void superinit()
+    public override void superinit()
     {
         type = ItemType.SHIELD;
     }

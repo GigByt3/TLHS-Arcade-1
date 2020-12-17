@@ -11,7 +11,7 @@ public class ZombieCombatController : EnemyCombatController
 
     public PlayerCombatController playerCombatController;
 
-    protected void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide)
+    public void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide)
     {
         if (Random.Range(0.0f, 100.0f) > difficulty) return;
 
@@ -31,24 +31,21 @@ public class ZombieCombatController : EnemyCombatController
 
     public void blockOrDoge()
     {
-        dodgeDir dodgeDirection;
 
         float random = Random.Range(0.0f, 100.0f);
         //Block
-        actionHeight blockHeight;
         if (random < 50.0f)
         {
-            if (canBlock) 
-            {
+            if (canBlock) {
                 float rando = Random.Range(0.0f, 100.0f);
                 //action height
                 if (rando < 50.0f)
                 {
-                    blockHeight = actionHeight.HIGH;
+                    isBlocking = actionHeight.HIGH;
                 }
                 else
                 {
-                    blockHeight = actionHeight.LOW;
+                    isBlocking = actionHeight.LOW;
                 }
             }
         } else  //dodge
@@ -58,19 +55,19 @@ public class ZombieCombatController : EnemyCombatController
                 float rand = Random.Range(0.0f, 100.0f);
                 if (random < 20.0f)
                 {
-                    dodgeDirection = dodgeDir.RIGHT;
+                    isDodging = dodgeDir.RIGHT;
                 }
                 else if (random < 40.0f)
                 {
-                    dodgeDirection = dodgeDir.LEFT;
+                    isDodging = dodgeDir.LEFT;
                 }
                 else if (random < 60.0f)
                 {
-                    dodgeDirection = dodgeDir.DOWN;
+                    isDodging = dodgeDir.DOWN;
                 }
                 else
                 {
-                    dodgeDirection = dodgeDir.BACK;
+                    isDodging = dodgeDir.BACK;
                 }
             }
         }

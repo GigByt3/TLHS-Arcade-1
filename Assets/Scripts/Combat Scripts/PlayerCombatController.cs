@@ -26,7 +26,7 @@ public class PlayerCombatController : ParentCombatController
         strike(actionHeight.HIGH, strikeSide.RIGHT);
     }
 
-    protected override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)
+    public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)
     {
         if(isDodging != dodgeDir.NONE)
         {

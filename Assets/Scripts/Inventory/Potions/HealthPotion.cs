@@ -7,7 +7,7 @@ public class HealthPotion : Potion
 
     //example
     
-    public void init()
+    public override void init()
     {
         name = "Health Potion";
         id = 41;

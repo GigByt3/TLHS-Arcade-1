@@ -6,7 +6,7 @@ public class IronSword : Weapon
 {
     //example
 
-    public void init()
+    public override void init()
     {
         name = "Iron Sword";
         id = 1;

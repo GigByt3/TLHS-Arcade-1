@@ -6,7 +6,7 @@ public class WoodenShield : Shield
 {
     //example
 
-    public void init()
+    public override void init()
     {
         name = "Wooden Shield";
         id = 21;
