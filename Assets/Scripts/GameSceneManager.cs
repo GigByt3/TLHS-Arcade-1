@@ -58,19 +58,19 @@ public class GameSceneManager : MonoBehaviour
         switch (position)
         {
             case 0.5f:
-                SetUpTransition("Wellcome To ZORK! READY TO BEGIN LEVEL 1 IN 4 SECONDS", false);
+                SetUpTransition("Entering layer 1...", false);
                 break;
             case 1:
                 SetUpGame(18, 0, 1);
                 break;
             case 1.5f:
-                SetUpTransition("READY TO BEGIN LEVEL 2 IN 4 SECONDS", false);
+                SetUpTransition("Entering layer 2...", false);
                 break;
             case 2:
                 SetUpGame(18, 2, 3);
                 break;
             case 2.5f:
-                SetUpTransition("READY TO BEGIN LEVEL 3 IN 4 SECONDS", false);
+                SetUpTransition("Entering layer 3...", false);
                 break;
             case 3:
                 SetUpGame(24, 4, 4);
