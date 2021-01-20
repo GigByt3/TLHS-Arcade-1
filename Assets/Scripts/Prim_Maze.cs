@@ -1,34 +1,60 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
 [RequireComponent(typeof(MeshFilter))]
+
 public class Maze : MonoBehaviour
 {
     public int width, height;
+
     public float cellWidth;
     public float cellHeight;
-    public GameObject wallPrefab, playerPrefab;
+
+    public GameObject playerPrefab, exitPrefab;
+    public GameObject[] enemyPrefabs;
+
+    public int numberOfStartingEnemies;
+    public float enemyDifficulty;
+    public Player player;
+    public ExitDoor exitDoor;
+
+
+    public Dictionary<Vector3Int, GridObject> gridObjectDict;
 
     private bool[,,] walls;
     private List<Vector2Int> deadEndCells;
-    private Dictionary<Vector3Int, GridObject> gridObjects;
 
-    public void MazeConstructor(int _width, int _height, GameObject _wallPrefab, GameObject _playerPrefab, float _cellWidth)
+    private Material material;
+
+    private float torchDensity;
+    private int numOfTorches;
+    private GameObject torchPrefab;
+
+    public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject _exitPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty, float _torchDensity)
     {
         width = _width;
         height = _height;
-        wallPrefab = _wallPrefab;
         playerPrefab = _playerPrefab;
+        exitPrefab = _exitPrefab;
+        material = _material;
+        enemyDifficulty = _enemyDifficulty;
         cellWidth = _cellWidth;
-        cellHeight = cellWidth;
+        cellHeight = _cellWidth;
+        numberOfStartingEnemies = _numberOfStartingEnemies;
+        enemyDifficulty = _enemyDifficulty;
+        torchDensity = _torchDensity;
     }
 
     public void Ready()
     {
         walls = new bool[width + 1, height + 1, 2];
+        numOfTorches = (int) (width * height * torchDensity);
+        Debug.Log(numOfTorches);
+        torchPrefab = Resources.Load<GameObject>("Torch");
 
         Debug.Log("Made new maze of size " + width + ", " + height);
 
@@ -39,6 +65,8 @@ public class Maze : MonoBehaviour
         markDeadEndCells();
 
         populateGridObjects();
+
+        placeTorches();
     }
 
     void Update()
@@ -85,29 +113,84 @@ public class Maze : MonoBehaviour
 
                 wallList.AddRange(getNeighboringWalls(unvisitedCells[0]));
             }
-            
+
             wallList.Remove(activeWall);
         }
     }
 
     void populateGridObjects()
     {
-        //GameObject playerObject = Instantiate((GameObject) Resources.Load("Prefabs/player", typeof(GameObject)));
+        //Place Player
         GameObject playerObject = Instantiate(playerPrefab);
         playerObject.name = "Player";
-        playerObject.GetComponent<Player>().Ready();
+        player = playerObject.GetComponent<Player>();
+        player.Ready();
 
-        Vector3Int playerStartCoords = new Vector3Int(0, 0, 2);
+        Vector3Int playerStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
 
-        playerObject.GetComponent<Player>().gridCoords = playerStartCoords;
-        gridObjects = new Dictionary<Vector3Int, GridObject>();
-        gridObjects.Add(playerStartCoords, playerObject.GetComponent<Player>());
+        player.gridCoords = playerStartCoords;
+        gridObjectDict = new Dictionary<Vector3Int, GridObject>();
+        gridObjectDict.Add(playerStartCoords, player);
+
+        //Place enemies
+        for (int i = 0; i < numberOfStartingEnemies; i++)
+        {
+            bool startCoordsFound = false;
+            Vector3Int possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+            while (!startCoordsFound)
+            {
+                if (!isObjectAtCoords(possibleStartCoords.x, possibleStartCoords.y))
+                {
+                    startCoordsFound = true;
+                }
+                else
+                {
+                    possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+                }
+            }
+
+            Debug.Log("Placing enemy at " + possibleStartCoords.x + ", " + possibleStartCoords.y + " with rotation " + possibleStartCoords.z);
+            GameObject newZombie = Instantiate(Resources.Load<GameObject>("Zombie"), cellCoordsToGlobalCoords(possibleStartCoords.x, possibleStartCoords.y), Quaternion.identity);
+            newZombie.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.Zombie);
+            newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
+            newZombie.GetComponent<Enemy>().Ready();
+            gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
+        }
+
+        //Place exit
+        bool exitCoordsFound = false;
+        Vector3Int possibleExitCoords = new Vector3Int();
+        while (!exitCoordsFound)
+        {
+            int deadEndCellIndex = UnityEngine.Random.Range(0, deadEndCells.Count);
+            Vector2Int chosenDeadEndCell = deadEndCells[deadEndCellIndex];
+            if (!isObjectAtCoords(chosenDeadEndCell.x ,chosenDeadEndCell.y))
+            {
+                int openSide = 0;
+                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 0)) openSide = 0;
+                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 1)) openSide = 1;
+                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 2)) openSide = 2;
+                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 3)) openSide = 3;
+
+                possibleExitCoords = new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, openSide);
+
+                exitCoordsFound = true;
+            }
+        }
+
+        GameObject exitDoorObject = Instantiate(exitPrefab);
+        exitDoor = exitDoorObject.GetComponent<ExitDoor>();
+        exitDoor.ExitDoorConstructor(cellWidth, cellHeight);
+        exitDoor.Ready();
+
+        exitDoor.gridCoords = possibleExitCoords;
+        gridObjectDict.Add(possibleExitCoords, exitDoor);
     }
 
     void markDeadEndCells()
     {
         deadEndCells = new List<Vector2Int>();
-        
+
         for (int i = 0; i < width - 1; i++)
         {
             for (int j = 0; j < height - 1; j++)
@@ -117,6 +200,54 @@ public class Maze : MonoBehaviour
                     deadEndCells.Add(new Vector2Int(i, j));
                 }
             }
+        }
+    }
+
+    void placeTorches()
+    {
+        for (int i = 0; i < numOfTorches; i++)
+        {
+            int x = 0;
+            int y = 0;
+            List<int> adjacentWalls = new List<int>();
+
+            while (adjacentWalls.Count <= 0)
+            {
+                x = UnityEngine.Random.Range(0, width - 1);
+                y = UnityEngine.Random.Range(0, height - 1);
+                adjacentWalls = getNeighboringWallsLocal(new Vector2Int(x, y));
+            }
+
+            int z = adjacentWalls[UnityEngine.Random.Range(0, adjacentWalls.Count - 1)];
+
+            Vector3 torchOffset;
+
+            switch (z)
+            {
+                case 0:
+                    torchOffset = new Vector3(0, 0, -cellWidth / 2 + 0.5f);
+                    break;
+
+                case 1:
+                    torchOffset = new Vector3(-cellWidth / 2 - 0.5f, 0, 0);
+                    break;
+
+                case 2:
+                    torchOffset = new Vector3(0, 0, cellWidth / 2 - 0.5f);
+                    break;
+
+                case 3:
+                    torchOffset = new Vector3(cellWidth / 2 + 0.5f, 0, 0);
+                    break;
+
+                default:
+                    torchOffset = new Vector3(0, 0, 0);
+                    break;
+            }
+            Debug.Log("Placing torch with coords" + x + " " + y + " " + z);
+            GameObject torch = Instantiate(torchPrefab, cellCoordsToGlobalCoords(x, y) + torchOffset + Vector3.up, Quaternion.identity);
+            torch.transform.localScale = new Vector3(2, 2, 2);
+            torch.transform.parent = gameObject.transform;
         }
     }
 
@@ -181,7 +312,11 @@ public class Maze : MonoBehaviour
         mesh.uv = uv.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.normals = normals.ToArray();
+
+        GetComponent<MeshRenderer>().material = material;
     }
+
+    
 
     Mesh generateWallSegment(Vector3Int wall)
     {
@@ -192,16 +327,16 @@ public class Maze : MonoBehaviour
 
         Vector2[] uv = new Vector2[8];
         Vector3[] normals = new Vector3[8];
-        
+
         Vector3 correction = new Vector3(0, -0.5f * cellWidth, 0);
-        
+
         Vector2 textureOffset = new Vector2(0.0f, 0.0f);
         if (UnityEngine.Random.Range(0, 6) == 0)
         {
             textureOffset.x = UnityEngine.Random.Range(0, 5) * 0.2f;
         }
 
-        switch(wall.z)
+        switch (wall.z)
         {
             case 0:
                 for (int i = 0; i < 8; i++)
@@ -213,8 +348,8 @@ public class Maze : MonoBehaviour
                         vertices[i + 2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
                         vertices[i + 3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
                     }
-                    normals[i] = Vector3.right;
-                    //normals[i] = (i >= 4) ? Vector3.left : Vector3.right;
+                    //normals[i] = Vector3.right;
+                    normals[i] = (i >= 4) ? Vector3.left : Vector3.right;
                     //Debug.Log(i + " " + normals[i]);
                 }
                 break;
@@ -229,8 +364,8 @@ public class Maze : MonoBehaviour
                         vertices[i + 2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
                         vertices[i + 3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
                     }
-                    normals[i] = Vector3.back;
-                    //normals[i] = (i >= 4) ? Vector3.forward : Vector3.back;
+                    //normals[i] = Vector3.back;
+                    normals[i] = (i >= 4) ? Vector3.back : Vector3.forward;
                     //Debug.Log(i + " " + normals[i]);
                 }
                 break;
@@ -251,6 +386,35 @@ public class Maze : MonoBehaviour
         return mesh;
     }
 
+    List<int> getNeighboringWallsLocal(Vector2Int cellCoords)
+    {
+        List<int> neighboringWalls = new List<int>();
+
+        if (cellCoords.x > 0 && cellCoords.y > 0)
+        {
+            if (walls[cellCoords.x, cellCoords.y - 1, 1]) neighboringWalls.Add(0);
+            if (walls[cellCoords.x, cellCoords.y, 0]) neighboringWalls.Add(1);
+            if (walls[cellCoords.x, cellCoords.y, 1]) neighboringWalls.Add(2);
+            if (walls[cellCoords.x - 1, cellCoords.y, 0]) neighboringWalls.Add(3);
+            Debug.Log("Neighboring walls:" + neighboringWalls);
+        }
+        else if (cellCoords.x == 0 && cellCoords.y > 0)
+        {
+            if (walls[cellCoords.x, cellCoords.y - 1, 1]) neighboringWalls.Add(0);
+            if (walls[cellCoords.x, cellCoords.y, 0]) neighboringWalls.Add(1);
+            if (walls[cellCoords.x, cellCoords.y, 1]) neighboringWalls.Add(2);
+            neighboringWalls.Add(3);
+        }
+        else if (cellCoords.x > 0 && cellCoords.y == 0)
+        {
+            neighboringWalls.Add(0);
+            if (walls[cellCoords.x, cellCoords.y, 0]) neighboringWalls.Add(1);
+            if (walls[cellCoords.x, cellCoords.y, 1]) neighboringWalls.Add(2);
+            if (walls[cellCoords.x - 1, cellCoords.y, 0]) neighboringWalls.Add(3);
+        }
+        return neighboringWalls;
+    }
+
     List<Vector3Int> getNeighboringWalls(Vector2Int cellCoords)
     {
         List<Vector3Int> neighboringWalls = new List<Vector3Int>();
@@ -261,12 +425,12 @@ public class Maze : MonoBehaviour
         neighboringWalls.Add(new Vector3Int(cellCoords.x - 1, cellCoords.y, 0));
         neighboringWalls.Add(new Vector3Int(cellCoords.x, cellCoords.y - 1, 1));
 
-        foreach(Vector3Int wall in neighboringWalls)
+        foreach (Vector3Int wall in neighboringWalls)
         {
             if (!doesWallExist(wall)) wallsThatDontExist.Add(wall);
         }
 
-        foreach(Vector3Int wall in wallsThatDontExist)
+        foreach (Vector3Int wall in wallsThatDontExist)
         {
             neighboringWalls.Remove(wall);
         }
@@ -297,7 +461,7 @@ public class Maze : MonoBehaviour
 
                 Vector2Int southCell = new Vector2Int(wallX, wallY + 1);
                 if(doesCellExist(southCell)) neighboringCells.Add(southCell);
-                
+
                 break;
             default:
                 Debug.Log("Input Wall direction was (" + wallDir + "). Why TF is this happening");
@@ -309,13 +473,54 @@ public class Maze : MonoBehaviour
 
     public void teleportObject(GridObject objectToMove, int x, int y)
     {
-        if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-            gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-        gridObjects.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
+        if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
+            gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
+        gridObjectDict.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
+    }
+
+    public void removeObject(GridObject objectToRemove)
+    {
+        if (gridObjectDict.ContainsKey(objectToRemove.gridCoords))
+            gridObjectDict.Remove(objectToRemove.gridCoords);
+        Destroy(objectToRemove.gameObject);
+    }
+
+    public bool isObjectAtCoords(int x, int y)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (gridObjectDict.ContainsKey(new Vector3Int(x, y, i))) return true;
+        }
+        return false;
+    }
+
+    public bool isPlayerAtCoords(int x, int y)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (gridObjectDict.ContainsKey(new Vector3Int(x, y, i)))
+            {
+                if (gridObjectDict[new Vector3Int(x, y, i)] == player) return true;
+            }
+        }
+        return false;
+    }
+
+    public bool isExitAtCoords(int x, int y)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (gridObjectDict.ContainsKey(new Vector3Int(x, y, i)))
+            {
+                if (gridObjectDict[new Vector3Int(x, y, i)] == exitDoor) return true;
+            }
+        }
+        return false;
     }
 
     public void moveObject(GridObject objectToMove, int distance)
     {
+        //Debug.Log("movement registered");
         int tilesMoved = 0;
         while (tilesMoved < distance)
         {
@@ -326,37 +531,65 @@ public class Maze : MonoBehaviour
                     case 0:
                         if (objectToMove.gridCoords.y > 0)
                         {
-                            if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjects.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y - 1, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.y--;
+                            int xToMoveTo = objectToMove.gridCoords.x;
+                            int yToMoveTo = objectToMove.gridCoords.y - 1;
+
+                            if (!isObjectAtCoords(xToMoveTo, yToMoveTo))
+                            {
+                                for (int i = 0; i < 4; i++)
+                                    if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i)))
+                                        gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i));
+                                objectToMove.gridCoords.y--;
+                                gridObjectDict.Add(objectToMove.gridCoords, objectToMove);
+                            }
                         }
                         break;
                     case 1:
                         if (objectToMove.gridCoords.x + 1 < width)
                         {
-                            if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjects.Add(new Vector3Int(objectToMove.gridCoords.x + 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.x++;
+                            int xToMoveTo = objectToMove.gridCoords.x + 1;
+                            int yToMoveTo = objectToMove.gridCoords.y;
+
+                            if (!isObjectAtCoords(xToMoveTo, yToMoveTo))
+                            {
+                                for (int i = 0; i < 4; i++)
+                                    if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i)))
+                                        gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i));
+                                objectToMove.gridCoords.x++;
+                                gridObjectDict.Add(objectToMove.gridCoords, objectToMove);
+                            }
                         }
                         break;
                     case 2:
                         if (objectToMove.gridCoords.y + 1 < height)
                         {
-                            if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjects.Add(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y + 1, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.y++;
+                            int xToMoveTo = objectToMove.gridCoords.x;
+                            int yToMoveTo = objectToMove.gridCoords.y + 1;
+
+                            if (!isObjectAtCoords(xToMoveTo, yToMoveTo))
+                            {
+                                for (int i = 0; i < 4; i++)
+                                    if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i)))
+                                        gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i));
+                                objectToMove.gridCoords.y++;
+                                gridObjectDict.Add(objectToMove.gridCoords, objectToMove);
+                            }
                         }
                         break;
                     case 3:
                         if (objectToMove.gridCoords.x > 0)
                         {
-                            if (gridObjects.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
-                                gridObjects.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
-                            gridObjects.Add(new Vector3Int(objectToMove.gridCoords.x - 1, objectToMove.gridCoords.y, objectToMove.gridCoords.z), objectToMove);
-                            objectToMove.gridCoords.x--;
+                            int xToMoveTo = objectToMove.gridCoords.x - 1;
+                            int yToMoveTo = objectToMove.gridCoords.y;
+
+                            if (!isObjectAtCoords(xToMoveTo, yToMoveTo))
+                            {
+                                for (int i = 0; i < 4; i++)
+                                    if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i)))
+                                        gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i));
+                                objectToMove.gridCoords.x--;
+                                gridObjectDict.Add(objectToMove.gridCoords, objectToMove);
+                            }
                         }
                         break;
                     default:
@@ -364,23 +597,20 @@ public class Maze : MonoBehaviour
                 }
                 tilesMoved++;
             }
-            else
-            {
-                return;
-            }
+            else return;
         }
     }
-    
+
     public void setObjectRotation(GridObject objectToRotate, int direction)
     {
-        if (gridObjects.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
-            gridObjects.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
-        gridObjects.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
+        if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
+            gridObjectDict.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
+        gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
     }
 
     public void updateGridObjectPositions()
     {
-        foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjects)
+        foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)
         {
             kvp.Value.transform.position = cellCoordsToGlobalCoords(kvp.Key.x, kvp.Key.y);
             switch (kvp.Key.z)
@@ -500,6 +730,4 @@ public class Maze : MonoBehaviour
         if (!doesCellExist(new Vector2Int(wall.x, wall.y)) || wall.z > 1) return false;
         return walls[wall.x, wall.y, wall.z];
     }
-
-    
 }

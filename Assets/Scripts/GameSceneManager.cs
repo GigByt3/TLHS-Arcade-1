@@ -58,19 +58,19 @@ public class GameSceneManager : MonoBehaviour
         switch (position)
         {
             case 0.5f:
-                SetUpTransition("Wellcome To ZORK! READY TO BEGIN LEVEL 1 IN 4 SECONDS", false);
+                SetUpTransition("Entering layer 1...", false);
                 break;
             case 1:
                 SetUpGame(18, 0, 1);
                 break;
             case 1.5f:
-                SetUpTransition("READY TO BEGIN LEVEL 2 IN 4 SECONDS", false);
+                SetUpTransition("Entering layer 2...", false);
                 break;
             case 2:
                 SetUpGame(18, 2, 3);
                 break;
             case 2.5f:
-                SetUpTransition("READY TO BEGIN LEVEL 3 IN 4 SECONDS", false);
+                SetUpTransition("Entering layer 3...", false);
                 break;
             case 3:
                 SetUpGame(24, 4, 4);
@@ -83,6 +83,7 @@ public class GameSceneManager : MonoBehaviour
                 break;
             default:
                 // DO NOTHING HERE OR ALL HELL WILL BREAK LOSE AND WREAK TERRIBLE VENGENCE UPON AN UNSUSPECTING EARTH
+                Debug.Log(":)");
                 break;
         }
     }
@@ -92,12 +93,25 @@ public class GameSceneManager : MonoBehaviour
     {
         _soundManager.MusicTransition(INTROindex, LOOPindex);
 
+        float cellWidth = 4.0f;
+
+        //Generate floor & ceiling
+        GameObject floorPrefab = Resources.Load<GameObject>("Floor");
+        GameObject floor = Instantiate(floorPrefab, new Vector3(-(mazeSize - 1) * (cellWidth / 2), 0.0f, (mazeSize - 1) * (cellWidth / 2)), Quaternion.identity);
+        floor.name = "Floor";
+        floor.transform.localScale = new Vector3(mazeSize * (cellWidth / 10), 1.0f, mazeSize * (cellWidth / 10));
+
+        GameObject ceiling = Instantiate(floorPrefab, new Vector3(-(mazeSize - 1) * (cellWidth / 2), cellWidth, (mazeSize - 1) * (cellWidth / 2)), Quaternion.Euler(0.0f, 0.0f, 180.0f));
+        ceiling.transform.localScale = new Vector3(mazeSize * (cellWidth / 10), 1.0f, mazeSize * (cellWidth / 10));
+        ceiling.name = "Ceiling";
+
         //Maze Generation
         GameObject mazeContainer = new GameObject("Maze");
         mazeContainer.AddComponent<MeshFilter>();
         mazeContainer.AddComponent<MeshRenderer>();
         maze = mazeContainer.AddComponent<Maze>();
-        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Wall"), Resources.Load<GameObject>("Player"), 4.0f);
+        GameObject[] enemyPrefabs = {Resources.Load<GameObject>("Zombie")};
+        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), Resources.Load<GameObject>("ExitDoor"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 20, 1.0f, 0.2f);
         maze.Ready();
     }
 

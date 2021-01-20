@@ -66,7 +66,7 @@ public class GameSoundManager : MonoBehaviour
     {
         if (source.isPlaying)
         {
-            Debug.Log(source.isPlaying);
+            Debug.Log("Music playing: " + source.isPlaying);
             StartCoroutine(Transition(source, 2, TransitionIndex, TrackIndex));
         } else
         {
