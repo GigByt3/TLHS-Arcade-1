@@ -6,24 +6,30 @@ public class PlayerCombatController : ParentCombatController
 {
     new int damage = 2;
     new int id = 0;
-
     
 
     void OnEnable()
     {
         EnemyCombatController._attack += wasHit;
         Player._sendKey += combatAction;
+        Player._setEnemy += HandleSetEnemy;
     }
 
     void OnDisable()
     {
         EnemyCombatController._attack -= wasHit;
         Player._sendKey -= combatAction;
+        Player._setEnemy -= HandleSetEnemy;
     }
 
     private void Start()
     {
         strike(actionHeight.HIGH, strikeSide.RIGHT);
+    }
+
+    protected void HandleSetEnemy(int _id)
+    {
+        enemyId = _id;
     }
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)
@@ -136,5 +142,10 @@ public class PlayerCombatController : ParentCombatController
                 break;
         }
         _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide);
+    }
+
+    public void strikeConnect()
+    {
+
     }
 }

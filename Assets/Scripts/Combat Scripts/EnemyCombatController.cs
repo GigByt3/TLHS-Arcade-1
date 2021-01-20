@@ -27,10 +27,9 @@ public abstract class EnemyCombatController : ParentCombatController
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)
     {
-        Debug.Log("Ouch");
-
         if (_id != id) return;
-        if(!canAct())
+
+        if (!canAct())
         {
             //enemy is invulnerable while acting
             return;
@@ -56,7 +55,7 @@ public abstract class EnemyCombatController : ParentCombatController
             }
         }
 
-        Debug.Log("current health:" + health);
+        Debug.Log("Enemy id: " + id + " was hit. Current health:" + health);
     }
 
     protected void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide)

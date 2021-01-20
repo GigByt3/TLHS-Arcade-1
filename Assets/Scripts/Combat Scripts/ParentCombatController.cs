@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class ParentCombatController : MonoBehaviour
 {
-    protected int id;
+    public int id;
+    public int enemyId = -1;
 
     protected int health = 100;
     protected int stamina = 10;
@@ -54,7 +55,7 @@ public abstract class ParentCombatController : MonoBehaviour
     {
         if (!canAct()) return;
         blockCombo = 0;
-        _attack(_strikeHeight, _strikeSide, this, id);
+        _attack(_strikeHeight, _strikeSide, this, enemyId);
     }
 
     protected bool canAct()

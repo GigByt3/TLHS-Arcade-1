@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class ZombieCombatController : EnemyCombatController
 {
-    public ZombieCombatController()
-    {
-        id = 1;
-    }
-
-    public PlayerCombatController playerCombatController;
 
     public void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide)
     {
@@ -100,7 +94,7 @@ public class ZombieCombatController : EnemyCombatController
             attackSide = strikeSide.RIGHT;
         }
 
-        playerCombatController.wasHit(attackHeight, attackSide, this, id);
+        wasHit(attackHeight, attackSide, this, id);
 
 
     }

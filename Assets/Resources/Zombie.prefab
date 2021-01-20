@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8471138235545078962}
   - component: {fileID: 4960910821447350089}
   - component: {fileID: 5106423299648971400}
-  - component: {fileID: -2990212998715882918}
   - component: {fileID: 5466824801814561023}
+  - component: {fileID: 4002250153727458542}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -113,19 +113,6 @@ MonoBehaviour:
   gridCoords: {x: 0, y: 0, z: 0}
   maze: {fileID: 0}
   type: 0
---- !u!114 &-2990212998715882918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426670081193811923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0edc44cff6d55487f8e63b22c860ec10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 20
 --- !u!95 &5466824801814561023
 Animator:
   serializedVersion: 3
@@ -145,3 +132,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4002250153727458542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426670081193811923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d5bb027a6b4174a9f2476f929c0f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  enemyId: -1
+  damage: 20

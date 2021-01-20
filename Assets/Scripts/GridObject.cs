@@ -139,18 +139,23 @@ public abstract class GridObject : MonoBehaviour
         switch (direction)
         {
             case "north":
+                maze.setObjectRotation(this, 0);
                 gridCoords.z = 0;
                 break;
             case "east":
+                maze.setObjectRotation(this, 1);
                 gridCoords.z = 1;
                 break;
             case "south":
+                maze.setObjectRotation(this, 2);
                 gridCoords.z = 2;
                 break;
             case "west":
+                maze.setObjectRotation(this, 3);
                 gridCoords.z = 3;
                 break;
         }
+
         maze.updateGridObjectPositions();
     }
 }

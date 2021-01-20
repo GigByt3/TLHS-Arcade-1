@@ -8,6 +8,9 @@ public class Player : GridObject
     public delegate void MoveDelegate();
     public static event MoveDelegate moveEvent;
 
+    public delegate void setEnemy(int id);
+    public static event setEnemy _setEnemy;
+
     private bool inCombat;
 
     private const float PLAYER_MOVE_COOLDOWN = 0.5f;
@@ -70,13 +73,26 @@ public class Player : GridObject
         int enemyXPosDif = enemy.gridCoords.x - gridCoords.x;
         int enemyYPosDif = enemy.gridCoords.y - gridCoords.y;
 
-        if (enemyXPosDif == 0 && enemyYPosDif == -1) faceDirection("north");
-        if (enemyXPosDif == 1 && enemyYPosDif == 0) faceDirection("east");
-        if (enemyXPosDif == 0 && enemyYPosDif == 1) faceDirection("south");
-        if (enemyXPosDif == -1 && enemyYPosDif == 0) faceDirection("west");
+        Debug.Log(enemyYPosDif + " - Y -- X - " + enemyXPosDif);
 
-        Debug.Log(enemy + " is entering combat with the player, facing direction " + gridCoords.z);
+        if (enemyXPosDif == 0 && enemyYPosDif == -1)
+        {
+            this.faceDirection("north");
+        }
+        if (enemyXPosDif == 1 && enemyYPosDif == 0)
+        {
+            this.faceDirection("east");
+        }
+        if (enemyXPosDif == 0 && enemyYPosDif == 1)
+        {
+            this.faceDirection("south");
+        }
+        if (enemyXPosDif == -1 && enemyYPosDif == 0)
+        {
+            this.faceDirection("west");
+        }
 
+        _setEnemy(enemy.gameObject.GetComponent<ParentCombatController>().id);
         inCombat = true;
     }
 
