@@ -57,6 +57,9 @@ public class GameSceneManager : MonoBehaviour
         Debug.Log("Scene Manager New Scene Loaded.");
         switch (position)
         {
+            case 0:
+                Debug.Log("On the main menu.");
+                break;
             case 0.5f:
                 SetUpTransition("Entering layer 1...", false);
                 break;
