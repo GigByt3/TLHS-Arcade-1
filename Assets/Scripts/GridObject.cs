@@ -20,6 +20,12 @@ public abstract class GridObject : MonoBehaviour
         gridCoords.z %= 4;
     }
 
+    public void InterpolateTransform(float interpolationSpeed)
+    {
+        transform.position = Vector3.Lerp(transform.position, maze.cellCoordsToGlobalCoords(new Vector2Int(gridCoords.x, gridCoords.y)), interpolationSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, gridCoords.z * 90, 0), interpolationSpeed);
+    }
+
     public List<Vector2Int> visibleNorthCells()
     {
         List<Vector2Int> visibleCells = new List<Vector2Int>();
@@ -80,6 +86,7 @@ public abstract class GridObject : MonoBehaviour
     public void move(int distance)
     {
         maze.moveObject(this, distance);
+
     }
 
     public bool canMoveForwards()

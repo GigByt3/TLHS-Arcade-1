@@ -639,6 +639,11 @@ public class Maze : MonoBehaviour
         return new Vector3((-x * cellWidth), cellWidth / 2.0f, (y * cellWidth));
     }
 
+    public Vector3 cellCoordsToGlobalCoords(Vector2Int position)
+    {
+        return new Vector3((-position.x * cellWidth), cellWidth / 2.0f, (position.y * cellWidth));
+    }
+
     public bool getWallFromCoords(int x, int y, int side)
     {
         return walls[x, y, side];

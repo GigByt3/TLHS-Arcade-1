@@ -33,6 +33,7 @@ public class Player : GridObject
         {
             checkKeysMove();
         }
+        //InterpolateTransform(0.05f); DO NOT UNCOMMENT YET, VERY BROKEN :)
     }
 
     void checkKeysMove()
