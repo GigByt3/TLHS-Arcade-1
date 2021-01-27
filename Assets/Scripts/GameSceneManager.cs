@@ -41,14 +41,14 @@ public class GameSceneManager : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += Setup;
-        Debug.Log("OnEnable");
+        Debug.Log("Scene Manager OnEnable");
     }
 
     //Unsubscribing Setup
     void OnDisable()
     {
         SceneManager.sceneLoaded -= Setup;
-        Debug.Log("OnDisable");
+        Debug.Log("Scene Manager OnDisable");
     }
 
     //Checking Position and thus what Sub-Setup Class to call
@@ -167,7 +167,7 @@ public class GameSceneManager : MonoBehaviour
     {
         Debug.Log("In Transition, Starting " + pauseTime + " second wait. [TIME: " + Time.deltaTime + "]");
         yield return new WaitForSeconds(pauseTime);
-        Debug.Log("In Transition, Proscess Complete. [TIME: " + Time.deltaTime + "]");
+        Debug.Log("In Transition, Process Complete. [TIME: " + Time.deltaTime + "]");
         if (isGameOver)
         {
             BackToTitle();

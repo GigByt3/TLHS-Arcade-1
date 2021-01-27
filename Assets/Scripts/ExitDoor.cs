@@ -7,7 +7,8 @@ public class ExitDoor : GridObject
     private float width, height;
 
     private GameObject doorWall;
-    
+
+    //Method for assigning all the various fields of an exitdoor, in lieu of a Java-esque "constructor" in C#
     public void ExitDoorConstructor(float _width, float _height)
     {
         width = _width;

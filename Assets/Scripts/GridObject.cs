@@ -8,6 +8,7 @@ public abstract class GridObject : MonoBehaviour
 
     public Maze maze;
 
+    //Method to be run when a GridObject is created
     public void Ready()
     {
         maze = GameObject.Find("Game Manager").GetComponent<GameSceneManager>().maze;
@@ -20,6 +21,7 @@ public abstract class GridObject : MonoBehaviour
         gridCoords.z %= 4;
     }
 
+    //Returns all cells this GridObject can see to the north, obstructed by walls
     public List<Vector2Int> visibleNorthCells()
     {
         List<Vector2Int> visibleCells = new List<Vector2Int>();
@@ -34,6 +36,8 @@ public abstract class GridObject : MonoBehaviour
 
         return visibleCells;
     }
+
+    //Returns all cells this GridObject can see to the east, obstructed by walls
     public List<Vector2Int> visibleEastCells()
     {
         List<Vector2Int> visibleCells = new List<Vector2Int>();
@@ -48,6 +52,8 @@ public abstract class GridObject : MonoBehaviour
 
         return visibleCells;
     }
+
+    //Returns all cells this GridObject can see to the south, obstructed by walls
     public List<Vector2Int> visibleSouthCells()
     {
         List<Vector2Int> visibleCells = new List<Vector2Int>();
@@ -62,6 +68,8 @@ public abstract class GridObject : MonoBehaviour
 
         return visibleCells;
     }
+
+    //Returns all cells this GridObject can see to the west, obstructed by walls
     public List<Vector2Int> visibleWestCells()
     {
         List<Vector2Int> visibleCells = new List<Vector2Int>();
@@ -77,16 +85,19 @@ public abstract class GridObject : MonoBehaviour
         return visibleCells;
     }
 
+    //Attempts to move the GridObject forward by the given distance, obstructed by walls
     public void move(int distance)
     {
         maze.moveObject(this, distance);
     }
 
+    //Returns whether or not the GridObject can move forward by one space
     public bool canMoveForwards()
     {
         return !maze.getWallFromDirection(gridCoords.x, gridCoords.y, gridCoords.z);
     }
 
+    //Returns whether or not the exit is in front of this GridObject
     public bool isExitInFront()
     {
         switch (gridCoords.z)
@@ -104,6 +115,7 @@ public abstract class GridObject : MonoBehaviour
         }
     }
 
+    //Returns whether or not the player is adjacent to this GridObject
     public bool isPlayerAdjacent()
     {
         if (maze.isPlayerAtCoords(gridCoords.x, gridCoords.y - 1) && !maze.getWallFromDirection(gridCoords.x, gridCoords.y, 0)) return true;
@@ -113,6 +125,7 @@ public abstract class GridObject : MonoBehaviour
         return false;
     }
 
+    //Rotates the GridObject 'left' or 'right' by 90 degrees
     public void rotate(string direction)
     {
         int newdir = gridCoords.z;
@@ -134,6 +147,7 @@ public abstract class GridObject : MonoBehaviour
         gridCoords.z = newdir;
     }
 
+    //Sets the GridObject to face 'north', 'east', 'south', or 'west'
     public void faceDirection(string direction)
     {
         switch (direction)

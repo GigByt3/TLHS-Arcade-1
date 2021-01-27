@@ -11,7 +11,7 @@ public class Enemy : GridObject
 
     private int actionsPerTurn;
 
-
+    //Method for assigning all the various fields of an enemy, in lieu of a Java-esque "constructor" in C#
     public void EnemyConstructor(EnemyType _type)
     {
         type = _type;

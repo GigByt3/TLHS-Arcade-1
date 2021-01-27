@@ -22,7 +22,6 @@ public class Maze : MonoBehaviour
     public Player player;
     public ExitDoor exitDoor;
 
-
     public Dictionary<Vector3Int, GridObject> gridObjectDict;
 
     private bool[,,] walls;
@@ -34,6 +33,7 @@ public class Maze : MonoBehaviour
     private int numOfTorches;
     private GameObject torchPrefab;
 
+    //Method for assigning all the various fields of a maze, in lieu of a Java-esque "constructor" in C#
     public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject _exitPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty, float _torchDensity)
     {
         width = _width;
@@ -49,11 +49,11 @@ public class Maze : MonoBehaviour
         torchDensity = _torchDensity;
     }
 
+    //Method to tell the maze when to actually start generating things, usually run after MazeConstructor
     public void Ready()
     {
         walls = new bool[width + 1, height + 1, 2];
         numOfTorches = (int) (width * height * torchDensity);
-        Debug.Log(numOfTorches);
         torchPrefab = Resources.Load<GameObject>("Torch");
 
         Debug.Log("Made new maze of size " + width + ", " + height);
@@ -69,13 +69,17 @@ public class Maze : MonoBehaviour
         placeTorches();
     }
 
+    //Runs every frame, just updates the in-scene positions of GridObjects based on the maze data
     void Update()
     {
         updateGridObjectPositions();
     }
 
+    //Generates the maze data from a Randomized Prim's Algorithm
+    //https://en.wikipedia.org/wiki/Maze_generation_algorithm
     void populateMazeArray()
     {
+        //Sets all possible wall positions true
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -87,6 +91,7 @@ public class Maze : MonoBehaviour
             }
         }
 
+        //Do funky maze gen stuff
         List<Vector2Int> visitedCells = new List<Vector2Int>();
         List<Vector3Int> wallList = new List<Vector3Int>();
 
@@ -118,6 +123,7 @@ public class Maze : MonoBehaviour
         }
     }
 
+    //Places various GridObjects in the maze, such as the player, enemies, and exit.
     void populateGridObjects()
     {
         //Place Player
@@ -149,7 +155,6 @@ public class Maze : MonoBehaviour
                 }
             }
 
-            Debug.Log("Placing enemy at " + possibleStartCoords.x + ", " + possibleStartCoords.y + " with rotation " + possibleStartCoords.z);
             GameObject newZombie = Instantiate(Resources.Load<GameObject>("Zombie"), cellCoordsToGlobalCoords(possibleStartCoords.x, possibleStartCoords.y), Quaternion.identity);
             newZombie.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.Zombie);
             newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
@@ -187,6 +192,7 @@ public class Maze : MonoBehaviour
         gridObjectDict.Add(possibleExitCoords, exitDoor);
     }
 
+    //Loops through all the cells, and adds all dead end cells to the deadEndCells list
     void markDeadEndCells()
     {
         deadEndCells = new List<Vector2Int>();
@@ -203,6 +209,7 @@ public class Maze : MonoBehaviour
         }
     }
 
+    //Places torches around the maze
     void placeTorches()
     {
         for (int i = 0; i < numOfTorches; i++)
@@ -244,13 +251,13 @@ public class Maze : MonoBehaviour
                     torchOffset = new Vector3(0, 0, 0);
                     break;
             }
-            Debug.Log("Placing torch with coords" + x + " " + y + " " + z);
             GameObject torch = Instantiate(torchPrefab, cellCoordsToGlobalCoords(x, y) + torchOffset + Vector3.up, Quaternion.identity);
             torch.transform.localScale = new Vector3(2, 2, 2);
             torch.transform.parent = gameObject.transform;
         }
     }
 
+    //Generates the maze mesh based on the maze wall data
     void generateMazeMesh()
     {
         Mesh mesh = new Mesh();
@@ -316,8 +323,7 @@ public class Maze : MonoBehaviour
         GetComponent<MeshRenderer>().material = material;
     }
 
-    
-
+    //Generates the mesh for a given wall segment using its position
     Mesh generateWallSegment(Vector3Int wall)
     {
         Mesh mesh = new Mesh();
@@ -348,9 +354,7 @@ public class Maze : MonoBehaviour
                         vertices[i + 2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
                         vertices[i + 3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
                     }
-                    //normals[i] = Vector3.right;
                     normals[i] = (i >= 4) ? Vector3.left : Vector3.right;
-                    //Debug.Log(i + " " + normals[i]);
                 }
                 break;
 
@@ -364,9 +368,7 @@ public class Maze : MonoBehaviour
                         vertices[i + 2] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f) + Vector3.up * cellHeight;
                         vertices[i + 3] = correction + cellCoordsToGlobalCoords(wall.x + 0.5f, wall.y + 0.5f);
                     }
-                    //normals[i] = Vector3.back;
                     normals[i] = (i >= 4) ? Vector3.back : Vector3.forward;
-                    //Debug.Log(i + " " + normals[i]);
                 }
                 break;
         }
@@ -386,6 +388,7 @@ public class Maze : MonoBehaviour
         return mesh;
     }
 
+    //Returns a list of which walls are around a given cell
     List<int> getNeighboringWallsLocal(Vector2Int cellCoords)
     {
         List<int> neighboringWalls = new List<int>();
@@ -396,7 +399,6 @@ public class Maze : MonoBehaviour
             if (walls[cellCoords.x, cellCoords.y, 0]) neighboringWalls.Add(1);
             if (walls[cellCoords.x, cellCoords.y, 1]) neighboringWalls.Add(2);
             if (walls[cellCoords.x - 1, cellCoords.y, 0]) neighboringWalls.Add(3);
-            Debug.Log("Neighboring walls:" + neighboringWalls);
         }
         else if (cellCoords.x == 0 && cellCoords.y > 0)
         {
@@ -415,6 +417,7 @@ public class Maze : MonoBehaviour
         return neighboringWalls;
     }
 
+    //Returns a list of the coords of which walls are around a given cell
     List<Vector3Int> getNeighboringWalls(Vector2Int cellCoords)
     {
         List<Vector3Int> neighboringWalls = new List<Vector3Int>();
@@ -438,6 +441,7 @@ public class Maze : MonoBehaviour
         return neighboringWalls;
     }
 
+    //Returns a list of all cells on either sides of a given wall
     List<Vector2Int> getNeighboringCells(Vector3Int wallCoords)
     {
         List<Vector2Int> neighboringCells = new List<Vector2Int>();
@@ -471,6 +475,8 @@ public class Maze : MonoBehaviour
         return neighboringCells;
     }
 
+    //Teleports the given GridObject to the given coordinates
+    //WARNING: DOES NOT CHECK IF COORDS ARE INSIDE THE MAZE
     public void teleportObject(GridObject objectToMove, int x, int y)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
@@ -478,6 +484,7 @@ public class Maze : MonoBehaviour
         gridObjectDict.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
     }
 
+    //Attempts to remove a given GridObject from the dictionary, does nothing if it's not there to begin with
     public void removeObject(GridObject objectToRemove)
     {
         if (gridObjectDict.ContainsKey(objectToRemove.gridCoords))
@@ -485,6 +492,7 @@ public class Maze : MonoBehaviour
         Destroy(objectToRemove.gameObject);
     }
 
+    //Returns whether or not there is a GridObject at the given coords
     public bool isObjectAtCoords(int x, int y)
     {
         for (int i = 0; i < 4; i++)
@@ -494,6 +502,7 @@ public class Maze : MonoBehaviour
         return false;
     }
 
+    //Returns whether or not the player is at the given coords
     public bool isPlayerAtCoords(int x, int y)
     {
         for (int i = 0; i < 4; i++)
@@ -506,6 +515,7 @@ public class Maze : MonoBehaviour
         return false;
     }
 
+    //Returns whether or not the maze exit is at the given coords
     public bool isExitAtCoords(int x, int y)
     {
         for (int i = 0; i < 4; i++)
@@ -518,9 +528,9 @@ public class Maze : MonoBehaviour
         return false;
     }
 
+    //Moves the given GridObject forward the given spaces, as long as there are not walls in the way
     public void moveObject(GridObject objectToMove, int distance)
     {
-        //Debug.Log("movement registered");
         int tilesMoved = 0;
         while (tilesMoved < distance)
         {
@@ -601,6 +611,7 @@ public class Maze : MonoBehaviour
         }
     }
 
+    //Sets the given GridObject's rotation to the given direction
     public void setObjectRotation(GridObject objectToRotate, int direction)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
@@ -608,6 +619,7 @@ public class Maze : MonoBehaviour
         gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
     }
 
+    //Updates the in-scene positions of all GridObjects in the dictionary based on the dictionary
     public void updateGridObjectPositions()
     {
         foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)
@@ -634,16 +646,20 @@ public class Maze : MonoBehaviour
         }
     }
 
+    //Converts given float x and y coords to a Vector3 with height cellWidth / 2
     public Vector3 cellCoordsToGlobalCoords(float x, float y)
     {
         return new Vector3((-x * cellWidth), cellWidth / 2.0f, (y * cellWidth));
     }
 
+    //Returns the raw wall data at a given coords and side
+    //WARNING: DO NOT ATTEMPT TO ASK FOR A SIDE LARGER THAN 1
     public bool getWallFromCoords(int x, int y, int side)
     {
         return walls[x, y, side];
     }
 
+    //Sets a given wall to the given bool value
     public void setWallFromDirection(int x, int y, int side, bool newValue)
     {
         switch (side)
@@ -675,6 +691,7 @@ public class Maze : MonoBehaviour
         }
     }
 
+    //Returns the value of a given wall
     public bool getWallFromDirection(int x, int y, int side)
     {
         switch (side)
@@ -720,11 +737,13 @@ public class Maze : MonoBehaviour
         }
     }
 
+    //Returns whether or not the given cell is in the maze
     bool doesCellExist(Vector2Int cell)
     {
         return !((cell.x < 0) || (cell.x >= width) || (cell.y < 0) || (cell.y >= height));
     }
 
+    //Returns whether or not a given wall exists in the maze
     bool doesWallExist(Vector3Int wall)
     {
         if (!doesCellExist(new Vector2Int(wall.x, wall.y)) || wall.z > 1) return false;

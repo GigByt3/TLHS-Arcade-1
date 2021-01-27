@@ -38,6 +38,7 @@ public class Player : GridObject
         }
     }
 
+    //Method for checking keypresses when not in combat
     void checkKeysMove()
     {
         playerMoveCooldownCount++;
@@ -68,12 +69,11 @@ public class Player : GridObject
         if (Input.GetKeyDown("n")) GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().NextScene();
     }
 
+    //Enters combat with the given enemy
     public void enterCombat(Enemy enemy)
     {
         int enemyXPosDif = enemy.gridCoords.x - gridCoords.x;
         int enemyYPosDif = enemy.gridCoords.y - gridCoords.y;
-
-        Debug.Log(enemyYPosDif + " - Y -- X - " + enemyXPosDif);
 
         if (enemyXPosDif == 0 && enemyYPosDif == -1)
         {
@@ -96,12 +96,14 @@ public class Player : GridObject
         inCombat = true;
     }
 
+    //Exits combat
     public void exitCombat()
     {
         // gain xp maybe?
         inCombat = false;
-}
+    }
 
+    //Returns whether or not the player is in the given cell
     public bool isInCell(List<Vector2Int> cells)
     {
         return cells.Contains(new Vector2Int(gridCoords.x, gridCoords.y));
@@ -111,6 +113,7 @@ public class Player : GridObject
 
     public static event sendKey _sendKey;
 
+    //Method for checking keypresses while in combat
     private void checkKeysCombat()
     {
         //Joystick positions
