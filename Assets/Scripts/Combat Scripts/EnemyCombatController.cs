@@ -7,6 +7,7 @@ public abstract class EnemyCombatController : ParentCombatController
     // Percentage out of 100
     protected int difficulty = 30;
     private static int idCounter = 1;
+    public Animator anim;
 
     public delegate void death();
     public static event death _death;
@@ -23,6 +24,11 @@ public abstract class EnemyCombatController : ParentCombatController
     {
         PlayerCombatController._attack -= wasHit;
         PlayerCombatController._projection -= react;
+    }
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
     }
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)

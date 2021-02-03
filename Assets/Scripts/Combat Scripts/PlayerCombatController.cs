@@ -141,6 +141,7 @@ public class PlayerCombatController : ParentCombatController
                 // d
                 break;
         }
+        Debug.Log("Invoke Projection");
         _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide);
     }
 

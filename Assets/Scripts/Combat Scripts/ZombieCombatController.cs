@@ -4,9 +4,26 @@ using UnityEngine;
 
 public class ZombieCombatController : EnemyCombatController
 {
-
-    public void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide)
+    void OnEnable()
     {
+        PlayerCombatController._attack += wasHit;
+        PlayerCombatController._projection += react;
+    }
+
+    void OnDisable()
+    {
+        PlayerCombatController._attack -= wasHit;
+        PlayerCombatController._projection -= react;
+    }
+
+    public new void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide)
+    {
+        Debug.Log("React!");
+        GetComponent<Animator>().SetInteger("CurrentAction", (int)Random.Range(0.0f, 8.0f));
+
+        //end here  
+        return;
+
         if (Random.Range(0.0f, 100.0f) > difficulty) return;
 
         if (blocking != actionHeight.NONE && dodging != dodgeDir.NONE && canStrike)
