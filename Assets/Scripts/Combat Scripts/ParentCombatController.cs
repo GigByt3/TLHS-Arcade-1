@@ -138,7 +138,7 @@ public abstract class ParentCombatController : MonoBehaviour
                 break;
             case "light_strike":
                 canStrike = true;
-                break;
+                break;  
             case "normal_strike":
                 canStrike = true;
                 break;

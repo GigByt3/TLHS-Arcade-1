@@ -26,7 +26,6 @@ public class PlayerCombatController : ParentCombatController
         Player._setEnemy -= HandleSetEnemy;
     }
 
-
     protected void HandleSetEnemy(int _id)
     {
         enemyId = _id;
