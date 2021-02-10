@@ -139,7 +139,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.93725497, g: 0.5254902, b: 0.25882354, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -251,6 +251,7 @@ MonoBehaviour:
   id: 0
   enemyId: -1
   damage: 20
+  canvas: {fileID: 12574406438020815}
 --- !u!1 &4499617594627649153
 GameObject:
   m_ObjectHideFlags: 0

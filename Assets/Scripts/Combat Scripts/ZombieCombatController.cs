@@ -16,28 +16,9 @@ public class ZombieCombatController : EnemyCombatController
         PlayerCombatController._projection -= react;
     }
 
-    public new void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide)
+    private void Update()
     {
-        Debug.Log("React!");
-        GetComponent<Animator>().SetInteger("CurrentAction", (int)Random.Range(0.0f, 8.0f));
 
-        //end here  
-        return;
-
-        if (Random.Range(0.0f, 100.0f) > difficulty) return;
-
-        if (blocking != actionHeight.NONE && dodging != dodgeDir.NONE && canStrike)
-        {
-            if (Random.Range(0.0f, 100.0f) > 50.0f)
-            {
-                strike();
-            }
-        }
-
-        if (striking)
-        {
-            blockOrDoge();
-        }
     }
 
     public void blockOrDoge()
@@ -89,7 +70,6 @@ public class ZombieCombatController : EnemyCombatController
         actionHeight attackHeight;
         strikeSide attackSide;
 
-
         float random = Random.Range(0.0f, 100.0f);
         //action height
         if (random < 50.0f)
@@ -111,11 +91,12 @@ public class ZombieCombatController : EnemyCombatController
             attackSide = strikeSide.RIGHT;
         }
 
-        wasHit(attackHeight, attackSide, this, id);
-
+        wasHit(attackHeight, attackSide, strikePower.NORMAL, this, id);
 
     }
 
-
-
+    /*
+     * Defense Progression
+     * If player is attacking 
+     */
 }

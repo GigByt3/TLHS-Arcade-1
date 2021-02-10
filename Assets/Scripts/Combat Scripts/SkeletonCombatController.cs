@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class SkeletonCombatController : EnemyCombatController
 {
-    
+    protected override void AnimReset()
+    {
+        throw new System.NotImplementedException();
+    }
 }

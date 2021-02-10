@@ -4,6 +4,10 @@ using UnityEngine;
 
 public abstract class ParentCombatController : MonoBehaviour
 {
+    private int dodgeCooldown = 2;
+    private int blockCooldown = 1;
+    private int strikeCooldown = 1;
+
     public int id;
     public int enemyId = -1;
 
@@ -22,6 +26,10 @@ public abstract class ParentCombatController : MonoBehaviour
     protected dodgeDir isDodging;
     protected bool isStriking;
 
+    protected actionHeight strikeHeightSTORE;
+    protected strikeSide strikeSideSTORE;
+    protected strikePower strikePowerSTORE;
+
     public enum actionHeight : short
     {
         HIGH,
@@ -36,6 +44,14 @@ public abstract class ParentCombatController : MonoBehaviour
         NONE = 4
     }
 
+    public enum strikePower : short
+    {
+        LIGHT,
+        NORMAL,
+        HEAVY,
+        NONE = 4
+    }
+
     public enum dodgeDir : short
     {
         LEFT = 0,
@@ -45,25 +61,98 @@ public abstract class ParentCombatController : MonoBehaviour
         NONE = 4
     }
 
-    public abstract void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id);
+    public abstract void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower, ParentCombatController hitter, int hittee);
 
-    public delegate void attack(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id);
+    public delegate void attack(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower, ParentCombatController hitter, int hittee);
 
     public static event attack _attack;
 
-    public void strike(actionHeight _strikeHeight, strikeSide _strikeSide)
+    public void strike(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower)
     {
         if (!canAct()) return;
         blockCombo = 0;
-        _attack(_strikeHeight, _strikeSide, this, enemyId);
+        strikeHeightSTORE = _strikeHeight;
+        strikeSideSTORE = _strikeSide;
+        strikePowerSTORE = _strikePower;
     }
 
+    //Checks if Player is in the Middle of an Action
     protected bool canAct()
     {
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
-            return true;
+            isStriking = true;
+            return false;
         }
-        else return false;
+        else return true;
     }
+
+    //Called by Animator Event on Height of Punch just calls the attack event. ()
+    public void StrikeConnect()
+    {
+        _attack(strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, this, enemyId);
+    }
+
+    //Called by AnimatorEvent when Animation is done
+    public void Complete(string type)
+    {
+        StartCoroutine(ActionComplete(type));
+    }
+
+    //Called by AnimatorEvent when Animation is done
+    public IEnumerator ActionComplete(string type)
+    {
+        switch(type)
+        {
+            case "dodge":
+                yield return new WaitForSeconds(dodgeCooldown);
+                break;
+            case "block":
+                yield return new WaitForSeconds(blockCooldown);
+                break;
+            case "light_strike":
+                isStriking = false;
+                yield return new WaitForSeconds(strikeCooldown * 0.33f);
+                break;
+            case "normal_strike":
+                isStriking = false;
+                yield return new WaitForSeconds(strikeCooldown);
+                break;
+            case "heavy_strike":
+                isStriking = false;
+                yield return new WaitForSeconds(strikeCooldown * 3);
+                break;
+            default:
+                isStriking = false;
+                yield return new WaitForSeconds(2);
+                break;
+        }
+
+        switch (type)
+        {
+            case "dodge":
+                canDodge = true;
+                break;
+            case "block":
+                canBlock = true;
+                break;
+            case "light_strike":
+                canStrike = true;
+                break;
+            case "normal_strike":
+                canStrike = true;
+                break;
+            case "heavy_strike":
+                canStrike = true;
+                break;
+            default:
+                canDodge = true;
+                canBlock = true;
+                canStrike = true;
+                break;
+        }
+
+    }
+
+    protected abstract void AnimReset();
 }

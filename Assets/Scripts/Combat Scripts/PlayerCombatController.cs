@@ -6,7 +6,11 @@ public class PlayerCombatController : ParentCombatController
 {
     new int damage = 2;
     new int id = 0;
-    
+
+    public GameObject canvas;
+
+    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower);
+    public static event projection _projection;
 
     void OnEnable()
     {
@@ -22,62 +26,58 @@ public class PlayerCombatController : ParentCombatController
         Player._setEnemy -= HandleSetEnemy;
     }
 
-    private void Start()
-    {
-        strike(actionHeight.HIGH, strikeSide.RIGHT);
-    }
 
     protected void HandleSetEnemy(int _id)
     {
         enemyId = _id;
     }
 
-    public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, ParentCombatController hitBy, int _id)
+    public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower strikePower, ParentCombatController hitter, int hittee_id)
     {
         if(isDodging != dodgeDir.NONE)
         {
+            //dodging....
+
             if ((short)isDodging == (short)_strikeSide)
             {
-                health -= (int) (hitBy.damage * 1.2);
+                health -= (int) (hitter.damage * 1.2);
                 //oof. you walked into that one.
             } else
             {
+                //you dodged
                 return;
             }
-        } else if(isBlocking != actionHeight.NONE)
+        }
+        else if(isBlocking != actionHeight.NONE)
         {
-            if ((short)isBlocking == (short)_strikeSide)
+            if ((short)isBlocking == (short)_strikeHeight)
             {
-                health -= (int)(hitBy.damage * 0.2 * blockCombo);
+                health -= (int)(hitter.damage * 0.2 * blockCombo);
                 //block succeeds!
             } else
             {
-                health -= hitBy.damage;
+                health -= hitter.damage;
+                //block fails
             }
         } else
         {
-            health -= hitBy.damage;
+            health -= hitter.damage;
         }
     }
-
-    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide);
-
-    public static event projection _projection;
 
     protected void combatAction(string code)
     {
         actionHeight attackHeight = actionHeight.NONE;
         strikeSide attackSide = strikeSide.NONE;
+        strikePower attackPower = strikePower.NONE;
 
         Debug.Log("Player taking combat action " + code);
 
         switch (code)
         {
             case "up":
-                isDodging = dodgeDir.BACK;
-                // Preform Animation
 
-                // up
+                // Heavy Attack
                 break;
             case "right":
                 isDodging = dodgeDir.RIGHT;
@@ -92,61 +92,68 @@ public class PlayerCombatController : ParentCombatController
                 // left
                 break;
             case "down":
-                isDodging = dodgeDir.DOWN;
-                // Preform Animation
 
-                // down
+                // Drink Potion
                 break;
 
             case "q":
-                isStriking = true;
-                // Preform Animation
-                strike(actionHeight.HIGH, strikeSide.LEFT);
+                attackHeight = actionHeight.HIGH;
+                attackSide = strikeSide.LEFT;
+                attackPower = strikePower.NORMAL;
+                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                strike(actionHeight.HIGH, strikeSide.LEFT, strikePower.NORMAL);
 
-                // q
+                // q    
                 break;
             case "w":
                 isBlocking = actionHeight.HIGH;
+                blockCombo++;
                 // Preform Animation
 
                 // w
                 break;
             case "e":
-                isStriking = true;
-                // Preform Animation
-                strike(actionHeight.LOW, strikeSide.LEFT);
+                attackHeight = actionHeight.LOW;
+                attackSide = strikeSide.LEFT;
+                attackPower = strikePower.NORMAL;
+                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                strike(actionHeight.LOW, strikeSide.LEFT, strikePower.NORMAL);
 
                 // e
                 break;
 
             case "a":
-                isStriking = true;
-                // Preform Animation
-                strike(actionHeight.HIGH, strikeSide.RIGHT);
+                attackHeight = actionHeight.HIGH;
+                attackSide = strikeSide.RIGHT;
+                attackPower = strikePower.NORMAL;
+                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                strike(actionHeight.HIGH, strikeSide.RIGHT, strikePower.NORMAL);
 
                 // a
                 break;
             case "s":
                 isBlocking = actionHeight.LOW;
+                blockCombo++;
                 // Preform Animation
 
 
                 // s
                 break;
             case "d":
-                isStriking = true;
-                // Preform Animation
-                strike(actionHeight.LOW, strikeSide.RIGHT);
-
+                attackHeight = actionHeight.LOW;
+                attackSide = strikeSide.RIGHT;
+                attackPower = strikePower.NORMAL;
+                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                strike(actionHeight.LOW, strikeSide.RIGHT, strikePower.NORMAL);
+                    
                 // d
                 break;
         }
-        Debug.Log("Invoke Projection");
-        _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide);
+        _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide, attackPower);
     }
 
-    public void strikeConnect()
+    protected override void AnimReset()
     {
-
+        GetComponent<Animator>().SetBool("isAttacking", false);
     }
 }
