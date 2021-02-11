@@ -26,8 +26,6 @@ public abstract class EnemyCombatController : ParentCombatController
 
     void OnEnable()
     {
-        id = idCounter;
-        idCounter++;
         PlayerCombatController._attack += wasHit;
         PlayerCombatController._projection += react;
     }
@@ -40,7 +38,10 @@ public abstract class EnemyCombatController : ParentCombatController
 
     private void Start()
     {
+        id = idCounter;
+        idCounter++;
         anim = GetComponent<Animator>();
+        Debug.Log(id);
     }
 
     //Enemy reaction

@@ -16,11 +16,6 @@ public class ZombieCombatController : EnemyCombatController
         PlayerCombatController._projection -= react;
     }
 
-    private void Update()
-    {
-
-    }
-
     public void blockOrDoge()
     {
 
