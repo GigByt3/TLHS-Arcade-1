@@ -153,6 +153,6 @@ public class PlayerCombatController : ParentCombatController
 
     protected override void AnimReset()
     {
-        GetComponent<Animator>().SetBool("isAttacking", false);
+        GetComponentsInChildren<Animator>()[0].SetBool("isAttacking", false);
     }
 }

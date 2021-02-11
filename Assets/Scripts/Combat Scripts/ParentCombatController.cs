@@ -97,7 +97,9 @@ public abstract class ParentCombatController : MonoBehaviour
     public void Complete(string type)
     {
         StartCoroutine(ActionComplete(type));
+        AnimReset();
     }
+
 
     //Called by AnimatorEvent when Animation is done
     public IEnumerator ActionComplete(string type)
