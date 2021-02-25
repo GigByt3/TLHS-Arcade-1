@@ -4,131 +4,101 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    private Potion[] potions = new Potion[4]; // 4 represents the potion inventory size;
 
-    private ItemManager itemManager = new ItemManager(); // Manages all the items(Not in the inventory), check class for functions
+    private Item rightHand;
+    private Item leftHand;
 
-    private int[] potions = new int[4]; // 4 represents the potion inventory size;
-
-    private int rightHand;
-    private int leftHand;
-
-
-    public void start()
+    public void StarterKit()
     {
-        itemManager.init();
-
-        for (int i = 0; i < potions.Length; i++)
-        {
-            potions[i] = -1;
-        }
-
+        rightHand = new IronSword();
+        leftHand = new WoodenShield();
+        potions[0] = new HealthPotion();
     }
 
-    public void starterKit()
-    {
-        rightHand = 1;
-        leftHand = 21;
-        potions[0] = 41;
-    }
-
-    public void addItem(int id)
-    {
-        Item itemToAdd = itemManager.getItemFromID(id);
-
-        addItem(itemToAdd);
-    }
-
-    public void addItem(Item itemToAdd)
+    public void AddItem(Item itemToAdd)
     {
         if (itemToAdd != null)
         {
             if (itemToAdd.type == ItemType.POTION)
             {
-                int replaceTo = comparePotions(itemToAdd.value);
-                if (replaceTo == -1)
-                {
-                    return;
-                }
-                potions[replaceTo] = itemToAdd.id;
+                ComparePotions((Potion) itemToAdd);
             }
             else if (itemToAdd.type == ItemType.COMBAT)
             {
-                bool replace = compareItems(itemToAdd.id, rightHand);
-                if (replace)
-                {
-                    rightHand = itemToAdd.id;
-                }
+                rightHand = CompareItems(itemToAdd, rightHand);
             }
             else if (itemToAdd.type == ItemType.SHIELD)
             {
-                bool replace = compareItems(itemToAdd.id, leftHand);
-                if (replace)
+                leftHand = CompareItems(itemToAdd, rightHand);
+            }
+        }
+    }
+
+    public Item CompareItems(Item item1, Item item2) // Returns if the first item is better 
+    {
+        return (item1.value > item2.value) ? item1 : item2;
+    }
+
+    public void ComparePotions(Potion newPotion)
+    {
+        for (int i = 0; i < potions.Length; i++)
+        {
+            if (potions[i].value <= newPotion.value)
+            {
+                potions[i] = newPotion;
+                break;
+            }
+        }
+
+        SortPotions();
+    }
+
+    public void SortPotions()
+    {
+        bool isSorted = false;
+        while (!isSorted)
+        {
+            int prevPotValue = 0;
+            isSorted = true;
+            foreach (Potion potion in potions)
+            {
+                if (prevPotValue > potion.value)
                 {
-                    leftHand = itemToAdd.id;
+                    isSorted = false;
+                    break;
+                }
+            }
+            if (isSorted) break;
+
+            for (int i = 0; i < (potions.Length - 1); i++)
+            {
+                if (potions[i].value < potions[i + 1].value)
+                {
+                    Potion firstPotion = potions[i];
+                    potions[i] = potions[i + 1];
+                    potions[i + 1] = firstPotion;
                 }
             }
         }
     }
 
-    public bool compareItems(int item1ID, int item2ID) // Returns if the first item is better 
+    public float GetDamage()
     {
-        if (itemManager.getItemFromID(item1ID).value > itemManager.getItemFromID(item2ID).value)
+        if (rightHand.type == ItemType.COMBAT)
         {
-            return true;
+            return ((Weapon) rightHand).damage;
         }
-        return false;
+        else return 0.0f;
     }
 
-
-    public int comparePotions(int itemValue)
+    public float GetDefense()
     {
-
-        List<Item> items = new List<Item>();
-
-
-        int index = 0;
-        foreach (Item item in items)
+        if (leftHand.type == ItemType.SHIELD)
         {
-            if (item.value < itemValue)
-            {
-                return index;
-            }
-            index++;
+            return ((Shield) leftHand).defense;
         }
-
-        return -1; // Potion has a value less or the same as the current potions
-    }
-
-
-    public List<Item> getPotions()
-    {
-        List<Item> items = new List<Item>();
-
-        for (int i = 0; i < potions.Length; i++)
-        {
-            items.Add(itemManager.getItemFromID(potions[i]));
-        }
-        return items;
-    }
-
-    public Item getRightHandItem()
-    {
-        return itemManager.getItemFromID(rightHand);
-    }
-
-    public Item getLeftHandItem()
-    {
-        return itemManager.getItemFromID(leftHand);
-    }
-
-    public float getDamage()
-    {
-        return ((Weapon)itemManager.getItemFromID(rightHand)).damage;
-    }
-
-    public float getDefense()
-    {
-        return ((Shield)itemManager.getItemFromID(leftHand)).defense;
+        else return 0.0f;
     }
 
 

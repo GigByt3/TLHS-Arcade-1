@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class HealthPotion : Potion
 {
-
-    //example
-    
-    public override void init()
+    public HealthPotion() : base()
     {
         name = "Health Potion";
-        id = 41;
         value = 10;
     }
 

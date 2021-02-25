@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class IronSword : Weapon
 {
-    //example
-
-    public override void init()
+    public IronSword() : base()
     {
         name = "Iron Sword";
-        id = 1;
         value = 2;
 
         damage = 2.0f;
         cooldown = 1.0f;
-
     }
 }

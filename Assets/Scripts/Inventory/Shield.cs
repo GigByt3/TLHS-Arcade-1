@@ -4,12 +4,10 @@ using UnityEngine;
 
 public abstract class Shield : Item
 {
-
     public float defense;
 
-    public override void superinit()
+    public Shield()
     {
         type = ItemType.SHIELD;
     }
-
 }

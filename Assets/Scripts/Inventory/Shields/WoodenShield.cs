@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class WoodenShield : Shield
 {
-    //example
-
-    public override void init()
+    public WoodenShield() : base()
     {
         name = "Wooden Shield";
-        id = 21;
         value = 2;
 
         defense = 10.0f;
