@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    private Potion[] potions = new Potion[4]; // 4 represents the potion inventory size;
+    private Potion[] potions = new Potion[4]; // 4 represents the potion inventory size
 
     private Item rightHand;
     private Item leftHand;
 
+    //Starter item kit for the player, gives an iron sword, wooden shield, and one health potion.
     public void StarterKit()
     {
         rightHand = new IronSword();
@@ -16,6 +18,7 @@ public class PlayerInventory : MonoBehaviour
         potions[0] = new HealthPotion();
     }
 
+    //Attempts to add an item if it is better than the item the player currently has
     public void AddItem(Item itemToAdd)
     {
         if (itemToAdd != null)
@@ -35,16 +38,18 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public Item CompareItems(Item item1, Item item2) // Returns if the first item is better 
+    //Returns the higher value item of the 2
+    public Item CompareItems(Item item1, Item item2) 
     {
         return (item1.value > item2.value) ? item1 : item2;
     }
 
+    //Checks to see if the given potion is better than any currently carried potions, and if so replaces it, then sorts the potions
     public void ComparePotions(Potion newPotion)
     {
         for (int i = 0; i < potions.Length; i++)
         {
-            if (potions[i].value <= newPotion.value)
+            if (potions[i] == null || potions[i].value <= newPotion.value)
             {
                 potions[i] = newPotion;
                 break;
@@ -54,35 +59,15 @@ public class PlayerInventory : MonoBehaviour
         SortPotions();
     }
 
+    //Uses the PotionComparer to sort the potions, pushing nulls to the back
     public void SortPotions()
     {
-        bool isSorted = false;
-        while (!isSorted)
-        {
-            int prevPotValue = 0;
-            isSorted = true;
-            foreach (Potion potion in potions)
-            {
-                if (prevPotValue > potion.value)
-                {
-                    isSorted = false;
-                    break;
-                }
-            }
-            if (isSorted) break;
-
-            for (int i = 0; i < (potions.Length - 1); i++)
-            {
-                if (potions[i].value < potions[i + 1].value)
-                {
-                    Potion firstPotion = potions[i];
-                    potions[i] = potions[i + 1];
-                    potions[i + 1] = firstPotion;
-                }
-            }
-        }
+        //Cool comparer sorting w/ help from Owen
+        IComparer potComparer = new PotionComparer();
+        Array.Sort(potions, 0, potions.Length, potComparer);
     }
 
+    //Returns player attack damage based on the weapon in the right hand
     public float GetDamage()
     {
         if (rightHand.type == ItemType.COMBAT)
@@ -92,6 +77,7 @@ public class PlayerInventory : MonoBehaviour
         else return 0.0f;
     }
 
+    //Returns player defense based on the shield in the left hand
     public float GetDefense()
     {
         if (leftHand.type == ItemType.SHIELD)

@@ -10,6 +10,4 @@ public abstract class Potion : Item
     }
 
     public abstract void onConsume();
-
-
 }
