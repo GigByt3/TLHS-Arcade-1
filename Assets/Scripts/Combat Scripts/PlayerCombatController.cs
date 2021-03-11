@@ -152,14 +152,13 @@ public class PlayerCombatController : ParentCombatController
         _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide, attackPower, enemyId);
     }
 
-    protected override void AnimStart()
+    protected override void AnimStart(int number)
     {
-        canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+        canvas.GetComponent<Animator>().SetInteger("isAttacking", number);
     }
 
     protected override void AnimReset()
     {
-        GetComponentsInChildren<Animator>()[0].SetBool("isAttacking", false);
-        Debug.Log("Animation Re-set player " + GetComponentsInChildren<Animator>()[0].GetBool("isAttacking"));
+        GetComponentsInChildren<Animator>()[0].SetInteger("isAttacking", 0);
     }
 }

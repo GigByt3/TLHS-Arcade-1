@@ -70,11 +70,26 @@ public abstract class ParentCombatController : MonoBehaviour
     public void strike(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower)
     {
         if (!canAct()) return;
-        AnimStart();
         blockCombo = 0;
         strikeHeightSTORE = _strikeHeight;
         strikeSideSTORE = _strikeSide;
         strikePowerSTORE = _strikePower;
+        if (_strikeHeight == actionHeight.HIGH && _strikeSide == strikeSide.LEFT)
+        {
+            AnimStart(4);
+        }
+        else if (_strikeHeight == actionHeight.HIGH && _strikeSide == strikeSide.RIGHT)
+        {
+            AnimStart(1);
+        }
+        else if (_strikeHeight == actionHeight.LOW && _strikeSide == strikeSide.LEFT)
+        {
+            AnimStart(2);
+        }
+        else if (_strikeHeight == actionHeight.LOW && _strikeSide == strikeSide.RIGHT)
+        {
+            AnimStart(3);
+        }
     }
 
     //Checks if Player is in the Middle of an Action
@@ -158,7 +173,7 @@ public abstract class ParentCombatController : MonoBehaviour
 
     }
 
-    protected abstract void AnimStart();
+    protected abstract void AnimStart(int number);
 
     protected abstract void AnimReset();
 }

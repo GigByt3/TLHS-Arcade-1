@@ -152,9 +152,9 @@ public abstract class EnemyCombatController : ParentCombatController
         }
     }
 
-    protected override void AnimStart()
+    protected override void AnimStart(int number)
     {
-        //Do Nothing ig
+        GetComponent<Animator>().SetInteger("CurrentAction", number);
     }
 
     protected override void AnimReset()
