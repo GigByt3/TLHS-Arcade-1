@@ -158,11 +158,11 @@ public class PlayerCombatController : ParentCombatController
 
     protected override void AnimStart(int number)
     {
-        canvas.GetComponent<Animator>().SetInteger("isAttacking", number);
+        canvas.GetComponent<Animator>().SetInteger("CurrentAction", number);
     }
 
     protected override void AnimReset()
     {
-        GetComponentsInChildren<Animator>()[0].SetInteger("isAttacking", 0);
+        GetComponent<Animator>().SetInteger("CurrentAction", -1);
     }
 }

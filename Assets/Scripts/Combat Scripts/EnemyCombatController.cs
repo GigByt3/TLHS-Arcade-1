@@ -152,14 +152,15 @@ public abstract class EnemyCombatController : ParentCombatController
         }
     }
 
+    
     protected override void AnimStart(int number)
     {
-        GetComponent<Animator>().SetInteger("CurrentAction", number);
+        GetComponent<Animator>().SetInteger("AttackIndex", number);
     }
 
     protected override void AnimReset()
     {
-        GetComponent<Animator>().SetInteger("CurrentAction", -1);
+        GetComponentsInChildren<Animator>()[0].SetInteger("AttackIndex", 0);
     }
 
 }

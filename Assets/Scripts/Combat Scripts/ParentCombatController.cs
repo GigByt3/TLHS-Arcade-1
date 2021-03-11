@@ -77,19 +77,19 @@ public abstract class ParentCombatController : MonoBehaviour
         strikePowerSTORE = _strikePower;
         if (_strikeHeight == actionHeight.HIGH && _strikeSide == strikeSide.LEFT)
         {
-            AnimStart(4);
+            AnimStart(1);
         }
         else if (_strikeHeight == actionHeight.HIGH && _strikeSide == strikeSide.RIGHT)
         {
-            AnimStart(1);
+            AnimStart(2);
         }
         else if (_strikeHeight == actionHeight.LOW && _strikeSide == strikeSide.LEFT)
         {
-            AnimStart(2);
+            AnimStart(3);
         }
         else if (_strikeHeight == actionHeight.LOW && _strikeSide == strikeSide.RIGHT)
         {
-            AnimStart(3);
+            AnimStart(4);
         }
     }
 
