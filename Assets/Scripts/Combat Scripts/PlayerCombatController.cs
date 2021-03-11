@@ -103,7 +103,6 @@ public class PlayerCombatController : ParentCombatController
                 attackHeight = actionHeight.HIGH;
                 attackSide = strikeSide.LEFT;
                 attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
                 strike(actionHeight.HIGH, strikeSide.LEFT, strikePower.NORMAL);
 
                 // q    
@@ -119,7 +118,6 @@ public class PlayerCombatController : ParentCombatController
                 attackHeight = actionHeight.LOW;
                 attackSide = strikeSide.LEFT;
                 attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
                 strike(actionHeight.LOW, strikeSide.LEFT, strikePower.NORMAL);
 
                 // e
@@ -129,7 +127,6 @@ public class PlayerCombatController : ParentCombatController
                 attackHeight = actionHeight.HIGH;
                 attackSide = strikeSide.RIGHT;
                 attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
                 strike(actionHeight.HIGH, strikeSide.RIGHT, strikePower.NORMAL);
 
                 // a
@@ -143,11 +140,9 @@ public class PlayerCombatController : ParentCombatController
                 // s
                 break;
             case "d":
-                Debug.Log("Attack Called");
                 attackHeight = actionHeight.LOW;
                 attackSide = strikeSide.RIGHT;
                 attackPower = strikePower.NORMAL;
-                
                 strike(actionHeight.LOW, strikeSide.RIGHT, strikePower.NORMAL);
                     
                 // d
@@ -158,11 +153,11 @@ public class PlayerCombatController : ParentCombatController
 
     protected override void AnimStart(int number)
     {
-        canvas.GetComponent<Animator>().SetInteger("CurrentAction", number);
+        canvas.GetComponent<Animator>().SetInteger("AttackIndex", number); 
     }
 
     protected override void AnimReset()
     {
-        GetComponent<Animator>().SetInteger("CurrentAction", -1);
+        GetComponentsInChildren<Animator>()[0].SetInteger("AttackIndex", 0); 
     }
 }

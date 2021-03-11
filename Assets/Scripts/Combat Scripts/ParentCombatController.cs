@@ -70,13 +70,17 @@ public abstract class ParentCombatController : MonoBehaviour
 
     public void strike(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower)
     {
+        Debug.Log("Strike?");
+
         if (!canAct()) return;
+        isStriking = true;
         blockCombo = 0;
         strikeHeightSTORE = _strikeHeight;
         strikeSideSTORE = _strikeSide;
         strikePowerSTORE = _strikePower;
         if (_strikeHeight == actionHeight.HIGH && _strikeSide == strikeSide.LEFT)
         {
+            Debug.Log("strike 1");
             AnimStart(1);
         }
         else if (_strikeHeight == actionHeight.HIGH && _strikeSide == strikeSide.RIGHT)
@@ -98,7 +102,6 @@ public abstract class ParentCombatController : MonoBehaviour
     {
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
-            isStriking = true;
             return false;
         }
         else return true;
