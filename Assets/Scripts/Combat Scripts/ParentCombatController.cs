@@ -14,6 +14,7 @@ public abstract class ParentCombatController : MonoBehaviour
     protected int health = 100;
     protected int stamina = 10;
     public int damage = 20;
+    public float defense = 0.2f;
 
     protected int blockCombo = 0;
     protected int strikeCombo = 0;

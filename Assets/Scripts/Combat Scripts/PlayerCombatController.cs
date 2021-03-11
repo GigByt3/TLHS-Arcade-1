@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerCombatController : ParentCombatController
 {
-    new int damage = 2;
+    new int damage;
+    new float defense;
     private new int id = 0;
 
     public GameObject canvas;
@@ -14,6 +15,9 @@ public class PlayerCombatController : ParentCombatController
 
     void OnEnable()
     {
+        damage = (int) GetComponent<Player>().inventory.GetDamage();
+        defense = GetComponent<Player>().inventory.GetDefense();
+        
         EnemyCombatController._attack += wasHit;
         Player._sendKey += combatAction;
         Player._setEnemy += HandleSetEnemy;
@@ -51,7 +55,7 @@ public class PlayerCombatController : ParentCombatController
         {
             if ((short)isBlocking == (short)_strikeHeight)
             {
-                health -= (int)(hitter.damage * 0.2 * blockCombo);
+                health -= (int)(hitter.damage * defense * blockCombo);
                 //block succeeds!
             } else
             {

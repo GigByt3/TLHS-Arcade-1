@@ -11,6 +11,8 @@ public class Player : GridObject
     public delegate void setEnemy(int id);
     public static event setEnemy _setEnemy;
 
+    public PlayerInventory inventory;
+
     private bool inCombat;
 
     private const float PLAYER_MOVE_COOLDOWN = 0.5f;
@@ -19,6 +21,9 @@ public class Player : GridObject
     void OnEnable()
     {
         EnemyCombatController._death += exitCombat;
+
+        inventory = new PlayerInventory();
+        inventory.StarterKit();
     }
 
     void OnDisable()
