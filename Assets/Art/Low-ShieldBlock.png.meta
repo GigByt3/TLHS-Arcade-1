@@ -1,37 +1,49 @@
 fileFormatVersion: 2
-guid: 83d6974bb2531424380c267b7c8efb65
+guid: 1bf18851aaedf36498a2573c4b2f263d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4283366744060976454
-    second: rustySwordleftlow_0
+      213: 7186665252319110937
+    second: Low-ShieldBlock
   - first:
-      213: 7085214055388187787
-    second: rustySwordleftlow_1
+      213: -326749113198902379
+    second: Low-ShieldBlock(BasicShield) (1)_1
   - first:
-      213: -1804804580318338159
-    second: rustySwordleftlow_2
+      213: -8052877945677909600
+    second: Low-ShieldBlock(BasicShield) (1)_2
   - first:
-      213: -5517971827947177644
-    second: rustySwordleftlow_3
+      213: -9128535345744252594
+    second: Low-ShieldBlock(BasicShield) (1)_3
   - first:
-      213: 7385786899173153298
-    second: rustySwordleftlow_4
+      213: 4219297778423828159
+    second: Low-ShieldBlock(BasicShield) (1)_4
   - first:
-      213: -2949402367161202615
-    second: rustySwordleftlow_5
+      213: -273490892454750206
+    second: Low-ShieldBlock(BasicShield) (1)_5
   - first:
-      213: 4912647132856030606
-    second: rustySwordleftlow_6
+      213: 4151701496317871313
+    second: Low-ShieldBlock(BasicShield) (1)_6
   - first:
-      213: -2639143348123318775
-    second: rustySwordleftlow_7
+      213: -6153790817372327409
+    second: Low-ShieldBlock(BasicShield) (1)_7
   - first:
-      213: 2231789199662792452
-    second: rustySwordleftlow_8
+      213: 8676639903696886864
+    second: Low-ShieldBlock(BasicShield) (1)_8
   - first:
-      213: 4689217633391405314
-    second: rustySwordleftlow_9
+      213: 6981742628743763337
+    second: Low-ShieldBlock(BasicShield) (1)_9
+  - first:
+      213: -9211655199047629846
+    second: Low-ShieldBlock(BasicShield) (1)_10
+  - first:
+      213: 613111893138321491
+    second: Low-ShieldBlock(BasicShield) (1)_11
+  - first:
+      213: 7645668219599416237
+    second: Low-ShieldBlock(BasicShield) (1)_12
+  - first:
+      213: -1527211325665408865
+    second: Low-ShieldBlock(BasicShield) (1)_13
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -131,211 +143,295 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rustySwordleftlow_0
+      name: Low-ShieldBlock
       rect:
         serializedVersion: 2
-        x: 105
+        x: 0
         y: 256
-        width: 23
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ab22689f3ac6e84c0800000000000000
-      internalID: -4283366744060976454
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordleftlow_1
-      rect:
-        serializedVersion: 2
-        x: 230
-        y: 256
-        width: 26
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b8c8401f4acb35260800000000000000
-      internalID: 7085214055388187787
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordleftlow_2
-      rect:
-        serializedVersion: 2
-        x: 335
-        y: 256
-        width: 49
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 193a025ebcb04f6e0800000000000000
-      internalID: -1804804580318338159
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordleftlow_3
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 192
-        width: 57
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4597892abd93c63b0800000000000000
-      internalID: -5517971827947177644
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordleftlow_4
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 192
-        width: 66
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21a13ff9d069f7660800000000000000
-      internalID: 7385786899173153298
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordleftlow_5
-      rect:
-        serializedVersion: 2
-        x: 296
-        y: 192
-        width: 88
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 94809a57c2e9117d0800000000000000
-      internalID: -2949402367161202615
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordleftlow_6
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 128
-        width: 98
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e8599bcf98a3d2440800000000000000
-      internalID: 4912647132856030606
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordleftlow_7
-      rect:
-        serializedVersion: 2
-        x: 152
-        y: 128
         width: 40
-        height: 6
+        height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90646cf8b11ef5bd0800000000000000
-      internalID: -2639143348123318775
+      spriteID: 917af1c68f92cb360800000000000000
+      internalID: 7186665252319110937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordleftlow_8
+      name: Low-ShieldBlock(BasicShield) (1)_1
       rect:
         serializedVersion: 2
-        x: 366
-        y: 64
-        width: 18
+        x: 128
+        y: 256
+        width: 40
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5930b19a967277bf0800000000000000
+      internalID: -326749113198902379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 40
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a17a44ac2e6e3090800000000000000
+      internalID: -8052877945677909600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 42
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e41f055d77de05180800000000000000
+      internalID: -9128535345744252594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_4
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 192
+        width: 42
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbe0c8489f4fd8a30800000000000000
+      internalID: 4219297778423828159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_5
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 192
+        width: 42
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2081ee97b7d543cf0800000000000000
+      internalID: -273490892454750206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_6
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 128
+        width: 43
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40f347bd378e8fe10800000000000000
-      internalID: 2231789199662792452
+      spriteID: 1d40c75a38ecd9930800000000000000
+      internalID: 4151701496317871313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordleftlow_9
+      name: Low-ShieldBlock(BasicShield) (1)_7
       rect:
         serializedVersion: 2
-        x: 105
-        y: 0
-        width: 23
-        height: 32
+        x: 143
+        y: 128
+        width: 43
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 209eac0d792731140800000000000000
-      internalID: 4689217633391405314
+      spriteID: f0236741bd7599aa0800000000000000
+      internalID: -6153790817372327409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_8
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 128
+        width: 43
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05c15d7850e996870800000000000000
+      internalID: 8676639903696886864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_9
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 64
+        width: 42
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98559731ee124e060800000000000000
+      internalID: 6981742628743763337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_10
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 64
+        width: 42
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae3c263e660a92080800000000000000
+      internalID: -9211655199047629846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_11
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 40
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 350b316b406328800800000000000000
+      internalID: 613111893138321491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 42
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dab67bbbcbeda1a60800000000000000
+      internalID: 7645668219599416237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Low-ShieldBlock(BasicShield) (1)_13
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 40
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9882cc04614ecae0800000000000000
+      internalID: -1527211325665408865
       vertices: []
       indices: 
       edges: []
@@ -343,7 +439,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4363a78f05a07044aa06f026969c5e0e
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
