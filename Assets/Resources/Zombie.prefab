@@ -147,3 +147,4 @@ MonoBehaviour:
   id: 0
   enemyId: -1
   damage: 20
+  anim: {fileID: 5466824801814561023}

@@ -18,9 +18,9 @@ public abstract class ParentCombatController : MonoBehaviour
     protected int blockCombo = 0;
     protected int strikeCombo = 0;
 
-    protected bool canStrike;
-    protected bool canDodge;
-    protected bool canBlock;
+    protected bool canStrike = true;
+    protected bool canDodge = true;
+    protected bool canBlock = true;
 
     protected actionHeight isBlocking;
     protected dodgeDir isDodging;
@@ -70,6 +70,7 @@ public abstract class ParentCombatController : MonoBehaviour
     public void strike(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower)
     {
         if (!canAct()) return;
+        AnimStart();
         blockCombo = 0;
         strikeHeightSTORE = _strikeHeight;
         strikeSideSTORE = _strikeSide;
@@ -90,6 +91,7 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by Animator Event on Height of Punch just calls the attack event. ()
     public void StrikeConnect()
     {
+        Debug.Log("Connected");
         _attack(strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, this, enemyId);
     }
 
@@ -155,6 +157,8 @@ public abstract class ParentCombatController : MonoBehaviour
         }
 
     }
+
+    protected abstract void AnimStart();
 
     protected abstract void AnimReset();
 }

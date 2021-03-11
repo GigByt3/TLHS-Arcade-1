@@ -6,13 +6,10 @@ public class AnimEventCallthrough : MonoBehaviour
 {
     public GameObject player;
 
-    public void Start()
-    {
-        player = GameObject.FindGameObjectsWithTag("Player")[0];
-    }
     // Start is called before the first frame update
     public void StrikeConnect()
     {
+        Debug.Log("Callthrough Connection");
         player.GetComponent<ParentCombatController>().StrikeConnect();
     }
 

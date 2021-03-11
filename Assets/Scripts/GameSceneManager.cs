@@ -43,7 +43,7 @@ public class GameSceneManager : MonoBehaviour
         SceneManager.sceneLoaded += Setup;
         Debug.Log("Scene Manager OnEnable");
     }
-
+    
     //Unsubscribing Setup
     void OnDisable()
     {
@@ -121,7 +121,7 @@ public class GameSceneManager : MonoBehaviour
     //Check if Dead & Give Story Byte
     private void SetUpTransition(string Transition, bool isGameOver)
     {
-        StartCoroutine(SwitchOutOfTransition(4, isGameOver));
+        StartCoroutine(SwitchOutOfTransition(1, isGameOver));
         TransitionText = GameObject.FindGameObjectsWithTag("TransitionTextOne");
         TransitionText[0].GetComponent<UnityEngine.UI.Text>().text = Transition;
     }

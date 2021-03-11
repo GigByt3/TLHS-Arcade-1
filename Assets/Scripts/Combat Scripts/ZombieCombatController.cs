@@ -65,6 +65,8 @@ public class ZombieCombatController : EnemyCombatController
         actionHeight attackHeight;
         strikeSide attackSide;
 
+        Debug.Log("8============================================> Long Nixon");
+
         float random = Random.Range(0.0f, 100.0f);
         //action height
         if (random < 50.0f)
@@ -86,8 +88,7 @@ public class ZombieCombatController : EnemyCombatController
             attackSide = strikeSide.RIGHT;
         }
 
-        wasHit(attackHeight, attackSide, strikePower.NORMAL, this, id);
-
+        strike(attackHeight, attackSide, strikePower.NORMAL);
     }
 
     /*

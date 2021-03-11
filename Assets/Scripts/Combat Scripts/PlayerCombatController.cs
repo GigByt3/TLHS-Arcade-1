@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerCombatController : ParentCombatController
 {
     new int damage = 2;
-    new int id = 0;
+    private new int id = 0;
 
     public GameObject canvas;
 
-    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower);
+    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower, int hittee_id);
     public static event projection _projection;
 
     void OnEnable()
@@ -139,20 +139,27 @@ public class PlayerCombatController : ParentCombatController
                 // s
                 break;
             case "d":
+                Debug.Log("Attack Called");
                 attackHeight = actionHeight.LOW;
                 attackSide = strikeSide.RIGHT;
                 attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                
                 strike(actionHeight.LOW, strikeSide.RIGHT, strikePower.NORMAL);
                     
                 // d
                 break;
         }
-        _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide, attackPower);
+        _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide, attackPower, enemyId);
+    }
+
+    protected override void AnimStart()
+    {
+        canvas.GetComponent<Animator>().SetBool("isAttacking", true);
     }
 
     protected override void AnimReset()
     {
         GetComponentsInChildren<Animator>()[0].SetBool("isAttacking", false);
+        Debug.Log("Animation Re-set player " + GetComponentsInChildren<Animator>()[0].GetBool("isAttacking"));
     }
 }
