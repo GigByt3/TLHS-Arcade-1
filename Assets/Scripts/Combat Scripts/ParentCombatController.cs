@@ -100,6 +100,7 @@ public abstract class ParentCombatController : MonoBehaviour
     //Checks if Player is in the Middle of an Action
     protected bool canAct()
     {
+        Debug.Log(isStriking + " -- " + isDodging + " -- " + isBlocking);
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
             return false;
@@ -117,8 +118,8 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by AnimatorEvent when Animation is done
     public void Complete(string type)
     {
-        StartCoroutine(ActionComplete(type));
         AnimReset();
+        StartCoroutine(ActionComplete(type));
     }
 
 

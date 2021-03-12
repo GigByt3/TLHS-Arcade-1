@@ -17,7 +17,9 @@ public class PlayerCombatController : ParentCombatController
     {
         damage = (int) GetComponent<Player>().inventory.GetDamage();
         defense = GetComponent<Player>().inventory.GetDefense();
-        
+        isDodging = dodgeDir.NONE;
+        isBlocking = actionHeight.NONE;
+
         EnemyCombatController._attack += wasHit;
         Player._sendKey += combatAction;
         Player._setEnemy += HandleSetEnemy;
@@ -100,9 +102,6 @@ public class PlayerCombatController : ParentCombatController
                 break;
 
             case "q":
-                attackHeight = actionHeight.HIGH;
-                attackSide = strikeSide.LEFT;
-                attackPower = strikePower.NORMAL;
                 strike(actionHeight.HIGH, strikeSide.LEFT, strikePower.NORMAL);
 
                 // q    
@@ -115,18 +114,12 @@ public class PlayerCombatController : ParentCombatController
                 // w
                 break;
             case "e":
-                attackHeight = actionHeight.LOW;
-                attackSide = strikeSide.LEFT;
-                attackPower = strikePower.NORMAL;
                 strike(actionHeight.LOW, strikeSide.LEFT, strikePower.NORMAL);
 
                 // e
                 break;
 
             case "a":
-                attackHeight = actionHeight.HIGH;
-                attackSide = strikeSide.RIGHT;
-                attackPower = strikePower.NORMAL;
                 strike(actionHeight.HIGH, strikeSide.RIGHT, strikePower.NORMAL);
 
                 // a
@@ -136,13 +129,9 @@ public class PlayerCombatController : ParentCombatController
                 blockCombo++;
                 // Preform Animation
 
-
                 // s
                 break;
             case "d":
-                attackHeight = actionHeight.LOW;
-                attackSide = strikeSide.RIGHT;
-                attackPower = strikePower.NORMAL;
                 strike(actionHeight.LOW, strikeSide.RIGHT, strikePower.NORMAL);
                     
                 // d
@@ -158,6 +147,7 @@ public class PlayerCombatController : ParentCombatController
 
     protected override void AnimReset()
     {
-        GetComponentsInChildren<Animator>()[0].SetInteger("AttackIndex", 0); 
+        Debug.Log("ANIM RESET PLAYER");
+        canvas.GetComponent<Animator>().SetInteger("AttackIndex", 0); 
     }
 }
