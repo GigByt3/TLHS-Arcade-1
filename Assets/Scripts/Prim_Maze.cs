@@ -615,7 +615,10 @@ public class Maze : MonoBehaviour
     public void setObjectRotation(GridObject objectToRotate, int direction)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
+        {
             gridObjectDict.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
+            Debug.Log("Removal is working?");
+        }
         gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
     }
 

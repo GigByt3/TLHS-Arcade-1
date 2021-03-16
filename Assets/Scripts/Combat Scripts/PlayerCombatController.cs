@@ -87,14 +87,14 @@ public class PlayerCombatController : ParentCombatController
                 break;
             case "right":
                 isDodging = dodgeDir.RIGHT;
-                GetComponent<Animator>().SetInteger("DodgePos", 1);
+                GetComponent<Animator>().SetInteger("DodgePos", 2);
                 // Preform Animation
 
                 // right
                 break;
             case "left":
                 isDodging = dodgeDir.LEFT;
-                GetComponent<Animator>().SetInteger("DodgePos", 2);
+                GetComponent<Animator>().SetInteger("DodgePos", 1);
                 // Preform Animation
 
                 // left

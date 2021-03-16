@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 4499617594145283476}
   - component: {fileID: 4499617594145283477}
   - component: {fileID: 276271636146228874}
-  - component: {fileID: 454284159726813628}
+  - component: {fileID: 7498293498626285275}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -292,7 +292,7 @@ MonoBehaviour:
   defense: 0.2
   swordCanvas: {fileID: 12574406438020815}
   sheildCanvas: {fileID: 7299008842515974146}
---- !u!95 &454284159726813628
+--- !u!95 &7498293498626285275
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
