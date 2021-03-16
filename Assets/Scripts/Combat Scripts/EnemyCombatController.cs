@@ -55,6 +55,7 @@ public abstract class EnemyCombatController : ParentCombatController
         {
             Debug.Log("dodging");
             stamina -= 1;
+            Debug.Log(attackSide);
             switch (attackSide)
             {
                 case strikeSide.LEFT:
@@ -75,6 +76,7 @@ public abstract class EnemyCombatController : ParentCombatController
             Debug.Log("blocking");
             blockCombo++;
             isBlocking = attackHeight;
+            Debug.Log(attackHeight);
             switch(attackHeight)
             {
                 case actionHeight.HIGH:

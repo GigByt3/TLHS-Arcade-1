@@ -62,11 +62,13 @@ public class Player : GridObject
         if (Input.GetKeyDown("left"))
         {
             rotate("left");
+            Debug.Log("Left was called?");
             //moveEvent?.Invoke();
         }
         if (Input.GetKeyDown("right"))
         {
             rotate("right");
+            Debug.Log("right?");
             //moveEvent?.Invoke();
         }
 
