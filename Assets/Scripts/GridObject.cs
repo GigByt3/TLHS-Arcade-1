@@ -128,14 +128,6 @@ public abstract class GridObject : MonoBehaviour
     //Rotates the GridObject 'left' or 'right' by 90 degrees
     public void rotate(string direction)
     {
-        if(Random.Range(0.0f, 100.0f) > 50.0f)
-        {
-            maze.setObjectRotation(this, 1);
-        } else
-        {
-            maze.setObjectRotation(this, 4);
-        }
-        
         int newdir = gridCoords.z;
         switch (direction)
         {
@@ -178,6 +170,6 @@ public abstract class GridObject : MonoBehaviour
                 break;
         }
 
-        maze.updateGridObjectPositions();
+        //maze.updateGridObjectPositions();
     }
 }

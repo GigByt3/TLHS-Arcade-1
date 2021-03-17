@@ -138,6 +138,4 @@ public class Player : GridObject
         if (Input.GetKeyDown("s")) _sendKey?.Invoke("s");
         if (Input.GetKeyDown("d")) _sendKey?.Invoke("d");
     }
-
-    
 }
