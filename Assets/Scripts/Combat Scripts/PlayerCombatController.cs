@@ -17,7 +17,9 @@ public class PlayerCombatController : ParentCombatController
     {
         damage = (int) GetComponent<Player>().inventory.GetDamage();
         defense = GetComponent<Player>().inventory.GetDefense();
-        
+        isDodging = dodgeDir.NONE;
+        isBlocking = actionHeight.NONE;
+
         EnemyCombatController._attack += wasHit;
         Player._sendKey += combatAction;
         Player._setEnemy += HandleSetEnemy;
@@ -100,10 +102,6 @@ public class PlayerCombatController : ParentCombatController
                 break;
 
             case "q":
-                attackHeight = actionHeight.HIGH;
-                attackSide = strikeSide.LEFT;
-                attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
                 strike(actionHeight.HIGH, strikeSide.LEFT, strikePower.NORMAL);
 
                 // q    
@@ -116,20 +114,12 @@ public class PlayerCombatController : ParentCombatController
                 // w
                 break;
             case "e":
-                attackHeight = actionHeight.LOW;
-                attackSide = strikeSide.LEFT;
-                attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
                 strike(actionHeight.LOW, strikeSide.LEFT, strikePower.NORMAL);
 
                 // e
                 break;
 
             case "a":
-                attackHeight = actionHeight.HIGH;
-                attackSide = strikeSide.RIGHT;
-                attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
                 strike(actionHeight.HIGH, strikeSide.RIGHT, strikePower.NORMAL);
 
                 // a
@@ -139,15 +129,9 @@ public class PlayerCombatController : ParentCombatController
                 blockCombo++;
                 // Preform Animation
 
-
                 // s
                 break;
             case "d":
-                Debug.Log("Attack Called");
-                attackHeight = actionHeight.LOW;
-                attackSide = strikeSide.RIGHT;
-                attackPower = strikePower.NORMAL;
-                
                 strike(actionHeight.LOW, strikeSide.RIGHT, strikePower.NORMAL);
                     
                 // d
@@ -156,14 +140,14 @@ public class PlayerCombatController : ParentCombatController
         _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide, attackPower, enemyId);
     }
 
-    protected override void AnimStart()
+    protected override void AnimStart(int number)
     {
-        canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+        canvas.GetComponent<Animator>().SetInteger("AttackIndex", number); 
     }
 
     protected override void AnimReset()
     {
-        GetComponentsInChildren<Animator>()[0].SetBool("isAttacking", false);
-        Debug.Log("Animation Re-set player " + GetComponentsInChildren<Animator>()[0].GetBool("isAttacking"));
+        Debug.Log("ANIM RESET PLAYER");
+        canvas.GetComponent<Animator>().SetInteger("AttackIndex", 0); 
     }
 }

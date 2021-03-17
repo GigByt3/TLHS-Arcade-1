@@ -53,6 +53,7 @@ public abstract class EnemyCombatController : ParentCombatController
 
         if (canDodge && stamina - 1 >= 0)
         {
+            Debug.Log("dodging");
             stamina -= 1;
             switch (attackSide)
             {
@@ -71,6 +72,7 @@ public abstract class EnemyCombatController : ParentCombatController
         }
         else if (canBlock && blockCombo < 5)
         {
+            Debug.Log("blocking");
             blockCombo++;
             isBlocking = attackHeight;
             switch(attackHeight)
@@ -152,9 +154,10 @@ public abstract class EnemyCombatController : ParentCombatController
         }
     }
 
-    protected override void AnimStart()
+    
+    protected override void AnimStart(int number)
     {
-        //Do Nothing ig
+        GetComponent<Animator>().SetInteger("CurrentAction", number);
     }
 
     protected override void AnimReset()
