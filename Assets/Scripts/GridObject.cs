@@ -170,6 +170,6 @@ public abstract class GridObject : MonoBehaviour
                 break;
         }
 
-        maze.updateGridObjectPositions();
+        //maze.updateGridObjectPositions();
     }
 }

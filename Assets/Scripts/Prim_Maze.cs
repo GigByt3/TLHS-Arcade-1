@@ -615,7 +615,10 @@ public class Maze : MonoBehaviour
     public void setObjectRotation(GridObject objectToRotate, int direction)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
+        {
             gridObjectDict.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
+        }
+        else Debug.Log(objectToRotate + "'s previous rotation did not exist in the dictionary! This is usually a problem, but the program will continue.");
         gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
     }
 
@@ -624,6 +627,15 @@ public class Maze : MonoBehaviour
     {
         foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)
         {
+            //Sanity check code
+            {
+                if (!kvp.Key.Equals(kvp.Value.gridCoords))
+                {
+                    Debug.Log("GridCoords of " + kvp.Value + " do not match the dictionary! Correcting...");
+                    kvp.Value.gridCoords = kvp.Key;
+                }
+            }
+            
             kvp.Value.transform.position = cellCoordsToGlobalCoords(kvp.Key.x, kvp.Key.y);
             switch (kvp.Key.z)
             {

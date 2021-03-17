@@ -13,9 +13,9 @@ public class Player : GridObject
 
     public PlayerInventory inventory;
 
-    private bool inCombat;
+    private bool inCombat = false;
 
-    private const float PLAYER_MOVE_COOLDOWN = 0.5f;
+    private const float PLAYER_MOVE_COOLDOWN = 0.2f;
     private float playerMoveCooldownCount;
 
     void OnEnable()
@@ -77,6 +77,7 @@ public class Player : GridObject
     //Enters combat with the given enemy
     public void enterCombat(Enemy enemy)
     {
+        Debug.Log("combat started?");
         int enemyXPosDif = enemy.gridCoords.x - gridCoords.x;
         int enemyYPosDif = enemy.gridCoords.y - gridCoords.y;
 
@@ -137,6 +138,4 @@ public class Player : GridObject
         if (Input.GetKeyDown("s")) _sendKey?.Invoke("s");
         if (Input.GetKeyDown("d")) _sendKey?.Invoke("d");
     }
-
-    
 }

@@ -8,7 +8,8 @@ public class PlayerCombatController : ParentCombatController
     new float defense;
     private new int id = 0;
 
-    public GameObject canvas;
+    public GameObject swordCanvas;
+    public GameObject sheildCanvas;
 
     public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower, int hittee_id);
     public static event projection _projection;
@@ -72,9 +73,9 @@ public class PlayerCombatController : ParentCombatController
 
     protected void combatAction(string code)
     {
-        actionHeight attackHeight = actionHeight.NONE;
-        strikeSide attackSide = strikeSide.NONE;
-        strikePower attackPower = strikePower.NONE;
+        strikeHeightSTORE = actionHeight.NONE;
+        strikeSideSTORE = strikeSide.NONE;
+        strikePowerSTORE = strikePower.NONE;
 
         Debug.Log("Player taking combat action " + code);
 
@@ -86,12 +87,14 @@ public class PlayerCombatController : ParentCombatController
                 break;
             case "right":
                 isDodging = dodgeDir.RIGHT;
+                GetComponent<Animator>().SetInteger("DodgePos", 2);
                 // Preform Animation
 
                 // right
                 break;
             case "left":
                 isDodging = dodgeDir.LEFT;
+                GetComponent<Animator>().SetInteger("DodgePos", 1);
                 // Preform Animation
 
                 // left
@@ -108,6 +111,7 @@ public class PlayerCombatController : ParentCombatController
                 break;
             case "w":
                 isBlocking = actionHeight.HIGH;
+                sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 1);
                 blockCombo++;
                 // Preform Animation
 
@@ -126,6 +130,7 @@ public class PlayerCombatController : ParentCombatController
                 break;
             case "s":
                 isBlocking = actionHeight.LOW;
+                sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 2);
                 blockCombo++;
                 // Preform Animation
 
@@ -137,17 +142,21 @@ public class PlayerCombatController : ParentCombatController
                 // d
                 break;
         }
-        _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide, attackPower, enemyId);
+        _projection?.Invoke(isStriking, isDodging, isBlocking, strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, enemyId);
     }
 
     protected override void AnimStart(int number)
     {
-        canvas.GetComponent<Animator>().SetInteger("AttackIndex", number); 
+        swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", number); 
     }
 
     protected override void AnimReset()
     {
         Debug.Log("ANIM RESET PLAYER");
-        canvas.GetComponent<Animator>().SetInteger("AttackIndex", 0); 
+        swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", 0);
+        sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 0);
+        GetComponent<Animator>().SetInteger("DodgePos", 0);
+        isDodging = dodgeDir.NONE;
+        isBlocking = actionHeight.NONE;
     }
 }
