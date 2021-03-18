@@ -18,8 +18,6 @@ public class PlayerCombatController : ParentCombatController
     {
         damage = (int) GetComponent<Player>().inventory.GetDamage();
         defense = GetComponent<Player>().inventory.GetDefense();
-        isDodging = dodgeDir.NONE;
-        isBlocking = actionHeight.NONE;
 
         EnemyCombatController._attack += wasHit;
         Player._sendKey += combatAction;
@@ -40,6 +38,8 @@ public class PlayerCombatController : ParentCombatController
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower strikePower, ParentCombatController hitter, int hittee_id)
     {
+        Debug.Log("-------------PLAYER WAS HIT");
+
         if(isDodging != dodgeDir.NONE)
         {
             //dodging....
@@ -50,6 +50,7 @@ public class PlayerCombatController : ParentCombatController
                 //oof. you walked into that one.
             } else
             {
+                Debug.Log("-------------PLAYER DODGE" + health);
                 //you dodged
                 return;
             }
@@ -59,6 +60,7 @@ public class PlayerCombatController : ParentCombatController
             if ((short)isBlocking == (short)_strikeHeight)
             {
                 health -= (int)(hitter.damage * defense * blockCombo);
+                Debug.Log("-------------PLAYER BLOCK" + health);
                 //block succeeds!
             } else
             {
@@ -67,7 +69,12 @@ public class PlayerCombatController : ParentCombatController
             }
         } else
         {
+            Debug.Log("-------------PLAYER HURT " + health);
             health -= hitter.damage;
+            if(health <= 0)
+            {
+                GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().Death();
+            }
         }
     }
 
@@ -86,15 +93,17 @@ public class PlayerCombatController : ParentCombatController
                 // Heavy Attack
                 break;
             case "right":
+                if (isDodging != dodgeDir.NONE) break;
                 isDodging = dodgeDir.RIGHT;
-                GetComponent<Animator>().SetInteger("DodgePos", 2);
+                GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 2);
                 // Preform Animation
 
                 // right
                 break;
             case "left":
+                if (isDodging != dodgeDir.NONE) break;
                 isDodging = dodgeDir.LEFT;
-                GetComponent<Animator>().SetInteger("DodgePos", 1);
+                GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 1);
                 // Preform Animation
 
                 // left
@@ -110,6 +119,7 @@ public class PlayerCombatController : ParentCombatController
                 // q    
                 break;
             case "w":
+                if (isBlocking != actionHeight.NONE) break;
                 isBlocking = actionHeight.HIGH;
                 sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 1);
                 blockCombo++;
@@ -129,6 +139,7 @@ public class PlayerCombatController : ParentCombatController
                 // a
                 break;
             case "s":
+                if (isBlocking != actionHeight.NONE) break;
                 isBlocking = actionHeight.LOW;
                 sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 2);
                 blockCombo++;
@@ -145,18 +156,16 @@ public class PlayerCombatController : ParentCombatController
         _projection?.Invoke(isStriking, isDodging, isBlocking, strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, enemyId);
     }
 
-    protected override void AnimStart(int number)
+    public override void AnimStart(int number)
     {
         swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", number); 
     }
 
-    protected override void AnimReset()
+    public override void AnimReset()
     {
         Debug.Log("ANIM RESET PLAYER");
         swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", 0);
         sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 0);
-        GetComponent<Animator>().SetInteger("DodgePos", 0);
-        isDodging = dodgeDir.NONE;
-        isBlocking = actionHeight.NONE;
+        GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 0);
     }
 }

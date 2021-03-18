@@ -20,6 +20,7 @@ public abstract class EnemyCombatController : ParentCombatController
     protected int difficulty = 30;
     private static int idCounter = 1;
     public Animator anim;
+    public bool inCombat = false;
 
     public delegate void death();
     public static event death _death;
@@ -42,6 +43,14 @@ public abstract class EnemyCombatController : ParentCombatController
         idCounter++;
         anim = GetComponent<Animator>();
         Debug.Log(id);
+    }
+
+    private void Update()
+    {
+        if (Random.Range(0.0f, 100.0f) < (difficulty * 0.05) && inCombat)
+        {
+            enemyStrike();
+        }
     }
 
     //Enemy reaction
@@ -157,14 +166,15 @@ public abstract class EnemyCombatController : ParentCombatController
     }
 
     
-    protected override void AnimStart(int number)
+    public override void AnimStart(int number)
     {
         GetComponent<Animator>().SetInteger("CurrentAction", number);
     }
 
-    protected override void AnimReset()
+    public override void AnimReset()
     {
         GetComponent<Animator>().SetInteger("CurrentAction", -1);
     }
 
+    public abstract void enemyStrike();
 }

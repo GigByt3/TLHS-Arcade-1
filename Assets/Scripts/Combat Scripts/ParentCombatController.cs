@@ -23,9 +23,9 @@ public abstract class ParentCombatController : MonoBehaviour
     protected bool canDodge = true;
     protected bool canBlock = true;
 
-    protected actionHeight isBlocking;
-    protected dodgeDir isDodging;
-    protected bool isStriking;
+    protected actionHeight isBlocking = actionHeight.NONE;
+    protected dodgeDir isDodging = dodgeDir.NONE;
+    protected bool isStriking = false;
 
     protected actionHeight strikeHeightSTORE;
     protected strikeSide strikeSideSTORE;
@@ -126,12 +126,15 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by AnimatorEvent when Animation is done
     public IEnumerator ActionComplete(string type)
     {
+        Debug.Log("This gets called?");
         switch(type)
         {
             case "dodge":
+                isDodging = dodgeDir.NONE;
                 yield return new WaitForSeconds(dodgeCooldown);
                 break;
             case "block":
+                isBlocking = actionHeight.NONE;
                 yield return new WaitForSeconds(blockCooldown);
                 break;
             case "light_strike":
@@ -178,7 +181,7 @@ public abstract class ParentCombatController : MonoBehaviour
 
     }
 
-    protected abstract void AnimStart(int number);
+    public abstract void AnimStart(int number);
 
-    protected abstract void AnimReset();
+    public abstract void AnimReset();
 }
