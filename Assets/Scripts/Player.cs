@@ -109,12 +109,6 @@ public class Player : GridObject
         inCombat = false;
     }
 
-    //Returns whether or not the player is in the given cell
-    public bool isInCell(List<Vector2Int> cells)
-    {
-        return cells.Contains(new Vector2Int(gridCoords.x, gridCoords.y));
-    }
-
     public delegate void sendKey(string code);
 
     public static event sendKey _sendKey;
