@@ -70,8 +70,6 @@ public abstract class ParentCombatController : MonoBehaviour
 
     public void strike(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower)
     {
-        Debug.Log("Strike?");
-
         if (!canAct()) return;
         isStriking = true;
         blockCombo = 0;
@@ -80,7 +78,6 @@ public abstract class ParentCombatController : MonoBehaviour
         strikePowerSTORE = _strikePower;
         if (_strikeHeight == actionHeight.HIGH && _strikeSide == strikeSide.LEFT)
         {
-            Debug.Log("strike 1");
             AnimStart(1);
         }
         else if (_strikeHeight == actionHeight.HIGH && _strikeSide == strikeSide.RIGHT)
@@ -100,7 +97,8 @@ public abstract class ParentCombatController : MonoBehaviour
     //Checks if Player is in the Middle of an Action
     protected bool canAct()
     {
-        Debug.Log(isStriking + " -- " + isDodging + " -- " + isBlocking);
+        if(id == 0) Debug.Log(isStriking + " -- " + isDodging + " -- " + isBlocking);
+
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
             return false;
@@ -111,7 +109,7 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by Animator Event on Height of Punch just calls the attack event. ()
     public void StrikeConnect()
     {
-        Debug.Log("Connected");
+        Debug.Log(strikeHeightSTORE + "//" + strikeSideSTORE + "//" + strikePowerSTORE + "//" + this + "//" + enemyId);
         _attack(strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, this, enemyId);
     }
 
@@ -126,7 +124,6 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by AnimatorEvent when Animation is done
     public IEnumerator ActionComplete(string type)
     {
-        Debug.Log("This gets called?");
         switch(type)
         {
             case "dodge":

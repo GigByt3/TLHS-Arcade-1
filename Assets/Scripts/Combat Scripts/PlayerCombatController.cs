@@ -84,8 +84,6 @@ public class PlayerCombatController : ParentCombatController
         strikeSideSTORE = strikeSide.NONE;
         strikePowerSTORE = strikePower.NONE;
 
-        Debug.Log("Player taking combat action " + code);
-
         switch (code)
         {
             case "up":

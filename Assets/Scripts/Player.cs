@@ -77,7 +77,7 @@ public class Player : GridObject
     //Enters combat with the given enemy
     public void enterCombat(Enemy enemy)
     {
-        Debug.Log("combat started?");
+        Debug.Log("combat started");
         int enemyXPosDif = enemy.gridCoords.x - gridCoords.x;
         int enemyYPosDif = enemy.gridCoords.y - gridCoords.y;
 

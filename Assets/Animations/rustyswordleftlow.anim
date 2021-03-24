@@ -110,7 +110,8 @@ AnimationClip:
   - time: 0.35
     functionName: StrikeConnect
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 4499617594145283483, guid: 15641fc39afb7ca4da72cbf6026259d5,
+      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
