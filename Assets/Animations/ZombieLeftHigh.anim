@@ -95,7 +95,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.51666665
+  - time: 0.5
     functionName: Complete
     data: normal_strike
     objectReferenceParameter: {fileID: 1426670081193811923, guid: 083493b31bddc844fa8dd9a42ece3db0,
