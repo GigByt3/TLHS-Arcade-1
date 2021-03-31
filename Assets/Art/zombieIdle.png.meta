@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 4934252ddc1dfa744b2284a71ac2d531
+guid: e75e8501ee2c80947b163c01da6abfee
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8750378452752436395
-    second: rustySwordIdle_0
+      213: -2452333708950527358
+    second: zombieIdle_0
   - first:
-      213: -1528715143788992530
-    second: rustySwordIdle_1
+      213: -422231237060864362
+    second: zombieIdle_1
   - first:
-      213: 2065187043171192262
-    second: rustySwordIdle_2
+      213: 2419102713372279856
+    second: zombieIdle_2
   - first:
-      213: 2702803959397354289
-    second: rustySwordIdle_3
+      213: 1380592448722807702
+    second: zombieIdle_3
   - first:
-      213: 8899633189191923073
-    second: rustySwordIdle_0
+      213: 4714723992946454998
+    second: zombieIdle_4
   - first:
-      213: 1525147097062882958
-    second: rustySwordIdle_1
+      213: 8723274936716834740
+    second: zombieIdle_5
   - first:
-      213: -9056894780041571124
-    second: rustySwordIdle_2
+      213: -7206708633347042137
+    second: zombieIdle_6
   - first:
-      213: 7478514536441132423
-    second: rustySwordIdle_3
+      213: -5458081448792692751
+    second: zombieIdle_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -90,7 +90,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -102,7 +102,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -114,7 +114,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,7 +125,70 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rustySwordIdle_0
+      name: zombieIdle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 282a9471c7f87fdd0800000000000000
+      internalID: -2452333708950527358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombieIdle_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 696d9ed4deee32af0800000000000000
+      internalID: -422231237060864362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombieIdle_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0340db1d911629120800000000000000
+      internalID: 2419102713372279856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombieIdle_3
       rect:
         serializedVersion: 2
         x: 0
@@ -139,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 185bf09bb39d18b70800000000000000
-      internalID: 8899633189191923073
+      spriteID: 69ba5b57489d82310800000000000000
+      internalID: 1380592448722807702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordIdle_1
+      name: zombieIdle_4
       rect:
         serializedVersion: 2
         x: 64
@@ -160,14 +223,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8eb6a644396a2510800000000000000
-      internalID: 1525147097062882958
+      spriteID: 6d1b59ded701e6140800000000000000
+      internalID: 4714723992946454998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordIdle_2
+      name: zombieIdle_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b73319465c4f0970800000000000000
+      internalID: 8723274936716834740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombieIdle_6
       rect:
         serializedVersion: 2
         x: 0
@@ -181,14 +265,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc4588bde227f4280800000000000000
-      internalID: -9056894780041571124
+      spriteID: 7a4db954ea0acfb90800000000000000
+      internalID: -7206708633347042137
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordIdle_3
+      name: zombieIdle_7
       rect:
         serializedVersion: 2
         x: 64
@@ -202,8 +286,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7853b28195509c760800000000000000
-      internalID: 7478514536441132423
+      spriteID: 1f7ef8927dff044b0800000000000000
+      internalID: -5458081448792692751
       vertices: []
       indices: 
       edges: []
@@ -211,7 +295,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 33925fbcea4c3ca4fb1c0dae7fc21173
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

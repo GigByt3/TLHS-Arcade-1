@@ -1,109 +1,46 @@
 fileFormatVersion: 2
-guid: bab21878dcfae524aab60c1b0312d2ff
+guid: 598e902d9f4a5c24f9b146af7b009d14
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 136702765659040933
-    second: rustySwordLeftHigh_0
+      213: 1567274285671522120
+    second: skeletonrightlow (1)_0
   - first:
-      213: -7392806391693214541
-    second: rustySwordLeftHigh_1
+      213: -2987667667481436279
+    second: skeletonrightlow (1)_1
   - first:
-      213: 3877780684928357316
-    second: rustySwordLeftHigh_2
+      213: 4466662563234021402
+    second: skeletonrightlow (1)_2
   - first:
-      213: 8207120708117643732
-    second: rustySwordLeftHigh_3
+      213: -2879699684615838228
+    second: skeletonrightlow (1)_3
   - first:
-      213: -2231729765789819097
-    second: rustySwordLeftHigh_4
+      213: 5256673712327734431
+    second: skeletonrightlow (1)_4
   - first:
-      213: 7978183704365093662
-    second: rustySwordLeftHigh_5
+      213: 4978168546001565273
+    second: skeletonrightlow (1)_5
   - first:
-      213: -5629434948380871523
-    second: rustySwordLeftHigh_6
+      213: 4387262375657073282
+    second: skeletonrightlow (1)_6
   - first:
-      213: -6548443716003321361
-    second: rustySwordLeftHigh_7
+      213: 5534647932556335217
+    second: skeletonrightlow (1)_7
   - first:
-      213: -9043344396547213127
-    second: rustySwordLeftHigh_8
+      213: -1701986442651755125
+    second: skeletonrightlow (1)_8
   - first:
-      213: 1008330951890698959
-    second: rustySwordLeftHigh_9
+      213: 7201224502161844905
+    second: skeletonrightlow (1)_9
   - first:
-      213: -6258331422734878102
-    second: rustySwordLeftHigh_10
+      213: -6632858193203006373
+    second: skeletonrightlow (1)_10
   - first:
-      213: 6403164204957601883
-    second: rustySwordLeftHigh_11
+      213: 2494347918758668564
+    second: skeletonrightlow (1)_11
   - first:
-      213: -9187619378090724027
-    second: rustySwordLeftHigh_12
-  - first:
-      213: 7341476130257005036
-    second: rustySwordLeftHigh_0
-  - first:
-      213: 8793871774815300050
-    second: rustySwordLeftHigh_1
-  - first:
-      213: -513310453291597843
-    second: rustySwordLeftHigh_2
-  - first:
-      213: -6413490136033555849
-    second: rustySwordLeftHigh_3
-  - first:
-      213: 1304822661785189033
-    second: rustySwordLeftHigh_4
-  - first:
-      213: 8939205148382482230
-    second: rustySwordLeftHigh_5
-  - first:
-      213: -2524847922935854078
-    second: rustySwordLeftHigh_6
-  - first:
-      213: 4169597902785742074
-    second: rustySwordLeftHigh_7
-  - first:
-      213: 7678641536040983002
-    second: rustySwordLeftHigh_8
-  - first:
-      213: 6462544767582049705
-    second: rustySwordLeftHigh_9
-  - first:
-      213: 6836756821384324516
-    second: rustySwordLeftHigh_10
-  - first:
-      213: 2452660818429981135
-    second: rustySwordLeftHigh_11
-  - first:
-      213: -986624944015862281
-    second: rustySwordLeftHigh_12
-  - first:
-      213: 7665240610012681298
-    second: rustySwordLeftHigh_13
-  - first:
-      213: 4905735142297783106
-    second: rustySwordLeftHigh_14
-  - first:
-      213: -4899576659788261584
-    second: rustySwordLeftHigh_15
-  - first:
-      213: -1154043469876681070
-    second: rustySwordLeftHigh_16
-  - first:
-      213: 2496131696877381093
-    second: rustySwordLeftHigh_17
-  - first:
-      213: -6212435964752387092
-    second: rustySwordLeftHigh_18
-  - first:
-      213: 252791325035399666
-    second: rustySwordLeftHigh_19
-  - first:
-      213: 4697468675865487254
-    second: rustySwordLeftHigh_20
+      213: 1089789792066659886
+    second: skeletonrightlow (1)_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -168,7 +105,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -180,7 +117,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -192,7 +129,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -203,75 +140,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rustySwordLeftHigh_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce96af6c4a922e560800000000000000
-      internalID: 7341476130257005036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_1
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 256
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d9233a89cb1a0a70800000000000000
-      internalID: 8793871774815300050
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_2
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 256
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: def3f04ccda50e8f0800000000000000
-      internalID: -513310453291597843
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_3
+      name: skeletonrightlow (1)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 192
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -280,19 +154,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77a8f3f83b4bef6a0800000000000000
-      internalID: -6413490136033555849
+      spriteID: 84f1e07b8a310c510800000000000000
+      internalID: 1567274285671522120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_4
+      name: skeletonrightlow (1)_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98f59d4f51ca986d0800000000000000
+      internalID: -2987667667481436279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeletonrightlow (1)_2
       rect:
         serializedVersion: 2
         x: 128
         y: 192
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -301,19 +196,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9aaf5923c49ab1210800000000000000
-      internalID: 1304822661785189033
+      spriteID: a1089159fe5ccfd30800000000000000
+      internalID: 4466662563234021402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_5
+      name: skeletonrightlow (1)_3
       rect:
         serializedVersion: 2
-        x: 256
+        x: 192
         y: 192
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -322,19 +217,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63f4ea378bf6e0c70800000000000000
-      internalID: 8939205148382482230
+      spriteID: ce52ba6e4604908d0800000000000000
+      internalID: -2879699684615838228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_6
+      name: skeletonrightlow (1)_4
       rect:
         serializedVersion: 2
         x: 0
         y: 128
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -343,19 +238,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20c8689f030f5fcd0800000000000000
-      internalID: -2524847922935854078
+      spriteID: f94bd6be3e473f840800000000000000
+      internalID: 5256673712327734431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_7
+      name: skeletonrightlow (1)_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9563278cae1061540800000000000000
+      internalID: 4978168546001565273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeletonrightlow (1)_6
       rect:
         serializedVersion: 2
         x: 128
         y: 128
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -364,19 +280,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af402cb73336dd930800000000000000
-      internalID: 4169597902785742074
+      spriteID: 28ae97dc2efa2ec30800000000000000
+      internalID: 4387262375657073282
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_8
+      name: skeletonrightlow (1)_7
       rect:
         serializedVersion: 2
-        x: 256
+        x: 192
         y: 128
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -385,19 +301,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad958493bc3009a60800000000000000
-      internalID: 7678641536040983002
+      spriteID: 178ded888f40fcc40800000000000000
+      internalID: 5534647932556335217
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_9
+      name: skeletonrightlow (1)_8
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -406,19 +322,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a599c0e9329fa950800000000000000
-      internalID: 6462544767582049705
+      spriteID: b8d163119545168e0800000000000000
+      internalID: -1701986442651755125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_10
+      name: skeletonrightlow (1)_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aa223fe783efe360800000000000000
+      internalID: 7201224502161844905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeletonrightlow (1)_10
       rect:
         serializedVersion: 2
         x: 128
         y: 64
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -427,19 +364,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a5675a3b1a01ee50800000000000000
-      internalID: 6836756821384324516
+      spriteID: b54789c9d9a53f3a0800000000000000
+      internalID: -6632858193203006373
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_11
+      name: skeletonrightlow (1)_11
       rect:
         serializedVersion: 2
-        x: 256
+        x: 192
         y: 64
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -448,19 +385,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc1b905050a990220800000000000000
-      internalID: 2452660818429981135
+      spriteID: 41968db6734bd9220800000000000000
+      internalID: 2494347918758668564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_12
+      name: skeletonrightlow (1)_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -469,50 +406,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f5156d37ddce42f0800000000000000
-      internalID: -986624944015862281
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_13
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 25454bdf8b7606a60800000000000000
-      internalID: 7665240610012681298
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_14
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 24b4fc6ce1ca41440800000000000000
-      internalID: 4905735142297783106
+      spriteID: e26eafbba06bf1f00800000000000000
+      internalID: 1089789792066659886
       vertices: []
       indices: 
       edges: []
@@ -520,7 +415,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4594b66b000a69a449c1602c5b2985d9
+    spriteID: 8c90b280a02a78343a091d16ca52701e
     internalID: 0
     vertices: []
     indices: 

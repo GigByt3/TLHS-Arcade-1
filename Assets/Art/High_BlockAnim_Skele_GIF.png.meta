@@ -1,109 +1,43 @@
 fileFormatVersion: 2
-guid: bab21878dcfae524aab60c1b0312d2ff
+guid: ccc24d3aebe228042a6edbfa68e49f28
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 136702765659040933
-    second: rustySwordLeftHigh_0
+      213: 3210286909994691504
+    second: High_BlockAnim_Skele_GIF_0
   - first:
-      213: -7392806391693214541
-    second: rustySwordLeftHigh_1
+      213: 5626088151058068747
+    second: High_BlockAnim_Skele_GIF_1
   - first:
-      213: 3877780684928357316
-    second: rustySwordLeftHigh_2
+      213: 2350705423429089144
+    second: High_BlockAnim_Skele_GIF_2
   - first:
-      213: 8207120708117643732
-    second: rustySwordLeftHigh_3
+      213: 2141212902601087857
+    second: High_BlockAnim_Skele_GIF_3
   - first:
-      213: -2231729765789819097
-    second: rustySwordLeftHigh_4
+      213: 6962692502324792982
+    second: High_BlockAnim_Skele_GIF_4
   - first:
-      213: 7978183704365093662
-    second: rustySwordLeftHigh_5
+      213: 616406051221795877
+    second: High_BlockAnim_Skele_GIF_5
   - first:
-      213: -5629434948380871523
-    second: rustySwordLeftHigh_6
+      213: 3532831203621394088
+    second: High_BlockAnim_Skele_GIF_6
   - first:
-      213: -6548443716003321361
-    second: rustySwordLeftHigh_7
+      213: 1566114939844754502
+    second: High_BlockAnim_Skele_GIF_7
   - first:
-      213: -9043344396547213127
-    second: rustySwordLeftHigh_8
+      213: 743398807484538508
+    second: High_BlockAnim_Skele_GIF_8
   - first:
-      213: 1008330951890698959
-    second: rustySwordLeftHigh_9
+      213: 2088641561982027983
+    second: High_BlockAnim_Skele_GIF_9
   - first:
-      213: -6258331422734878102
-    second: rustySwordLeftHigh_10
+      213: -7856651677744011087
+    second: High_BlockAnim_Skele_GIF_10
   - first:
-      213: 6403164204957601883
-    second: rustySwordLeftHigh_11
-  - first:
-      213: -9187619378090724027
-    second: rustySwordLeftHigh_12
-  - first:
-      213: 7341476130257005036
-    second: rustySwordLeftHigh_0
-  - first:
-      213: 8793871774815300050
-    second: rustySwordLeftHigh_1
-  - first:
-      213: -513310453291597843
-    second: rustySwordLeftHigh_2
-  - first:
-      213: -6413490136033555849
-    second: rustySwordLeftHigh_3
-  - first:
-      213: 1304822661785189033
-    second: rustySwordLeftHigh_4
-  - first:
-      213: 8939205148382482230
-    second: rustySwordLeftHigh_5
-  - first:
-      213: -2524847922935854078
-    second: rustySwordLeftHigh_6
-  - first:
-      213: 4169597902785742074
-    second: rustySwordLeftHigh_7
-  - first:
-      213: 7678641536040983002
-    second: rustySwordLeftHigh_8
-  - first:
-      213: 6462544767582049705
-    second: rustySwordLeftHigh_9
-  - first:
-      213: 6836756821384324516
-    second: rustySwordLeftHigh_10
-  - first:
-      213: 2452660818429981135
-    second: rustySwordLeftHigh_11
-  - first:
-      213: -986624944015862281
-    second: rustySwordLeftHigh_12
-  - first:
-      213: 7665240610012681298
-    second: rustySwordLeftHigh_13
-  - first:
-      213: 4905735142297783106
-    second: rustySwordLeftHigh_14
-  - first:
-      213: -4899576659788261584
-    second: rustySwordLeftHigh_15
-  - first:
-      213: -1154043469876681070
-    second: rustySwordLeftHigh_16
-  - first:
-      213: 2496131696877381093
-    second: rustySwordLeftHigh_17
-  - first:
-      213: -6212435964752387092
-    second: rustySwordLeftHigh_18
-  - first:
-      213: 252791325035399666
-    second: rustySwordLeftHigh_19
-  - first:
-      213: 4697468675865487254
-    second: rustySwordLeftHigh_20
+      213: 6314945948718983513
+    second: High_BlockAnim_Skele_GIF_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -168,7 +102,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -180,7 +114,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -192,7 +126,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -203,75 +137,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rustySwordLeftHigh_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce96af6c4a922e560800000000000000
-      internalID: 7341476130257005036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_1
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 256
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d9233a89cb1a0a70800000000000000
-      internalID: 8793871774815300050
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_2
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 256
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: def3f04ccda50e8f0800000000000000
-      internalID: -513310453291597843
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_3
+      name: High_BlockAnim_Skele_GIF_0
       rect:
         serializedVersion: 2
         x: 0
         y: 192
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -280,19 +151,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77a8f3f83b4bef6a0800000000000000
-      internalID: -6413490136033555849
+      spriteID: 0bbe1519fea3d8c20800000000000000
+      internalID: 3210286909994691504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_4
+      name: High_BlockAnim_Skele_GIF_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b05b9d67d51e31e40800000000000000
+      internalID: 5626088151058068747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: High_BlockAnim_Skele_GIF_2
       rect:
         serializedVersion: 2
         x: 128
         y: 192
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -301,40 +193,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9aaf5923c49ab1210800000000000000
-      internalID: 1304822661785189033
+      spriteID: 8773317c0226f9020800000000000000
+      internalID: 2350705423429089144
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_5
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 192
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 63f4ea378bf6e0c70800000000000000
-      internalID: 8939205148382482230
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_6
+      name: High_BlockAnim_Skele_GIF_3
       rect:
         serializedVersion: 2
         x: 0
         y: 128
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -343,19 +214,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20c8689f030f5fcd0800000000000000
-      internalID: -2524847922935854078
+      spriteID: 17b55005acd17bd10800000000000000
+      internalID: 2141212902601087857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_7
+      name: High_BlockAnim_Skele_GIF_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69e4851e0f370a060800000000000000
+      internalID: 6962692502324792982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: High_BlockAnim_Skele_GIF_5
       rect:
         serializedVersion: 2
         x: 128
         y: 128
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -364,40 +256,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af402cb73336dd930800000000000000
-      internalID: 4169597902785742074
+      spriteID: 524f978a90aed8800800000000000000
+      internalID: 616406051221795877
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_8
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 128
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ad958493bc3009a60800000000000000
-      internalID: 7678641536040983002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_9
+      name: High_BlockAnim_Skele_GIF_6
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -406,19 +277,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a599c0e9329fa950800000000000000
-      internalID: 6462544767582049705
+      spriteID: 8a6d44f0343270130800000000000000
+      internalID: 3532831203621394088
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_10
+      name: High_BlockAnim_Skele_GIF_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64cf0ea7d35fbb510800000000000000
+      internalID: 1566114939844754502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: High_BlockAnim_Skele_GIF_8
       rect:
         serializedVersion: 2
         x: 128
         y: 64
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -427,40 +319,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a5675a3b1a01ee50800000000000000
-      internalID: 6836756821384324516
+      spriteID: c8e9096d645115a00800000000000000
+      internalID: 743398807484538508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_11
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 64
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fc1b905050a990220800000000000000
-      internalID: 2452660818429981135
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_12
+      name: High_BlockAnim_Skele_GIF_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -469,19 +340,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f5156d37ddce42f0800000000000000
-      internalID: -986624944015862281
+      spriteID: fc84e0d3f685cfc10800000000000000
+      internalID: 2088641561982027983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rustySwordLeftHigh_13
+      name: High_BlockAnim_Skele_GIF_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b86718ece097f290800000000000000
+      internalID: -7856651677744011087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: High_BlockAnim_Skele_GIF_11
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -490,29 +382,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25454bdf8b7606a60800000000000000
-      internalID: 7665240610012681298
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rustySwordLeftHigh_14
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 24b4fc6ce1ca41440800000000000000
-      internalID: 4905735142297783106
+      spriteID: 959ef21e1e133a750800000000000000
+      internalID: 6314945948718983513
       vertices: []
       indices: 
       edges: []
@@ -520,7 +391,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4594b66b000a69a449c1602c5b2985d9
+    spriteID: cd5cdb2fa7e39bd479eb9b170d09cd1e
     internalID: 0
     vertices: []
     indices: 
