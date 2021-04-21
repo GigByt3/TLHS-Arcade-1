@@ -69,12 +69,6 @@ public class Maze : MonoBehaviour
         placeTorches();
     }
 
-    //Runs every frame, just updates the in-scene positions of GridObjects based on the maze data
-    void Update()
-    {
-        updateGridObjectPositions();
-    }
-
     //Generates the maze data from a Randomized Prim's Algorithm
     //https://en.wikipedia.org/wiki/Maze_generation_algorithm
     void populateMazeArray()
@@ -137,7 +131,7 @@ public class Maze : MonoBehaviour
         player.gridCoords = playerStartCoords;
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
         gridObjectDict.Add(playerStartCoords, player);
-
+        /*
         //Place enemies
         for (int i = 0; i < numberOfStartingEnemies; i++)
         {
@@ -160,7 +154,7 @@ public class Maze : MonoBehaviour
             newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
             newZombie.GetComponent<Enemy>().Ready();
             gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
-        }
+        } */
 
         //Place exit
         bool exitCoordsFound = false;
@@ -482,6 +476,8 @@ public class Maze : MonoBehaviour
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z)))
             gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, objectToMove.gridCoords.z));
         gridObjectDict.Add(new Vector3Int(x, y, objectToMove.gridCoords.z), objectToMove);
+
+        objectToMove.handleMove(new Vector2Int(x, y));
     }
 
     //Attempts to remove a given GridObject from the dictionary, does nothing if it's not there to begin with
@@ -551,6 +547,8 @@ public class Maze : MonoBehaviour
                                         gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i));
                                 objectToMove.gridCoords.y--;
                                 gridObjectDict.Add(objectToMove.gridCoords, objectToMove);
+
+                                objectToMove.handleMove(new Vector2Int(xToMoveTo, yToMoveTo));
                             }
                         }
                         break;
@@ -567,6 +565,8 @@ public class Maze : MonoBehaviour
                                         gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i));
                                 objectToMove.gridCoords.x++;
                                 gridObjectDict.Add(objectToMove.gridCoords, objectToMove);
+
+                                objectToMove.handleMove(new Vector2Int(xToMoveTo, yToMoveTo));
                             }
                         }
                         break;
@@ -583,6 +583,8 @@ public class Maze : MonoBehaviour
                                         gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i));
                                 objectToMove.gridCoords.y++;
                                 gridObjectDict.Add(objectToMove.gridCoords, objectToMove);
+
+                                objectToMove.handleMove(new Vector2Int(xToMoveTo, yToMoveTo));
                             }
                         }
                         break;
@@ -599,6 +601,8 @@ public class Maze : MonoBehaviour
                                         gridObjectDict.Remove(new Vector3Int(objectToMove.gridCoords.x, objectToMove.gridCoords.y, i));
                                 objectToMove.gridCoords.x--;
                                 gridObjectDict.Add(objectToMove.gridCoords, objectToMove);
+
+                                objectToMove.handleMove(new Vector2Int(xToMoveTo, yToMoveTo));
                             }
                         }
                         break;
@@ -617,9 +621,11 @@ public class Maze : MonoBehaviour
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
             gridObjectDict.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
         gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
+
+        objectToRotate.handleRotation(direction);
     }
 
-    //Updates the in-scene positions of all GridObjects in the dictionary based on the dictionary
+    /*//Updates the in-scene positions of all GridObjects in the dictionary based on the dictionary
     public void updateGridObjectPositions()
     {
         foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)
@@ -644,12 +650,29 @@ public class Maze : MonoBehaviour
                     break;
             }
         }
-    }
+    }*/
 
     //Converts given float x and y coords to a Vector3 with height cellWidth / 2
     public Vector3 cellCoordsToGlobalCoords(float x, float y)
     {
         return new Vector3((-x * cellWidth), cellWidth / 2.0f, (y * cellWidth));
+    }
+
+    public Quaternion cellDirectionToGlobalRotation(int direction)
+    {
+        switch (direction)
+        {
+            case 0:
+                return Quaternion.Euler(0.0f, 180.0f, 0.0f);
+            case 1:
+                return Quaternion.Euler(0.0f, 270.0f, 0.0f);
+            case 2:
+                return Quaternion.identity;
+            case 3:
+                return Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            default:
+                return Quaternion.Euler(0.0f, 180.0f, 0.0f);
+        }
     }
 
     //Returns the raw wall data at a given coords and side

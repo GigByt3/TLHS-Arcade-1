@@ -143,7 +143,6 @@ public abstract class GridObject : MonoBehaviour
         newdir %= 4;
 
         maze.setObjectRotation(this, newdir);
-
         gridCoords.z = newdir;
     }
 
@@ -169,7 +168,15 @@ public abstract class GridObject : MonoBehaviour
                 gridCoords.z = 3;
                 break;
         }
+    }
 
-        maze.updateGridObjectPositions();
+    public virtual void handleMove(Vector2Int destination)
+    {
+        gameObject.transform.position = maze.cellCoordsToGlobalCoords(destination.x, destination.y);
+    }
+
+    public virtual void handleRotation(int destination)
+    {
+        gameObject.transform.rotation = maze.cellDirectionToGlobalRotation(destination);
     }
 }

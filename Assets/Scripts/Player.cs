@@ -1,7 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : GridObject
 {
@@ -17,6 +21,23 @@ public class Player : GridObject
 
     private const float PLAYER_MOVE_COOLDOWN = 0.5f;
     private float playerMoveCooldownCount;
+
+    private const float MOVEMENT_INTERPOLATION_DURATION = 0.25f;
+    private const float ROTATION_INTERPOLATION_DURATION = 0.1f;
+
+    private Vector3 positionGoal;
+    private Vector3 positionOrigin;
+
+    private float positionInterpolationDuration;
+    public float positionProgress = 0.0f;
+    private bool positionInterpolating = false;
+
+    private Quaternion rotationGoal;
+    private Quaternion rotationOrigin;
+
+    private float rotationInterpolationDuration;
+    public float rotationProgress = 0.0f;
+    private bool rotationInterpolating = false;
 
     void OnEnable()
     {
@@ -40,6 +61,8 @@ public class Player : GridObject
         else
         {
             checkKeysMove();
+            updatePos();
+            updateRot();
         }
     }
 
@@ -138,5 +161,68 @@ public class Player : GridObject
         if (Input.GetKeyDown("d")) _sendKey?.Invoke("d");
     }
 
-    
+    private void updatePos()
+    {
+
+        if (positionProgress >= 1.0f)
+        {
+            gameObject.transform.position = positionGoal;
+            positionProgress = 0.0f;
+            positionInterpolationDuration = 0.0f;
+            positionInterpolating = false;
+        }
+
+        if (positionInterpolating)
+        {
+            positionProgress += Time.deltaTime / positionInterpolationDuration;
+            transform.position = Vector3.Slerp(positionOrigin, positionGoal, positionProgress);
+        }
+    }
+
+    private void updateRot()
+    {
+        if (rotationProgress >= 1.0f)
+        {
+            gameObject.transform.rotation = rotationGoal;
+            rotationProgress = 0.0f;
+            rotationInterpolationDuration = 0.0f;
+            rotationInterpolating = false;
+        }
+
+        if (rotationInterpolating)
+        {
+            rotationProgress += Time.deltaTime / rotationInterpolationDuration;
+            transform.rotation = Quaternion.Slerp(rotationOrigin, rotationGoal, rotationProgress);
+        }
+    }
+
+
+    private void interpolateToPos(Vector3 positionGoal, float duration) {
+        this.positionInterpolating = true;
+
+        this.positionGoal = positionGoal;
+        this.positionOrigin = transform.position;
+
+        this.positionInterpolationDuration = duration;
+    }
+
+    private void interpolateToRot(Quaternion rotationGoal, float duration)
+    {
+        this.rotationInterpolating = true;
+
+        this.rotationGoal = rotationGoal;
+        this.rotationOrigin = transform.rotation;
+
+        this.rotationInterpolationDuration = duration;
+    }
+
+    public override void handleMove(Vector2Int destination)
+    {
+        if (!positionInterpolating) interpolateToPos(maze.cellCoordsToGlobalCoords(destination.x, destination.y), 0.25f);
+    }
+
+    public override void handleRotation(int destination)
+    {
+        if (!rotationInterpolating) interpolateToRot(maze.cellDirectionToGlobalRotation(destination), 0.1f);
+    }
 }
