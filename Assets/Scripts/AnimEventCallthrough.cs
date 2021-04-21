@@ -9,7 +9,6 @@ public class AnimEventCallthrough : MonoBehaviour
     // Start is called before the first frame update
     public void StrikeConnect(GameObject hitter)
     {
-        Debug.Log("Callthrough Connection");
         hitter.GetComponent<ParentCombatController>().StrikeConnect();
     }
 

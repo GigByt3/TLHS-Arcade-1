@@ -39,6 +39,7 @@ public abstract class EnemyCombatController : ParentCombatController
 
     private void Start()
     {
+        enemyId = 0;
         id = idCounter;
         idCounter++;
         anim = GetComponent<Animator>();
@@ -58,13 +59,9 @@ public abstract class EnemyCombatController : ParentCombatController
     {
         if (hittee_id != id) return;
 
-        Debug.Log("reaction");
-
         if (canDodge && stamina - 1 >= 0)
         {
-            Debug.Log("dodging");
             stamina -= 1;
-            Debug.Log(attackSide);
             switch (attackSide)
             {
                 case strikeSide.LEFT:
@@ -82,10 +79,8 @@ public abstract class EnemyCombatController : ParentCombatController
         }
         else if (canBlock && blockCombo < 5)
         {
-            Debug.Log("blocking");
             blockCombo++;
             isBlocking = attackHeight;
-            Debug.Log(attackHeight);
             switch(attackHeight)
             {
                 case actionHeight.HIGH:
@@ -108,26 +103,21 @@ public abstract class EnemyCombatController : ParentCombatController
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _attackPower, ParentCombatController hitter, int hittee_id)
     {
+        if(id == 1 ) { Debug.Log(hittee_id); }
         if (hittee_id != id) return;
 
         if (isDodging != dodgeDir.NONE)
         {
             //dodging....
 
-            Debug.Log("Enemy " + id + " is Dodging...");
-
             if ((short)isDodging == (short)_strikeSide)
             {
                 health -= (int)(hitter.damage * 1.2);
                 //oof. you walked into that one.
-
-                Debug.Log("Enemy " + id + " walks into the strike. Ouch.");
             }
             else
             {
                 //you dodged
-
-                Debug.Log("Enemy " + id + " is Dodges!");
                 return;
             }
         }
@@ -137,31 +127,21 @@ public abstract class EnemyCombatController : ParentCombatController
             {
                 health -= (int)(hitter.damage * 0.2 * blockCombo);
                 //block succeeds!
-
-                Debug.Log("Enemy " + id + " Blocks!");
             }
             else
             {
                 health -= hitter.damage;
                 //block fails
-
-                Debug.Log("Enemy " + id + " fails to Block!");
             }
         }
         else
         {
             health -= hitter.damage;
-
-            Debug.Log("Enemy " + id + " is too slow.");
         }
-
-        Debug.Log("Enemy id: " + id + " was hit. Current health:" + health);
-
         if (health <= 0)
         {
             _death();
             gameObject.GetComponent<Enemy>().maze.removeObject(gameObject.GetComponent<Enemy>());
-            Debug.Log("Enemy id: " + id + " has died");
         }
     }
 

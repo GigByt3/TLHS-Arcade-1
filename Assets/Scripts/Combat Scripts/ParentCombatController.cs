@@ -9,7 +9,7 @@ public abstract class ParentCombatController : MonoBehaviour
     private int strikeCooldown = 1;
 
     public int id;
-    public int enemyId = -1;
+    protected int enemyId = -1;
 
     protected int health = 100;
     protected int stamina = 10;
@@ -97,8 +97,6 @@ public abstract class ParentCombatController : MonoBehaviour
     //Checks if Player is in the Middle of an Action
     protected bool canAct()
     {
-        if(id == 0) Debug.Log(isStriking + " -- " + isDodging + " -- " + isBlocking);
-
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
             return false;
@@ -109,7 +107,7 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by Animator Event on Height of Punch just calls the attack event. ()
     public void StrikeConnect()
     {
-        Debug.Log(strikeHeightSTORE + "//" + strikeSideSTORE + "//" + strikePowerSTORE + "//" + this + "//" + enemyId);
+        Debug.Log(enemyId);
         _attack(strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, this, enemyId);
     }
 

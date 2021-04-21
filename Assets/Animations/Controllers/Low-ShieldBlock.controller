@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: lowshieldblock1
-  m_Speed: 0.1
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8378579936744259661}
@@ -22,7 +22,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 1de02591175e84ff89b225c95f355b58, type: 2}
+  m_Motion: {fileID: 7400000, guid: 81b4bd49efe3c66449d78ccc61f5358a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

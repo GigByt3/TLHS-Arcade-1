@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerCombatController : ParentCombatController
 {
-    new int damage;
-    new float defense;
-    private new int id = 0;
 
     public GameObject swordCanvas;
     public GameObject sheildCanvas;
@@ -31,14 +28,23 @@ public class PlayerCombatController : ParentCombatController
         Player._setEnemy -= HandleSetEnemy;
     }
 
-    protected void HandleSetEnemy(int _id)
+    void Awake()
     {
+        damage = 40;
+        defense = 200;
+        id = 0;
+    }
+
+    private void HandleSetEnemy(int _id)
+    {
+        Debug.Log(_id);
         enemyId = _id;
+        Debug.Log(enemyId);
     }
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower strikePower, ParentCombatController hitter, int hittee_id)
     {
-        Debug.Log("-------------PLAYER WAS HIT");
+        if (hitter.id == 0) return;
 
         if(isDodging != dodgeDir.NONE)
         {
@@ -50,7 +56,6 @@ public class PlayerCombatController : ParentCombatController
                 //oof. you walked into that one.
             } else
             {
-                Debug.Log("-------------PLAYER DODGE" + health);
                 //you dodged
                 return;
             }
@@ -60,7 +65,6 @@ public class PlayerCombatController : ParentCombatController
             if ((short)isBlocking == (short)_strikeHeight)
             {
                 health -= (int)(hitter.damage * defense * blockCombo);
-                Debug.Log("-------------PLAYER BLOCK" + health);
                 //block succeeds!
             } else
             {
@@ -69,7 +73,6 @@ public class PlayerCombatController : ParentCombatController
             }
         } else
         {
-            Debug.Log("-------------PLAYER HURT " + health);
             health -= hitter.damage;
             if(health <= 0)
             {
@@ -161,7 +164,6 @@ public class PlayerCombatController : ParentCombatController
 
     public override void AnimReset()
     {
-        Debug.Log("ANIM RESET PLAYER");
         swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", 0);
         sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 0);
         GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 0);
