@@ -131,7 +131,7 @@ public class Maze : MonoBehaviour
         player.gridCoords = playerStartCoords;
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
         gridObjectDict.Add(playerStartCoords, player);
-        /*
+        
         //Place enemies
         for (int i = 0; i < numberOfStartingEnemies; i++)
         {
@@ -154,7 +154,7 @@ public class Maze : MonoBehaviour
             newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
             newZombie.GetComponent<Enemy>().Ready();
             gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
-        } */
+        }
 
         //Place exit
         bool exitCoordsFound = false;
