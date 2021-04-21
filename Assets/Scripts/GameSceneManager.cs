@@ -23,7 +23,9 @@ public class GameSceneManager : MonoBehaviour
      * 2 - Second Level
      * 2.5 - Third Transition
      * 3 - Third Level
-     * 3.5 - Victory Transtion
+     * 3.5 - Boss Transtion
+     * 4 - Boss Level
+     * 4.5 - Victory Transition
      * 402 - Death Sceen
      * Default - Victory Transtion
      */
@@ -79,6 +81,12 @@ public class GameSceneManager : MonoBehaviour
                 SetUpGame(24, 4, 4);
                 break;
             case 3.5f:
+                SetUpTransition("Entering boss layer...", false);
+                break;
+            case 4:
+                SetUpBoss(16, 4, 4);
+                break;
+            case 4.5f:
                 SetUpTransition("Victory Screen", true);
                 break;
             case 402:
@@ -124,6 +132,32 @@ public class GameSceneManager : MonoBehaviour
         StartCoroutine(SwitchOutOfTransition(1, isGameOver));
         TransitionText = GameObject.FindGameObjectsWithTag("TransitionTextOne");
         TransitionText[0].GetComponent<UnityEngine.UI.Text>().text = Transition;
+    }
+
+    private void SetUpBoss(int mazeSize, int INTROindex, int LOOPindex)
+    {
+        _soundManager.MusicTransition(INTROindex, LOOPindex);
+
+        float cellWidth = 4.0f;
+
+        //Generate floor & ceiling
+        GameObject floorPrefab = Resources.Load<GameObject>("Floor");
+        GameObject floor = Instantiate(floorPrefab, new Vector3(-(mazeSize - 1) * (cellWidth / 2), 0.0f, (mazeSize - 1) * (cellWidth / 2)), Quaternion.identity);
+        floor.name = "Floor";
+        floor.transform.localScale = new Vector3(mazeSize * (cellWidth / 10), 1.0f, mazeSize * (cellWidth / 10));
+
+        GameObject ceiling = Instantiate(floorPrefab, new Vector3(-(mazeSize - 1) * (cellWidth / 2), cellWidth, (mazeSize - 1) * (cellWidth / 2)), Quaternion.Euler(0.0f, 0.0f, 180.0f));
+        ceiling.transform.localScale = new Vector3(mazeSize * (cellWidth / 10), 1.0f, mazeSize * (cellWidth / 10));
+        ceiling.name = "Ceiling";
+
+        //Maze Generation
+        GameObject mazeContainer = new GameObject("Maze");
+        mazeContainer.AddComponent<MeshFilter>();
+        mazeContainer.AddComponent<MeshRenderer>();
+        maze = mazeContainer.AddComponent<Maze>();
+        GameObject bossPrefab = null; //will be Resources.Load<GameObject>("Boss"); when that exists
+        maze.BossConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), bossPrefab, Resources.Load<Material>("Wall"), cellWidth);
+        maze.Ready();
     }
 
     // PUBLIC METHODS ==========================================================================================
