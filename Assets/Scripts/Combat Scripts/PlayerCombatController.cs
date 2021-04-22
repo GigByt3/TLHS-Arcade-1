@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerCombatController : ParentCombatController
 {
-
     public GameObject swordCanvas;
     public GameObject sheildCanvas;
 
@@ -13,6 +12,7 @@ public class PlayerCombatController : ParentCombatController
 
     void OnEnable()
     {
+        id = 0;
         damage = (int) GetComponent<Player>().inventory.GetDamage();
         defense = GetComponent<Player>().inventory.GetDefense();
 
@@ -28,18 +28,10 @@ public class PlayerCombatController : ParentCombatController
         Player._setEnemy -= HandleSetEnemy;
     }
 
-    void Awake()
-    {
-        damage = 40;
-        defense = 200;
-        id = 0;
-    }
-
     private void HandleSetEnemy(int _id)
     {
-        Debug.Log(_id);
+        Debug.Log(this + " runs HandleSetEnemy, takes in " + _id);
         enemyId = _id;
-        Debug.Log(enemyId);
     }
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower strikePower, ParentCombatController hitter, int hittee_id)
@@ -94,7 +86,7 @@ public class PlayerCombatController : ParentCombatController
                 // Heavy Attack
                 break;
             case "right":
-                if (isDodging != dodgeDir.NONE) break;
+                if (isDodging != dodgeDir.NONE || isStriking) break;
                 isDodging = dodgeDir.RIGHT;
                 GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 2);
                 // Preform Animation
@@ -102,7 +94,7 @@ public class PlayerCombatController : ParentCombatController
                 // right
                 break;
             case "left":
-                if (isDodging != dodgeDir.NONE) break;
+                if (isDodging != dodgeDir.NONE || isStriking) break;
                 isDodging = dodgeDir.LEFT;
                 GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 1);
                 // Preform Animation
@@ -115,12 +107,13 @@ public class PlayerCombatController : ParentCombatController
                 break;
 
             case "q":
+                if (isBlocking != actionHeight.NONE) break;
                 strike(actionHeight.HIGH, strikeSide.LEFT, strikePower.NORMAL);
 
                 // q    
                 break;
             case "w":
-                if (isBlocking != actionHeight.NONE) break;
+                if (isBlocking != actionHeight.NONE || isStriking) break;
                 isBlocking = actionHeight.HIGH;
                 sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 1);
                 blockCombo++;
@@ -129,18 +122,20 @@ public class PlayerCombatController : ParentCombatController
                 // w
                 break;
             case "e":
+                if (isBlocking != actionHeight.NONE) break;
                 strike(actionHeight.LOW, strikeSide.LEFT, strikePower.NORMAL);
 
                 // e
                 break;
 
             case "a":
+                if (isBlocking != actionHeight.NONE) break;
                 strike(actionHeight.HIGH, strikeSide.RIGHT, strikePower.NORMAL);
 
                 // a
                 break;
             case "s":
-                if (isBlocking != actionHeight.NONE) break;
+                if (isBlocking != actionHeight.NONE || isStriking) break;
                 isBlocking = actionHeight.LOW;
                 sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 2);
                 blockCombo++;
@@ -149,6 +144,7 @@ public class PlayerCombatController : ParentCombatController
                 // s
                 break;
             case "d":
+                if (isBlocking != actionHeight.NONE) break;
                 strike(actionHeight.LOW, strikeSide.RIGHT, strikePower.NORMAL);
                     
                 // d
@@ -159,6 +155,7 @@ public class PlayerCombatController : ParentCombatController
 
     public override void AnimStart(int number)
     {
+        Debug.Log("At PlayerCombat AnimStart, hitter.damage: " + this.damage);
         swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", number); 
     }
 

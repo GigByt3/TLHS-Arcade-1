@@ -9,7 +9,7 @@ public class IronSword : Weapon
         name = "Iron Sword";
         value = 2;
 
-        damage = 2.0f;
+        damage = 25.0f;
         cooldown = 1.0f;
     }
 }

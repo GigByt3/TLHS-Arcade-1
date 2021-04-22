@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ZombieCombatController : EnemyCombatController
 {
-    new protected int difficulty = 100;
+    //new protected int difficulty = 100;
 
     void OnEnable()
     {

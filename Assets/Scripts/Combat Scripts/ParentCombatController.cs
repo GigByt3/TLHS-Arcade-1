@@ -9,12 +9,12 @@ public abstract class ParentCombatController : MonoBehaviour
     private int strikeCooldown = 1;
 
     public int id;
-    protected int enemyId = -1;
-
+    public int enemyId = -1;
     protected int health = 100;
     protected int stamina = 10;
     public int damage = 20;
     public float defense = 0.2f;
+
 
     protected int blockCombo = 0;
     protected int strikeCombo = 0;
@@ -107,7 +107,8 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by Animator Event on Height of Punch just calls the attack event. ()
     public void StrikeConnect()
     {
-        Debug.Log(enemyId);
+        Debug.Log(this + " on object " + gameObject + " has hit " + enemyId);
+        Debug.Log("At ParentController StrikeConnect, hitter.damage: " + this.damage);
         _attack(strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, this, enemyId);
     }
 
@@ -122,6 +123,7 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by AnimatorEvent when Animation is done
     public IEnumerator ActionComplete(string type)
     {
+        Debug.Log("ActionComplete called with action: " + type);
         switch(type)
         {
             case "dodge":

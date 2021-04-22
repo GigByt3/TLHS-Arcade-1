@@ -108,15 +108,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.26666668
-    functionName: StrikeConnect
+    functionName: StrikeConnectCallthrough
     data: 
-    objectReferenceParameter: {fileID: 4499617594145283483, guid: 15641fc39afb7ca4da72cbf6026259d5,
-      type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.51666665
-    functionName: Complete
+    functionName: CompleteCallthrough
     data: normal_strike
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

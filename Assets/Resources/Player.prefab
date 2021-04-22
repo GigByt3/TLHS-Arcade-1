@@ -285,7 +285,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  enemyId: -1
   damage: 20
   defense: 0.2
   swordCanvas: {fileID: 12574406438020815}
@@ -407,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d15c3ae5f1448cc90420d61fd4bb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4499617594145283483}
+  player: {fileID: 0}
 --- !u!1 &7299008842515974146
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d15c3ae5f1448cc90420d61fd4bb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4499617594145283483}
+  player: {fileID: 0}
 --- !u!212 &5406234731077429942
 SpriteRenderer:
   m_ObjectHideFlags: 0

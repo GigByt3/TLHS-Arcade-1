@@ -50,7 +50,7 @@ public abstract class EnemyCombatController : ParentCombatController
     {
         if (Random.Range(0.0f, 100.0f) < (difficulty * 0.05) && inCombat)
         {
-            enemyStrike();
+            //enemyStrike();
         }
     }
 
@@ -103,8 +103,9 @@ public abstract class EnemyCombatController : ParentCombatController
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _attackPower, ParentCombatController hitter, int hittee_id)
     {
-        if(id == 1 ) { Debug.Log(hittee_id); }
         if (hittee_id != id) return;
+
+        Debug.Log("At enemy wasHit, hitter.damage: " + hitter.damage);
 
         if (isDodging != dodgeDir.NONE)
         {
