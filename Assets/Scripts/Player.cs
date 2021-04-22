@@ -23,19 +23,17 @@ public class Player : GridObject
     private float playerMoveCooldownCount;
 
     private const float MOVEMENT_INTERPOLATION_DURATION = 0.25f;
-    private const float ROTATION_INTERPOLATION_DURATION = 0.1f;
+    private const float ROTATION_INTERPOLATION_DURATION = 0.10f;
 
     private Vector3 positionGoal;
     private Vector3 positionOrigin;
 
-    private float positionInterpolationDuration;
     public float positionProgress = 0.0f;
     private bool positionInterpolating = false;
 
     private Quaternion rotationGoal;
     private Quaternion rotationOrigin;
 
-    private float rotationInterpolationDuration;
     public float rotationProgress = 0.0f;
     private bool rotationInterpolating = false;
 
@@ -168,13 +166,12 @@ public class Player : GridObject
         {
             gameObject.transform.position = positionGoal;
             positionProgress = 0.0f;
-            positionInterpolationDuration = 0.0f;
             positionInterpolating = false;
         }
 
         if (positionInterpolating)
         {
-            positionProgress += Time.deltaTime / positionInterpolationDuration;
+            positionProgress += Time.deltaTime / MOVEMENT_INTERPOLATION_DURATION;
             transform.position = Vector3.Slerp(positionOrigin, positionGoal, positionProgress);
         }
     }
@@ -185,44 +182,39 @@ public class Player : GridObject
         {
             gameObject.transform.rotation = rotationGoal;
             rotationProgress = 0.0f;
-            rotationInterpolationDuration = 0.0f;
             rotationInterpolating = false;
         }
 
         if (rotationInterpolating)
         {
-            rotationProgress += Time.deltaTime / rotationInterpolationDuration;
+            rotationProgress += Time.deltaTime / ROTATION_INTERPOLATION_DURATION;
             transform.rotation = Quaternion.Slerp(rotationOrigin, rotationGoal, rotationProgress);
         }
     }
 
 
-    private void interpolateToPos(Vector3 positionGoal, float duration) {
+    private void interpolateToPos(Vector3 positionGoal) {
         this.positionInterpolating = true;
 
         this.positionGoal = positionGoal;
         this.positionOrigin = transform.position;
-
-        this.positionInterpolationDuration = duration;
     }
 
-    private void interpolateToRot(Quaternion rotationGoal, float duration)
+    private void interpolateToRot(Quaternion rotationGoal)
     {
         this.rotationInterpolating = true;
 
         this.rotationGoal = rotationGoal;
         this.rotationOrigin = transform.rotation;
-
-        this.rotationInterpolationDuration = duration;
     }
 
     public override void handleMove(Vector2Int destination)
     {
-        if (!positionInterpolating) interpolateToPos(maze.cellCoordsToGlobalCoords(destination.x, destination.y), 0.25f);
+        if (!positionInterpolating) interpolateToPos(maze.cellCoordsToGlobalCoords(destination.x, destination.y));
     }
 
     public override void handleRotation(int destination)
     {
-        if (!rotationInterpolating) interpolateToRot(maze.cellDirectionToGlobalRotation(destination), 0.1f);
+        if (!rotationInterpolating) interpolateToRot(maze.cellDirectionToGlobalRotation(destination));
     }
 }
