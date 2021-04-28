@@ -19,6 +19,8 @@ public abstract class GridObject : MonoBehaviour
         if (gridCoords.y >= maze.height) gridCoords.y = maze.height - 1;
 
         gridCoords.z %= 4;
+
+        forcePosition();
     }
 
     //Returns all cells this GridObject can see to the north, obstructed by walls
@@ -149,7 +151,6 @@ public abstract class GridObject : MonoBehaviour
         newdir %= 4;
 
         maze.setObjectRotation(this, newdir);
-
         gridCoords.z = newdir;
     }
 
@@ -175,7 +176,22 @@ public abstract class GridObject : MonoBehaviour
                 gridCoords.z = 3;
                 break;
         }
+    }
 
-        //maze.updateGridObjectPositions();
+    //Forces the object's position to it's correct position in the scene based on gridCoords
+    void forcePosition()
+    {
+        transform.position = maze.cellCoordsToGlobalCoords(gridCoords.x, gridCoords.y);
+        transform.rotation = maze.cellDirectionToGlobalRotation(gridCoords.z);
+    }
+
+    public virtual void handleMove(Vector2Int destination)
+    {
+        gameObject.transform.position = maze.cellCoordsToGlobalCoords(destination.x, destination.y);
+    }
+
+    public virtual void handleRotation(int destination)
+    {
+        gameObject.transform.rotation = maze.cellDirectionToGlobalRotation(destination);
     }
 }
