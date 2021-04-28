@@ -5,19 +5,21 @@ using UnityEngine;
 public class AnimEventCallthrough : MonoBehaviour
 {
     public GameObject player;
-
-    public void Start()
+    
+    void Start()
     {
-        player = GameObject.FindGameObjectsWithTag("Player")[0];
+        player = GameObject.Find("Player");
     }
+
     // Start is called before the first frame update
-    public void StrikeConnect()
+    public void StrikeConnectCallthrough()
     {
-        player.GetComponent<ParentCombatController>().StrikeConnect();
+        Debug.Log("At AnimEvent StrikeConnectCallthrough, hitter.damage: " + player.GetComponent<PlayerCombatController>().damage);
+        player.GetComponent<PlayerCombatController>().StrikeConnect();
     }
 
     // Update is called once per frame
-    public void Complete(string peram)
+    public void CompleteCallthrough(string peram)
     {
         player.GetComponent<ParentCombatController>().Complete(peram);
     }

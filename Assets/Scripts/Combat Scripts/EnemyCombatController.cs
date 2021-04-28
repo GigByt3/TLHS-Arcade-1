@@ -20,6 +20,7 @@ public abstract class EnemyCombatController : ParentCombatController
     protected int difficulty = 30;
     private static int idCounter = 1;
     public Animator anim;
+    public bool inCombat = false;
 
     public delegate void death();
     public static event death _death;
@@ -38,16 +39,25 @@ public abstract class EnemyCombatController : ParentCombatController
 
     private void Start()
     {
+        enemyId = 0;
         id = idCounter;
         idCounter++;
         anim = GetComponent<Animator>();
         Debug.Log(id);
     }
 
-    //Enemy reaction
-    protected void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower)
+    private void Update()
     {
+        if (Random.Range(0.0f, 100.0f) < (difficulty * 0.05) && inCombat)
+        {
+            //enemyStrike();
+        }
+    }
 
+    //Enemy reaction
+    protected void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower, int hittee_id)
+    {
+        if (hittee_id != id) return;
 
         if (canDodge && stamina - 1 >= 0)
         {
@@ -81,11 +91,21 @@ public abstract class EnemyCombatController : ParentCombatController
                     break;
             }
         }
+        else
+        {
+            Debug.Log("Can't Block or Dodge" +
+                        "\n Can Dodge: " + canDodge +
+                        "\n Can Block: " + canBlock +
+                        "\n Stamina: " + stamina +
+                        "\n Block Combo: " + blockCombo);
+        }
     }
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _attackPower, ParentCombatController hitter, int hittee_id)
     {
         if (hittee_id != id) return;
+
+        Debug.Log("At enemy wasHit, hitter.damage: " + hitter.damage);
 
         if (isDodging != dodgeDir.NONE)
         {
@@ -119,20 +139,23 @@ public abstract class EnemyCombatController : ParentCombatController
         {
             health -= hitter.damage;
         }
-
-        Debug.Log("Enemy id: " + id + " was hit. Current health:" + health);
-
         if (health <= 0)
         {
             _death();
             gameObject.GetComponent<Enemy>().maze.removeObject(gameObject.GetComponent<Enemy>());
-            Debug.Log("Enemy id: " + id + " has died");
         }
     }
 
-    protected override void AnimReset()
+    
+    public override void AnimStart(int number)
+    {
+        GetComponent<Animator>().SetInteger("CurrentAction", number);
+    }
+
+    public override void AnimReset()
     {
         GetComponent<Animator>().SetInteger("CurrentAction", -1);
     }
 
+    public abstract void enemyStrike();
 }

@@ -4,13 +4,10 @@ using UnityEngine;
 
 public abstract class Potion : Item
 {
-
-    public override void superinit()
+    public Potion()
     {
         type = ItemType.POTION;
     }
 
     public abstract void onConsume();
-
-
 }

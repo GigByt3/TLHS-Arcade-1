@@ -11,14 +11,19 @@ public class Player : GridObject
     public delegate void setEnemy(int id);
     public static event setEnemy _setEnemy;
 
-    private bool inCombat;
+    public PlayerInventory inventory;
 
-    private const float PLAYER_MOVE_COOLDOWN = 0.5f;
+    private bool inCombat = false;
+
+    private const float PLAYER_MOVE_COOLDOWN = 0.2f;
     private float playerMoveCooldownCount;
 
     void OnEnable()
     {
         EnemyCombatController._death += exitCombat;
+
+        inventory = new PlayerInventory();
+        inventory.StarterKit();
     }
 
     void OnDisable()
@@ -72,6 +77,7 @@ public class Player : GridObject
     //Enters combat with the given enemy
     public void enterCombat(Enemy enemy)
     {
+        Debug.Log("combat started");
         int enemyXPosDif = enemy.gridCoords.x - gridCoords.x;
         int enemyYPosDif = enemy.gridCoords.y - gridCoords.y;
 
@@ -103,12 +109,6 @@ public class Player : GridObject
         inCombat = false;
     }
 
-    //Returns whether or not the player is in the given cell
-    public bool isInCell(List<Vector2Int> cells)
-    {
-        return cells.Contains(new Vector2Int(gridCoords.x, gridCoords.y));
-    }
-
     public delegate void sendKey(string code);
 
     public static event sendKey _sendKey;
@@ -132,6 +132,4 @@ public class Player : GridObject
         if (Input.GetKeyDown("s")) _sendKey?.Invoke("s");
         if (Input.GetKeyDown("d")) _sendKey?.Invoke("d");
     }
-
-    
 }

@@ -57,7 +57,7 @@ public class Enemy : GridObject
             if (isPlayerAdjacent())
             {
                 player.enterCombat(this);
-                
+                GetComponent<EnemyCombatController>().inCombat = true;
                 return;
             }
 

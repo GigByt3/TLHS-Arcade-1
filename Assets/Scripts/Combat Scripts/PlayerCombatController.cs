@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class PlayerCombatController : ParentCombatController
 {
-    new int damage = 2;
-    new int id = 0;
+    public GameObject swordCanvas;
+    public GameObject sheildCanvas;
 
-    public GameObject canvas;
-
-    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower);
+    public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower, int hittee_id);
     public static event projection _projection;
 
     void OnEnable()
     {
+        id = 0;
+        damage = (int) GetComponent<Player>().inventory.GetDamage();
+        defense = GetComponent<Player>().inventory.GetDefense();
+
         EnemyCombatController._attack += wasHit;
         Player._sendKey += combatAction;
         Player._setEnemy += HandleSetEnemy;
@@ -26,13 +28,16 @@ public class PlayerCombatController : ParentCombatController
         Player._setEnemy -= HandleSetEnemy;
     }
 
-    protected void HandleSetEnemy(int _id)
+    private void HandleSetEnemy(int _id)
     {
+        Debug.Log(this + " runs HandleSetEnemy, takes in " + _id);
         enemyId = _id;
     }
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower strikePower, ParentCombatController hitter, int hittee_id)
     {
+        if (hitter.id == 0) return;
+
         if(isDodging != dodgeDir.NONE)
         {
             //dodging....
@@ -51,7 +56,7 @@ public class PlayerCombatController : ParentCombatController
         {
             if ((short)isBlocking == (short)_strikeHeight)
             {
-                health -= (int)(hitter.damage * 0.2 * blockCombo);
+                health -= (int)(hitter.damage * defense * blockCombo);
                 //block succeeds!
             } else
             {
@@ -61,16 +66,18 @@ public class PlayerCombatController : ParentCombatController
         } else
         {
             health -= hitter.damage;
+            if(health <= 0)
+            {
+                GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().Death();
+            }
         }
     }
 
     protected void combatAction(string code)
     {
-        actionHeight attackHeight = actionHeight.NONE;
-        strikeSide attackSide = strikeSide.NONE;
-        strikePower attackPower = strikePower.NONE;
-
-        Debug.Log("Player taking combat action " + code);
+        strikeHeightSTORE = actionHeight.NONE;
+        strikeSideSTORE = strikeSide.NONE;
+        strikePowerSTORE = strikePower.NONE;
 
         switch (code)
         {
@@ -79,13 +86,17 @@ public class PlayerCombatController : ParentCombatController
                 // Heavy Attack
                 break;
             case "right":
+                if (isDodging != dodgeDir.NONE || isStriking) break;
                 isDodging = dodgeDir.RIGHT;
+                GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 2);
                 // Preform Animation
 
                 // right
                 break;
             case "left":
+                if (isDodging != dodgeDir.NONE || isStriking) break;
                 isDodging = dodgeDir.LEFT;
+                GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 1);
                 // Preform Animation
 
                 // left
@@ -96,63 +107,62 @@ public class PlayerCombatController : ParentCombatController
                 break;
 
             case "q":
-                attackHeight = actionHeight.HIGH;
-                attackSide = strikeSide.LEFT;
-                attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                if (isBlocking != actionHeight.NONE) break;
                 strike(actionHeight.HIGH, strikeSide.LEFT, strikePower.NORMAL);
 
                 // q    
                 break;
             case "w":
+                if (isBlocking != actionHeight.NONE || isStriking) break;
                 isBlocking = actionHeight.HIGH;
+                sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 1);
                 blockCombo++;
                 // Preform Animation
 
                 // w
                 break;
             case "e":
-                attackHeight = actionHeight.LOW;
-                attackSide = strikeSide.LEFT;
-                attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                if (isBlocking != actionHeight.NONE) break;
                 strike(actionHeight.LOW, strikeSide.LEFT, strikePower.NORMAL);
 
                 // e
                 break;
 
             case "a":
-                attackHeight = actionHeight.HIGH;
-                attackSide = strikeSide.RIGHT;
-                attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                if (isBlocking != actionHeight.NONE) break;
                 strike(actionHeight.HIGH, strikeSide.RIGHT, strikePower.NORMAL);
 
                 // a
                 break;
             case "s":
+                if (isBlocking != actionHeight.NONE || isStriking) break;
                 isBlocking = actionHeight.LOW;
+                sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 2);
                 blockCombo++;
                 // Preform Animation
-
 
                 // s
                 break;
             case "d":
-                attackHeight = actionHeight.LOW;
-                attackSide = strikeSide.RIGHT;
-                attackPower = strikePower.NORMAL;
-                canvas.GetComponent<Animator>().SetBool("isAttacking", true);
+                if (isBlocking != actionHeight.NONE) break;
                 strike(actionHeight.LOW, strikeSide.RIGHT, strikePower.NORMAL);
                     
                 // d
                 break;
         }
-        _projection?.Invoke(isStriking, isDodging, isBlocking, attackHeight, attackSide, attackPower);
+        _projection?.Invoke(isStriking, isDodging, isBlocking, strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, enemyId);
     }
 
-    protected override void AnimReset()
+    public override void AnimStart(int number)
     {
-        GetComponentsInChildren<Animator>()[0].SetBool("isAttacking", false);
+        Debug.Log("At PlayerCombat AnimStart, hitter.damage: " + this.damage);
+        swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", number); 
+    }
+
+    public override void AnimReset()
+    {
+        swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", 0);
+        sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 0);
+        GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 0);
     }
 }

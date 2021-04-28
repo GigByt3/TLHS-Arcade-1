@@ -88,14 +88,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.33333334
-    functionName: ActionComplete
-    data: normal_strike
+    functionName: StrikeConnect
+    data: 
     objectReferenceParameter: {fileID: 1426670081193811923, guid: 083493b31bddc844fa8dd9a42ece3db0,
       type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.48333332
     functionName: Complete
     data: normal_strike
     objectReferenceParameter: {fileID: 1426670081193811923, guid: 083493b31bddc844fa8dd9a42ece3db0,
