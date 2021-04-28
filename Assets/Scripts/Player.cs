@@ -1,11 +1,5 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditorInternal;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Player : GridObject
 {
@@ -59,9 +53,9 @@ public class Player : GridObject
         else
         {
             checkKeysMove();
-            updatePos();
-            updateRot();
         }
+        updatePos();
+        updateRot();
     }
 
     //Method for checking keypresses when not in combat

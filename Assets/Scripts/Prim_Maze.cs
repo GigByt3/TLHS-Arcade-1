@@ -124,14 +124,15 @@ public class Maze : MonoBehaviour
         GameObject playerObject = Instantiate(playerPrefab);
         playerObject.name = "Player";
         player = playerObject.GetComponent<Player>();
-        player.Ready();
-
+        
         Vector3Int playerStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
 
         player.gridCoords = playerStartCoords;
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
         gridObjectDict.Add(playerStartCoords, player);
-        
+
+        player.Ready();
+
         //Place enemies
         for (int i = 0; i < numberOfStartingEnemies; i++)
         {
