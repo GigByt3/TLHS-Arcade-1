@@ -11,9 +11,9 @@ public class Player : GridObject
 
     public PlayerInventory inventory;
 
-    private bool inCombat;
+    private bool inCombat = false;
 
-    private const float PLAYER_MOVE_COOLDOWN = 0.5f;
+    private const float PLAYER_MOVE_COOLDOWN = 0.2f;
     private float playerMoveCooldownCount;
 
     private const float MOVEMENT_INTERPOLATION_DURATION = 0.25f;
@@ -92,6 +92,7 @@ public class Player : GridObject
     //Enters combat with the given enemy
     public void enterCombat(Enemy enemy)
     {
+        Debug.Log("combat started");
         int enemyXPosDif = enemy.gridCoords.x - gridCoords.x;
         int enemyYPosDif = enemy.gridCoords.y - gridCoords.y;
 
@@ -121,12 +122,6 @@ public class Player : GridObject
     {
         // gain xp maybe?
         inCombat = false;
-    }
-
-    //Returns whether or not the player is in the given cell
-    public bool isInCell(List<Vector2Int> cells)
-    {
-        return cells.Contains(new Vector2Int(gridCoords.x, gridCoords.y));
     }
 
     public delegate void sendKey(string code);

@@ -14,7 +14,7 @@ public class Maze : MonoBehaviour
     public float cellWidth;
     public float cellHeight;
 
-    public GameObject playerPrefab, exitPrefab;
+    public GameObject playerPrefab, exitPrefab, bossPrefab;
     public GameObject[] enemyPrefabs;
 
     public int numberOfStartingEnemies;
@@ -23,6 +23,8 @@ public class Maze : MonoBehaviour
     public ExitDoor exitDoor;
 
     public Dictionary<Vector3Int, GridObject> gridObjectDict;
+
+    private bool isBossMaze;
 
     private bool[,,] walls;
     private List<Vector2Int> deadEndCells;
@@ -36,6 +38,7 @@ public class Maze : MonoBehaviour
     //Method for assigning all the various fields of a maze, in lieu of a Java-esque "constructor" in C#
     public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject _exitPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty, float _torchDensity)
     {
+        isBossMaze = false;
         width = _width;
         height = _height;
         playerPrefab = _playerPrefab;
@@ -49,24 +52,49 @@ public class Maze : MonoBehaviour
         torchDensity = _torchDensity;
     }
 
+    public void BossConstructor(int _width, int _height, GameObject _playerPrefab, GameObject _bossPrefab, Material _material, float _cellWidth)
+    {
+        isBossMaze = true;
+        width = _width;
+        height = _height;
+        playerPrefab = _playerPrefab;
+        bossPrefab = _bossPrefab;
+        material = _material;
+        cellWidth = _cellWidth;
+    }
+
     //Method to tell the maze when to actually start generating things, usually run after MazeConstructor
     public void Ready()
     {
         walls = new bool[width + 1, height + 1, 2];
-        numOfTorches = (int) (width * height * torchDensity);
-        torchPrefab = Resources.Load<GameObject>("Torch");
 
-        Debug.Log("Made new maze of size " + width + ", " + height);
+        if (isBossMaze)
+        {
+            Debug.Log("Made new boss room of size " + width + ", " + height);
 
-        populateMazeArray();
+            populateBossMazeArray();
 
-        generateMazeMesh();
+            generateMazeMesh();
 
-        markDeadEndCells();
+            populateGridObjects();
+        }
+        else
+        {
+            numOfTorches = (int) (width * height * torchDensity);
+            torchPrefab = Resources.Load<GameObject>("Torch");
 
-        populateGridObjects();
+            Debug.Log("Made new maze of size " + width + ", " + height);
 
-        placeTorches();
+            populateMazeArray();
+
+            generateMazeMesh();
+
+            markDeadEndCells();
+
+            populateGridObjects();
+
+            placeTorches();
+        }
     }
 
     //Generates the maze data from a Randomized Prim's Algorithm
@@ -117,6 +145,19 @@ public class Maze : MonoBehaviour
         }
     }
 
+    void populateBossMazeArray()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            walls[i, height - 1, 1] = true;
+        }
+
+        for (int j = 0; j < height; j++)
+        {
+            walls[j, width - 1, 0] = true;
+        }
+    }
+
     //Places various GridObjects in the maze, such as the player, enemies, and exit.
     void populateGridObjects()
     {
@@ -124,67 +165,73 @@ public class Maze : MonoBehaviour
         GameObject playerObject = Instantiate(playerPrefab);
         playerObject.name = "Player";
         player = playerObject.GetComponent<Player>();
-        
+
         Vector3Int playerStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
 
         player.gridCoords = playerStartCoords;
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
         gridObjectDict.Add(playerStartCoords, player);
 
-        player.Ready();
-
-        //Place enemies
-        for (int i = 0; i < numberOfStartingEnemies; i++)
+        if (isBossMaze)
         {
-            bool startCoordsFound = false;
-            Vector3Int possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
-            while (!startCoordsFound)
+            //Place boss
+            //TBD
+        }
+        else
+        {
+            //Place enemies
+            for (int i = 0; i < numberOfStartingEnemies; i++)
             {
-                if (!isObjectAtCoords(possibleStartCoords.x, possibleStartCoords.y))
+                bool startCoordsFound = false;
+                Vector3Int possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+                while (!startCoordsFound)
                 {
-                    startCoordsFound = true;
+                    if (!isObjectAtCoords(possibleStartCoords.x, possibleStartCoords.y))
+                    {
+                        startCoordsFound = true;
+                    }
+                    else
+                    {
+                        possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+                    }
                 }
-                else
+
+                GameObject newZombie = Instantiate(Resources.Load<GameObject>("Zombie"), cellCoordsToGlobalCoords(possibleStartCoords.x, possibleStartCoords.y), Quaternion.identity);
+                newZombie.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.Zombie);
+                newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
+                newZombie.GetComponent<Enemy>().Ready();
+                gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
+            }
+
+            //Place exit
+            bool exitCoordsFound = false;
+            Vector3Int possibleExitCoords = new Vector3Int();
+            while (!exitCoordsFound)
+            {
+                int deadEndCellIndex = UnityEngine.Random.Range(0, deadEndCells.Count);
+                Vector2Int chosenDeadEndCell = deadEndCells[deadEndCellIndex];
+                if (!isObjectAtCoords(chosenDeadEndCell.x, chosenDeadEndCell.y))
                 {
-                    possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+                    int openSide = 0;
+                    if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 0)) openSide = 0;
+                    if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 1)) openSide = 1;
+                    if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 2)) openSide = 2;
+                    if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 3)) openSide = 3;
+
+                    possibleExitCoords = new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, openSide);
+
+                    exitCoordsFound = true;
                 }
             }
 
-            GameObject newZombie = Instantiate(Resources.Load<GameObject>("Zombie"), cellCoordsToGlobalCoords(possibleStartCoords.x, possibleStartCoords.y), Quaternion.identity);
-            newZombie.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.Zombie);
-            newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
-            newZombie.GetComponent<Enemy>().Ready();
-            gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
+            GameObject exitDoorObject = Instantiate(exitPrefab);
+            exitDoor = exitDoorObject.GetComponent<ExitDoor>();
+            exitDoor.ExitDoorConstructor(cellWidth, cellHeight);
+            exitDoor.Ready();
+
+            exitDoor.gridCoords = possibleExitCoords;
+            gridObjectDict.Add(possibleExitCoords, exitDoor);
         }
-
-        //Place exit
-        bool exitCoordsFound = false;
-        Vector3Int possibleExitCoords = new Vector3Int();
-        while (!exitCoordsFound)
-        {
-            int deadEndCellIndex = UnityEngine.Random.Range(0, deadEndCells.Count);
-            Vector2Int chosenDeadEndCell = deadEndCells[deadEndCellIndex];
-            if (!isObjectAtCoords(chosenDeadEndCell.x ,chosenDeadEndCell.y))
-            {
-                int openSide = 0;
-                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 0)) openSide = 0;
-                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 1)) openSide = 1;
-                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 2)) openSide = 2;
-                if (!getWallFromDirection(chosenDeadEndCell.x, chosenDeadEndCell.y, 3)) openSide = 3;
-
-                possibleExitCoords = new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, openSide);
-
-                exitCoordsFound = true;
-            }
-        }
-
-        GameObject exitDoorObject = Instantiate(exitPrefab);
-        exitDoor = exitDoorObject.GetComponent<ExitDoor>();
-        exitDoor.ExitDoorConstructor(cellWidth, cellHeight);
-        exitDoor.Ready();
-
-        exitDoor.gridCoords = possibleExitCoords;
-        gridObjectDict.Add(possibleExitCoords, exitDoor);
     }
 
     //Loops through all the cells, and adds all dead end cells to the deadEndCells list
@@ -620,7 +667,10 @@ public class Maze : MonoBehaviour
     public void setObjectRotation(GridObject objectToRotate, int direction)
     {
         if (gridObjectDict.ContainsKey(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z)))
+        {
             gridObjectDict.Remove(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, objectToRotate.gridCoords.z));
+        }
+        else Debug.Log(objectToRotate + "'s previous rotation did not exist in the dictionary! This is usually a problem, but the program will continue.");
         gridObjectDict.Add(new Vector3Int(objectToRotate.gridCoords.x, objectToRotate.gridCoords.y, direction), objectToRotate);
 
         objectToRotate.handleRotation(direction);
@@ -631,6 +681,15 @@ public class Maze : MonoBehaviour
     {
         foreach (KeyValuePair<Vector3Int, GridObject> kvp in gridObjectDict)
         {
+            //Sanity check code
+            {
+                if (!kvp.Key.Equals(kvp.Value.gridCoords))
+                {
+                    Debug.Log("GridCoords of " + kvp.Value + " do not match the dictionary! Correcting...");
+                    kvp.Value.gridCoords = kvp.Key;
+                }
+            }
+
             kvp.Value.transform.position = cellCoordsToGlobalCoords(kvp.Key.x, kvp.Key.y);
             switch (kvp.Key.z)
             {

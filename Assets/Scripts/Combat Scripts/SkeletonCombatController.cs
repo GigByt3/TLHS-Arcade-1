@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class SkeletonCombatController : EnemyCombatController
 {
-    protected override void AnimReset()
+    public override void AnimReset()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void enemyStrike()
     {
         throw new System.NotImplementedException();
     }

@@ -87,6 +87,12 @@ public abstract class GridObject : MonoBehaviour
         return visibleCells;
     }
 
+    //Returns whether or not the object is in the given cell list
+    public bool isInCell(List<Vector2Int> cells)
+    {
+        return cells.Contains(new Vector2Int(gridCoords.x, gridCoords.y));
+    }
+
     //Attempts to move the GridObject forward by the given distance, obstructed by walls
     public void move(int distance)
     {

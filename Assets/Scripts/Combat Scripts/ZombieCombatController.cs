@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZombieCombatController : EnemyCombatController
 {
+    //new protected int difficulty = 100;
+
     void OnEnable()
     {
         PlayerCombatController._attack += wasHit;
@@ -29,66 +31,60 @@ public class ZombieCombatController : EnemyCombatController
                 if (rando < 50.0f)
                 {
                     isBlocking = actionHeight.HIGH;
+                    GetComponent<Animator>().SetInteger("CurrentAction", 5);
                 }
                 else
                 {
                     isBlocking = actionHeight.LOW;
+                    GetComponent<Animator>().SetInteger("CurrentAction", 6);
                 }
             }
         } else  //dodge
         {
-            if (canBlock)
+            if (canDodge)
             {
                 float rand = Random.Range(0.0f, 100.0f);
-                if (random < 20.0f)
+                if (random < 50.0f)
                 {
                     isDodging = dodgeDir.RIGHT;
-                }
-                else if (random < 40.0f)
-                {
-                    isDodging = dodgeDir.LEFT;
-                }
-                else if (random < 60.0f)
-                {
-                    isDodging = dodgeDir.DOWN;
+                    GetComponent<Animator>().SetInteger("CurrentAction", 8);
                 }
                 else
                 {
-                    isDodging = dodgeDir.BACK;
+                    isDodging = dodgeDir.LEFT;
+                    GetComponent<Animator>().SetInteger("CurrentAction", 7);
                 }
             }
         }
     }
 
-    public void strike()
+    public override void enemyStrike()
     {
-        actionHeight attackHeight;
-        strikeSide attackSide;
-
-        Debug.Log("8============================================> Long Nixon");
+        actionHeight attackHeightSTORE;
+        strikeSide attackSideSTORE;
 
         float random = Random.Range(0.0f, 100.0f);
         //action height
         if (random < 50.0f)
         {
-            attackHeight = actionHeight.HIGH;
+            attackHeightSTORE = actionHeight.HIGH;
         } else
         {
-            attackHeight = actionHeight.LOW;
+            attackHeightSTORE = actionHeight.LOW;
         }
 
         random = Random.Range(0.0f, 100.0f);
         //strike height
         if (random < 50.0f)
         {
-            attackSide = strikeSide.LEFT;
+            attackSideSTORE = strikeSide.LEFT;
         }
         else
         {
-            attackSide = strikeSide.RIGHT;
+            attackSideSTORE = strikeSide.RIGHT;
         }
 
-        strike(attackHeight, attackSide, strikePower.NORMAL);
+        strike(attackHeightSTORE, attackSideSTORE, strikePower.NORMAL);
     }
 
     /*

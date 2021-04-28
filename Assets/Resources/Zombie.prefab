@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  enemyId: -1
   damage: 20
+  defense: 0.2
   anim: {fileID: 5466824801814561023}
+  inCombat: 0
