@@ -229,10 +229,11 @@ public class Maze : MonoBehaviour
             GameObject exitDoorObject = Instantiate(exitPrefab);
             exitDoor = exitDoorObject.GetComponent<ExitDoor>();
             exitDoor.ExitDoorConstructor(cellWidth, cellHeight);
-            exitDoor.Ready();
 
             exitDoor.gridCoords = possibleExitCoords;
             gridObjectDict.Add(possibleExitCoords, exitDoor);
+
+            exitDoor.Ready();
         }
     }
 
