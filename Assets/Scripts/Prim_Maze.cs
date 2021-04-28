@@ -172,6 +172,8 @@ public class Maze : MonoBehaviour
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
         gridObjectDict.Add(playerStartCoords, player);
 
+        player.Ready();
+
         if (isBossMaze)
         {
             //Place boss
