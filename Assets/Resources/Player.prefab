@@ -90,7 +90,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6898c162a681e4e0f9d93eff3c7f5dc7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -272,6 +272,8 @@ MonoBehaviour:
   gridCoords: {x: 0, y: 0, z: 0}
   maze: {fileID: 0}
   inventory: {fileID: 0}
+  positionProgress: 0
+  rotationProgress: 0
 --- !u!114 &276271636146228874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  enemyId: -1
   damage: 20
   defense: 0.2
   swordCanvas: {fileID: 12574406438020815}
@@ -496,7 +499,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6898c162a681e4e0f9d93eff3c7f5dc7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
