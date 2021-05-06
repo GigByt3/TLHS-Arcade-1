@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory
 {
     private Potion[] potions = new Potion[4]; // 4 represents the potion inventory size
 

@@ -84,7 +84,7 @@ public class GameSceneManager : MonoBehaviour
                 SetUpTransition("Entering boss layer...", false);
                 break;
             case 4:
-                SetUpBoss(16, 4, 4);
+                SetUpBoss(4, 4, 4);
                 break;
             case 4.5f:
                 SetUpTransition("Victory Screen", true);

@@ -61,6 +61,24 @@ public class Maze : MonoBehaviour
         bossPrefab = _bossPrefab;
         material = _material;
         cellWidth = _cellWidth;
+        cellHeight = _cellWidth;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown("v"))
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    for (int k = 0; k < 2; k++)
+                    {
+                        Debug.Log("Wall at (" + i + ", " + j + ", " + k + ") is " + walls[i,j,k]);
+                    }
+                }
+            }
+        }
     }
 
     //Method to tell the maze when to actually start generating things, usually run after MazeConstructor
@@ -70,6 +88,9 @@ public class Maze : MonoBehaviour
 
         if (isBossMaze)
         {
+            numOfTorches = (int)(6);
+            torchPrefab = Resources.Load<GameObject>("Torch");
+
             Debug.Log("Made new boss room of size " + width + ", " + height);
 
             populateBossMazeArray();
@@ -151,10 +172,11 @@ public class Maze : MonoBehaviour
         {
             walls[i, height - 1, 1] = true;
         }
-
+        
         for (int j = 0; j < height; j++)
         {
-            walls[j, width - 1, 0] = true;
+            walls[width - 1, j, 0] = true;
+            Debug.Log("Trying to place a wall at (" + (width - 1) + ", " + j + ")");
         }
     }
 
@@ -316,6 +338,8 @@ public class Maze : MonoBehaviour
         Mesh currentWallSegment;
         int currentVertCount;
 
+        int wallCount = 0;
+
         for (int i = 0; i < width; i++)
         {
             currentWallSegment = generateWallSegment(new Vector3Int(i, -1, 1));
@@ -328,6 +352,7 @@ public class Maze : MonoBehaviour
             {
                 triangles.Add(triangleVert + currentVertCount);
             }
+            wallCount++;
 
             for (int j = 0; j < height; j++)
             {
@@ -341,6 +366,8 @@ public class Maze : MonoBehaviour
                 {
                     triangles.Add(triangleVert + currentVertCount);
                 }
+
+                wallCount++;
 
                 for (int k = 0; k < 2; k++)
                 {
@@ -356,6 +383,7 @@ public class Maze : MonoBehaviour
                         {
                             triangles.Add(triangleVert + currentVertCount);
                         }
+                        wallCount++;
                     }
                 }
             }
