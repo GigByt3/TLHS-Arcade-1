@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2540084228100046145}
   - component: {fileID: 5748330349872393172}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: GameWallEyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1bc4226af4cb372419d0c6aee46f01f4, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

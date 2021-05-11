@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 997705854446376272}
   - component: {fileID: 1384368703835732499}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: GameWallTrapped
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc5de423619b4ef44bf2892bb6d1529d, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

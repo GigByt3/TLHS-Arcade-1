@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6793007124857831653}
   - component: {fileID: 126592085843554214}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: GameWallDetermination
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08ee916fe61332a44ab46829c7edf0ed, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
