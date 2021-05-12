@@ -70,7 +70,10 @@ public abstract class ParentCombatController : MonoBehaviour
 
     public void strike(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower)
     {
+        Debug.Log("Attempted Enemy Strike!");
         if (!canAct()) return;
+        Debug.Log("Enemy Can Strike!");
+
         isStriking = true;
         blockCombo = 0;
         strikeHeightSTORE = _strikeHeight;
@@ -97,12 +100,20 @@ public abstract class ParentCombatController : MonoBehaviour
     //Checks if Player is in the Middle of an Action
     protected bool canAct()
     {
+        Debug.Log("Dodging?" + isDodging + "Blocking?" + isBlocking);
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
             return false;
         }
-        else return true;
+        else
+        {
+            Debug.Log("Striking? " + isStriking + "Dodging?" + isDodging + "Blocking?" + isBlocking + "\n Combat Diagnostic: \n Difficulty: " + REMOVE());
+            
+            return true;
+        }
     }
+
+    public abstract int REMOVE();
 
     //Called by Animator Event on Height of Punch just calls the attack event. ()
     public void StrikeConnect()
@@ -128,10 +139,12 @@ public abstract class ParentCombatController : MonoBehaviour
         {
             case "dodge":
                 isDodging = dodgeDir.NONE;
+                isStriking = false;
                 yield return new WaitForSeconds(dodgeCooldown);
                 break;
             case "block":
                 isBlocking = actionHeight.NONE;
+                isStriking = false;
                 yield return new WaitForSeconds(blockCooldown);
                 break;
             case "light_strike":
@@ -156,9 +169,11 @@ public abstract class ParentCombatController : MonoBehaviour
         {
             case "dodge":
                 canDodge = true;
+                canStrike = true;
                 break;
             case "block":
                 canBlock = true;
+                canStrike = true;
                 break;
             case "light_strike":
                 canStrike = true;

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ZombieCombatController : EnemyCombatController
 {
-    //new protected int difficulty = 100;
+    
 
     void OnEnable()
     {
         PlayerCombatController._attack += wasHit;
         PlayerCombatController._projection += react;
+        difficulty = 40;
     }
 
     void OnDisable()
@@ -62,6 +63,8 @@ public class ZombieCombatController : EnemyCombatController
     {
         actionHeight attackHeightSTORE;
         strikeSide attackSideSTORE;
+
+        
 
         float random = Random.Range(0.0f, 100.0f);
         //action height

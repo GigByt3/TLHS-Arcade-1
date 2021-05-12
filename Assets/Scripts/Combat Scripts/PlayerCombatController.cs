@@ -28,6 +28,11 @@ public class PlayerCombatController : ParentCombatController
         Player._setEnemy -= HandleSetEnemy;
     }
 
+    public override int REMOVE()
+    {
+        return 420;
+    }
+
     private void HandleSetEnemy(int _id)
     {
         Debug.Log(this + " runs HandleSetEnemy, takes in " + _id);

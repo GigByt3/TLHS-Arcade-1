@@ -24,6 +24,9 @@ public class Enemy : GridObject
             case EnemyType.Skeleton:
                 actionsPerTurn = 2;
                 break;
+            case EnemyType.BlackKnight:
+                actionsPerTurn = 3;
+                break;
             default:
                 actionsPerTurn = 1;
                 break;
@@ -118,6 +121,6 @@ public class Enemy : GridObject
 
     public enum EnemyType
     {
-        Zombie, Skeleton
+        Zombie, Skeleton, BlackKnight
     }
 }

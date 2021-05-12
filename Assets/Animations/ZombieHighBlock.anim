@@ -109,7 +109,7 @@ AnimationClip:
   m_Events:
   - time: 1
     functionName: Complete
-    data: dodge
+    data: block
     objectReferenceParameter: {fileID: 1426670081193811923, guid: 083493b31bddc844fa8dd9a42ece3db0,
       type: 3}
     floatParameter: 0

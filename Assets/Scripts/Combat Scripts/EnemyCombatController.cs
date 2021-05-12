@@ -17,7 +17,7 @@ public abstract class EnemyCombatController : ParentCombatController
      */
 
     // Percentage out of 100
-    protected int difficulty = 30;
+    public int difficulty = 30;
     private static int idCounter = 1;
     public Animator anim;
     public bool inCombat = false;
@@ -48,10 +48,15 @@ public abstract class EnemyCombatController : ParentCombatController
 
     private void Update()
     {
-        if (Random.Range(0.0f, 100.0f) < (difficulty * 0.05) && inCombat)
+        if (Random.Range(0.0f, 100.0f) < (difficulty) && inCombat)
         {
-            //enemyStrike();
+            enemyStrike();
         }
+    }
+
+    public override int REMOVE()
+    {
+        return difficulty;
     }
 
     //Enemy reaction
@@ -59,7 +64,7 @@ public abstract class EnemyCombatController : ParentCombatController
     {
         if (hittee_id != id) return;
 
-        if (canDodge && stamina - 1 >= 0)
+        if (canDodge && stamina - 1 >= 0 && Random.Range(0.0f, 100.0f) < 50)
         {
             stamina -= 1;
             switch (attackSide)
