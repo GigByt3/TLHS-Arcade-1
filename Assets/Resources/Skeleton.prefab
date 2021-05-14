@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1426670081193811923
+--- !u!1 &4065303498478920267
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,26 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4156907335401584744}
-  - component: {fileID: 8471138235545078962}
-  - component: {fileID: 4960910821447350089}
-  - component: {fileID: 5106423299648971400}
-  - component: {fileID: 5466824801814561023}
-  - component: {fileID: 4002250153727458542}
+  - component: {fileID: 1303257926924928496}
+  - component: {fileID: 6785183324070867242}
+  - component: {fileID: 8034110594124843729}
+  - component: {fileID: 7889180582211215120}
+  - component: {fileID: 6951384288322583911}
+  - component: {fileID: 2030154006838133110}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4156907335401584744
+--- !u!4 &1303257926924928496
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426670081193811923}
+  m_GameObject: {fileID: 4065303498478920267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
@@ -35,13 +35,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8471138235545078962
+--- !u!212 &6785183324070867242
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426670081193811923}
+  m_GameObject: {fileID: 4065303498478920267}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,7 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f22e3c7dff2d2e84e8bae6b09e1620a9, type: 3}
+  m_Sprite: {fileID: 3210286909994691504, guid: ccc24d3aebe228042a6edbfa68e49f28,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,25 +87,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4960910821447350089
+--- !u!114 &8034110594124843729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426670081193811923}
+  m_GameObject: {fileID: 4065303498478920267}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de02a58102d9e2141849ae707ae3d0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5106423299648971400
+--- !u!114 &7889180582211215120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426670081193811923}
+  m_GameObject: {fileID: 4065303498478920267}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 330a2f0a51a9f5c4c8a630f4e9536b5a, type: 3}
@@ -112,18 +113,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridCoords: {x: 0, y: 0, z: 0}
   maze: {fileID: 0}
-  type: 0
---- !u!95 &5466824801814561023
+  type: 1
+--- !u!95 &6951384288322583911
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426670081193811923}
+  m_GameObject: {fileID: 4065303498478920267}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3c2b43d699cb3f14495f95cf09036ff1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5a7b612c3f2654bf3bd9cba95568bf87, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -132,13 +133,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4002250153727458542
+--- !u!114 &2030154006838133110
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426670081193811923}
+  m_GameObject: {fileID: 4065303498478920267}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3d5bb027a6b4174a9f2476f929c0f5e, type: 3}
@@ -149,5 +150,5 @@ MonoBehaviour:
   damage: 20
   defense: 0.2
   difficulty: 30
-  anim: {fileID: 5466824801814561023}
+  anim: {fileID: 6951384288322583911}
   inCombat: 0

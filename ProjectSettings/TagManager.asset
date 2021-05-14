@@ -9,7 +9,7 @@ TagManager:
   - TransitionTextOne
   - GameManager
   - SoundManager
-  - Button
+  - Canvas
   layers:
   - Default
   - TransparentFX

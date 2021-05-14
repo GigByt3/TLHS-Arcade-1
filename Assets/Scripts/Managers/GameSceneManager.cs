@@ -13,6 +13,8 @@ public class GameSceneManager : MonoBehaviour
 
     public Maze maze;
 
+    private GameObject StartMenu;
+
     private GameObject[] TransitionText;
 
     static float position = 0;
@@ -42,11 +44,10 @@ public class GameSceneManager : MonoBehaviour
             Destroy(transform.gameObject);
         } else
         {
+            StartMenu = GameObject.FindGameObjectWithTag("Canvas");
             DontDestroyOnLoad(transform.gameObject);
-        }
-        if(position == 0)
-        {
-            GameObject.FindGameObjectWithTag("Button").GetComponent<Button>().onClick.AddListener(delegate { NextScene(); });
+            DontDestroyOnLoad(StartMenu);
+
         }
         Debug.Log("Scene Manager Awake.");
     }
@@ -69,15 +70,18 @@ public class GameSceneManager : MonoBehaviour
     private void Setup(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Manager New Scene Loaded.");
+        StartMenu.SetActive(false);
         switch (position)
         {
             case 0:
                 Debug.Log("On the main menu.");
+                StartMenu.SetActive(true);
                 break;
             case 0.5f:
                 SetUpTransition("Entering layer 1...", false);
                 break;
             case 1:
+                Debug.Log("ENTERING THE FIRST LAYER");
                 SetUpGame(18, 0, 1);
                 break;
             case 1.5f:
