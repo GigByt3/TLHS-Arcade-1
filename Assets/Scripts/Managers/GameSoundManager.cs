@@ -33,8 +33,15 @@ public class GameSoundManager : MonoBehaviour
     //All the Game Management Objects live in DontDestroyOnLoad!
     private void Awake()
     {
-        Debug.Log("Sound Manager Awake.");  
-        DontDestroyOnLoad(transform.gameObject);
+        if (GameObject.FindGameObjectsWithTag("SoundManager").Length > 1)
+        {
+            Destroy(transform.gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        Debug.Log("Sound Manager Awake.");
         source = GetComponent<AudioSource>();
     }
 

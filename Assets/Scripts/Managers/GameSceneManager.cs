@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
@@ -35,8 +37,18 @@ public class GameSceneManager : MonoBehaviour
     //All the Game Management Objects live in DontDestroyOnLoad!
     void Awake()
     {
+        if(GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
+        {
+            Destroy(transform.gameObject);
+        } else
+        {
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        if(position == 0)
+        {
+            GameObject.FindGameObjectWithTag("Button").GetComponent<Button>().onClick.AddListener(delegate { NextScene(); });
+        }
         Debug.Log("Scene Manager Awake.");
-        DontDestroyOnLoad(transform.gameObject);
     }
 
     //Subscribing Setup
@@ -129,9 +141,16 @@ public class GameSceneManager : MonoBehaviour
     //Check if Dead & Give Story Byte
     private void SetUpTransition(string Transition, bool isGameOver)
     {
-        StartCoroutine(SwitchOutOfTransition(1, isGameOver));
-        TransitionText = GameObject.FindGameObjectsWithTag("TransitionTextOne");
-        TransitionText[0].GetComponent<UnityEngine.UI.Text>().text = Transition;
+        try
+        {
+            StartCoroutine(SwitchOutOfTransition(1, isGameOver));
+            TransitionText = GameObject.FindGameObjectsWithTag("TransitionTextOne");
+            TransitionText[0].GetComponent<UnityEngine.UI.Text>().text = Transition;
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e);
+        }
     }
 
     private void SetUpBoss(int mazeSize, int INTROindex, int LOOPindex)

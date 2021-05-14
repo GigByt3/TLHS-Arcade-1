@@ -9,6 +9,7 @@ TagManager:
   - TransitionTextOne
   - GameManager
   - SoundManager
+  - Button
   layers:
   - Default
   - TransparentFX
