@@ -88,7 +88,7 @@ public class Maze : MonoBehaviour
 
         if (isBossMaze)
         {
-            numOfTorches = (int)(6);
+            numOfTorches = 16;
             torchPrefab = Resources.Load<GameObject>("Torch");
 
             Debug.Log("Made new boss room of size " + width + ", " + height);
@@ -98,6 +98,8 @@ public class Maze : MonoBehaviour
             generateMazeMesh();
 
             populateGridObjects();
+
+            placeTorches();
         }
         else
         {
@@ -176,7 +178,6 @@ public class Maze : MonoBehaviour
         for (int j = 0; j < height; j++)
         {
             walls[width - 1, j, 0] = true;
-            Debug.Log("Trying to place a wall at (" + (width - 1) + ", " + j + ")");
         }
     }
 
