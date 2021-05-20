@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - SoundManager
   - Canvas
+  - RetroCanvas
   layers:
   - Default
   - TransparentFX

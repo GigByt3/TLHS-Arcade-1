@@ -140,6 +140,11 @@ public class GameSceneManager : MonoBehaviour
         GameObject[] enemyPrefabs = {Resources.Load<GameObject>("Zombie")};
         maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), Resources.Load<GameObject>("ExitDoor"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 30, 1.0f, 0.2f);
         maze.Ready();
+        StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeUp(
+            () => {
+                Debug.Log("Fade Completed");
+            }
+        ));
     }
 
     //Check if Dead & Give Story Byte
@@ -181,6 +186,11 @@ public class GameSceneManager : MonoBehaviour
         GameObject bossPrefab = null; //will be Resources.Load<GameObject>("Boss"); when that exists
         maze.BossConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), bossPrefab, Resources.Load<Material>("Wall"), cellWidth);
         maze.Ready();
+        StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeUp(
+            () => {
+                Debug.Log("Fade Completed");
+            }
+        ));
     }
 
     // PUBLIC METHODS ==========================================================================================
@@ -188,9 +198,22 @@ public class GameSceneManager : MonoBehaviour
     public void NextScene()
     {
         position += 0.5f;
+
         if (Mathf.Floor(position) != position)
         {
-            SceneManager.LoadScene("Transition_Area");
+            try
+            {
+                StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeToBlack(
+                () => {
+                    Debug.Log("Fade Completed");
+                    SceneManager.LoadScene("Transition_Area");
+                }
+                ));
+            }
+            catch(Exception e)
+            {
+                SceneManager.LoadScene("Transition_Area");
+            }
         }
         else
         {
@@ -202,6 +225,17 @@ public class GameSceneManager : MonoBehaviour
     public void Death()
     {
         position = 402;
+
+        StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeToRed(
+            () => {
+                Debug.Log("Fade Completed");
+                _DeathCall();
+            }
+        ));
+    }
+
+    private void _DeathCall()
+    {
         SceneManager.LoadScene("Transition_Area");
     }
 

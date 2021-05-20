@@ -25,7 +25,7 @@ public class TextUpdate : MonoBehaviour
     private void UpdateText()
     {
         
-        Debug.Log(randomIndex);
+//        Debug.Log(randomIndex);
         displayText.text = quotes[randomIndex];
     }
 }

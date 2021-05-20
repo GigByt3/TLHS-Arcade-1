@@ -131,6 +131,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12574406438020815}
   m_CullTransparentMesh: 0
+--- !u!1 &2115394248620576676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 456549364369973016}
+  m_Layer: 0
+  m_Name: DeathVector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &456549364369973016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115394248620576676}
+  m_LocalRotation: {x: -0.12949711, y: 0.090723954, z: 0.21841097, w: 0.96296227}
+  m_LocalPosition: {x: -0.63, y: -1, z: 0.31}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4499617594145283476}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -16.8, y: 7.09, z: 24.51}
 --- !u!1 &2878269569296306995
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +285,7 @@ Transform:
   - {fileID: 4499617594627649180}
   - {fileID: 8382232197915927425}
   - {fileID: 1601525938467733927}
+  - {fileID: 456549364369973016}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -272,7 +303,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridCoords: {x: 0, y: 0, z: 0}
   maze: {fileID: 0}
-  inventory: {fileID: 0}
   positionProgress: 0
   rotationProgress: 0
 --- !u!114 &276271636146228874
@@ -521,9 +551,10 @@ GameObject:
   - component: {fileID: 6360456928766265350}
   - component: {fileID: 2996841547038144675}
   - component: {fileID: 3198568148555705466}
+  - component: {fileID: 7211797303587413291}
   m_Layer: 5
   m_Name: RawImage
-  m_TagString: Untagged
+  m_TagString: RetroCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -568,7 +599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -582,6 +613,20 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7211797303587413291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6474769599527423470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f86f25c237d4093bd70f717b417938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 4499617594627649153}
+  deathTarget: {fileID: 2115394248620576676}
 --- !u!1 &7299008842515974146
 GameObject:
   m_ObjectHideFlags: 0

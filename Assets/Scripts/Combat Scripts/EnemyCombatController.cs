@@ -43,7 +43,7 @@ public abstract class EnemyCombatController : ParentCombatController
         id = idCounter;
         idCounter++;
         anim = GetComponent<Animator>();
-        Debug.Log(id);
+//        Debug.Log(id);
     }
 
     private void Update()
@@ -98,11 +98,11 @@ public abstract class EnemyCombatController : ParentCombatController
         }
         else
         {
-            Debug.Log("Can't Block or Dodge" +
-                        "\n Can Dodge: " + canDodge +
-                        "\n Can Block: " + canBlock +
-                        "\n Stamina: " + stamina +
-                        "\n Block Combo: " + blockCombo);
+            //Debug.Log("Can't Block or Dodge" +
+            //            "\n Can Dodge: " + canDodge +
+            //            "\n Can Block: " + canBlock +
+            //            "\n Stamina: " + stamina +
+            //            "\n Block Combo: " + blockCombo);
         }
     }
 
@@ -110,7 +110,7 @@ public abstract class EnemyCombatController : ParentCombatController
     {
         if (hittee_id != id) return;
 
-        Debug.Log("At enemy wasHit, hitter.damage: " + hitter.damage);
+        //Debug.Log("At enemy wasHit, hitter.damage: " + hitter.damage);
 
         if (isDodging != dodgeDir.NONE)
         {

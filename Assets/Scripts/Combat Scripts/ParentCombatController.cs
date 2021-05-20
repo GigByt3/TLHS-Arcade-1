@@ -70,9 +70,7 @@ public abstract class ParentCombatController : MonoBehaviour
 
     public void strike(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _strikePower)
     {
-        Debug.Log("Attempted Enemy Strike!");
         if (!canAct()) return;
-        Debug.Log("Enemy Can Strike!");
 
         isStriking = true;
         blockCombo = 0;
@@ -100,14 +98,14 @@ public abstract class ParentCombatController : MonoBehaviour
     //Checks if Player is in the Middle of an Action
     protected bool canAct()
     {
-        Debug.Log("Dodging?" + isDodging + "Blocking?" + isBlocking);
+        //Debug.Log("Dodging?" + isDodging + "Blocking?" + isBlocking);
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
             return false;
         }
         else
         {
-            Debug.Log("Striking? " + isStriking + "Dodging?" + isDodging + "Blocking?" + isBlocking + "\n Combat Diagnostic: \n Difficulty: " + REMOVE());
+            //Debug.Log("Striking? " + isStriking + "Dodging?" + isDodging + "Blocking?" + isBlocking + "\n Combat Diagnostic: \n Difficulty: " + REMOVE());
             
             return true;
         }
@@ -118,8 +116,8 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by Animator Event on Height of Punch just calls the attack event. ()
     public void StrikeConnect()
     {
-        Debug.Log(this + " on object " + gameObject + " has hit " + enemyId);
-        Debug.Log("At ParentController StrikeConnect, hitter.damage: " + this.damage);
+        //Debug.Log(this + " on object " + gameObject + " has hit " + enemyId);
+        //Debug.Log("At ParentController StrikeConnect, hitter.damage: " + this.damage);
         _attack(strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, this, enemyId);
     }
 
@@ -134,7 +132,7 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by AnimatorEvent when Animation is done
     public IEnumerator ActionComplete(string type)
     {
-        Debug.Log("ActionComplete called with action: " + type);
+        //Debug.Log("ActionComplete called with action: " + type);
         switch(type)
         {
             case "dodge":
