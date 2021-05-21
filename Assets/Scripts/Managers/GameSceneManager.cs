@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -70,6 +71,7 @@ public class GameSceneManager : MonoBehaviour
     private void Setup(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Manager New Scene Loaded.");
+        string TransitionText = TransitionTextGen();
         StartMenu.SetActive(false);
         switch (position)
         {
@@ -78,32 +80,32 @@ public class GameSceneManager : MonoBehaviour
                 StartMenu.SetActive(true);
                 break;
             case 0.5f:
-                SetUpTransition("Entering layer 1...", false);
+                SetUpTransition(TransitionText, false);
                 break;
             case 1:
                 Debug.Log("ENTERING THE FIRST LAYER");
                 SetUpGame(18, 0, 1);
                 break;
             case 1.5f:
-                SetUpTransition("Entering layer 2...", false);
+                SetUpTransition(TransitionText, false);
                 break;
             case 2:
                 SetUpGame(18, 2, 3);
                 break;
             case 2.5f:
-                SetUpTransition("Entering layer 3...", false);
+                SetUpTransition(TransitionText, false);
                 break;
             case 3:
                 SetUpGame(24, 4, 4);
                 break;
             case 3.5f:
-                SetUpTransition("Entering boss layer...", false);
+                SetUpTransition(TransitionText, false);
                 break;
             case 4:
                 SetUpBoss(4, 4, 4);
                 break;
             case 4.5f:
-                SetUpTransition("Victory Screen", true);
+                SetUpTransition("MFW Winner :confetti:", true);
                 break;
             case 402:
                 SetUpTransition(PoemGenerator(), true);
@@ -152,9 +154,9 @@ public class GameSceneManager : MonoBehaviour
     {
         try
         {
-            StartCoroutine(SwitchOutOfTransition(1, isGameOver));
+            StartCoroutine(SwitchOutOfTransition(4, isGameOver));
             TransitionText = GameObject.FindGameObjectsWithTag("TransitionTextOne");
-            TransitionText[0].GetComponent<UnityEngine.UI.Text>().text = Transition;
+            TransitionText[0].GetComponent<TextMeshProUGUI>().text = Transition;
         }
         catch(Exception e)
         {
@@ -252,6 +254,38 @@ public class GameSceneManager : MonoBehaviour
     {
         //find a haiku? Or summink... idk? This is where that script goes.
         return "You may be wondering how you got here. You died. Congratulations.";
+    }
+
+    private string TransitionTextGen()
+    {
+        string[] quotes =
+            {
+                "- Carinsti, The arch mage rules over the northern kingdom of Terengar.",
+                "Remember to dodge and block.",
+                "Death is a process of advancement.",
+                "Attack with(x)",
+                "Nestled in the Caraglan mountains is a mysterious dungeon constructed by an ancient deity.",
+                "Dragons lurk in the swamps in the south.",
+                "Powerful necromancers sometimes leaves skeletons just for the fun of it.",
+                "Peace was never an option.",
+                "Death is an escape to this eternal labyrinth.",
+                "Resolve in the light of the torch.",
+                "Skeleton lurk on the lower floors.",
+                "Left to time, mountains erode and gods fall.",
+                "The fire warms the soul, and warms the drums of battle.",
+                "Death is only a setback, keep moving.",
+                "The fire blinds everything, your fears and your mercy.",
+                "Remember to pay attention to the height of your attacks.",
+                "Blocking is an essential part from not meeting your end.",
+                "Dodging an attack can turn the flow of combat.",
+                "Peace rest on a rope in the lands of Palengar.",
+                "The southern isles of Isma course with jungles, and river of acid.",
+                "The Frigid course of the mountains leave many at the mercy of spirits.",
+                "You remember the stark difference in each floor, from the entrance to this mendacious layer."
+            };
+
+
+        return quotes[UnityEngine.Random.Range(0, quotes.Length)];
     }
 
     private IEnumerator SwitchOutOfTransition(int pauseTime, bool isGameOver)

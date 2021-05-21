@@ -16,16 +16,10 @@ public class TextUpdate : MonoBehaviour
         randomIndex = Random.Range(0, quotes.Length);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateText();
-    }
-
-    private void UpdateText()
+    public string UpdateText()
     {
         
 //        Debug.Log(randomIndex);
-        displayText.text = quotes[randomIndex];
+        return quotes[randomIndex];
     }
 }
