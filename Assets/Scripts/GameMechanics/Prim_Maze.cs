@@ -370,21 +370,21 @@ public class Maze : MonoBehaviour
             }
             wallCount++;
 
+            currentWallSegment = generateWallSegment(new Vector3Int(-1, i, 0));
+            currentVertCount = vertices.Count;
+
+            vertices.AddRange(currentWallSegment.vertices);
+            uv.AddRange(currentWallSegment.uv);
+            normals.AddRange(currentWallSegment.normals);
+            foreach (int triangleVert in currentWallSegment.triangles)
+            {
+                triangles.Add(triangleVert + currentVertCount);
+            }
+
+            wallCount++;
+
             for (int j = 0; j < height; j++)
             {
-                currentWallSegment = generateWallSegment(new Vector3Int(-1, j, 0));
-                currentVertCount = vertices.Count;
-
-                vertices.AddRange(currentWallSegment.vertices);
-                uv.AddRange(currentWallSegment.uv);
-                normals.AddRange(currentWallSegment.normals);
-                foreach (int triangleVert in currentWallSegment.triangles)
-                {
-                    triangles.Add(triangleVert + currentVertCount);
-                }
-
-                wallCount++;
-
                 for (int k = 0; k < 2; k++)
                 {
                     if (walls[i, j, k])
