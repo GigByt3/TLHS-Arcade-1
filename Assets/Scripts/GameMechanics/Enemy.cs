@@ -64,6 +64,8 @@ public class Enemy : GridObject
                 return;
             }
 
+            if (type == EnemyType.BlackKnight) return;
+
             if (player.isInCell(visibleNorthCells()))
             {
                 faceDirection("north");

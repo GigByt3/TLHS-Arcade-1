@@ -185,7 +185,7 @@ public class GameSceneManager : MonoBehaviour
         mazeContainer.AddComponent<MeshFilter>();
         mazeContainer.AddComponent<MeshRenderer>();
         maze = mazeContainer.AddComponent<Maze>();
-        GameObject bossPrefab = null; //will be Resources.Load<GameObject>("Boss"); when that exists
+        GameObject bossPrefab = Resources.Load<GameObject>("BlackKnight"); 
         maze.BossConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), bossPrefab, Resources.Load<Material>("Wall"), cellWidth);
         maze.Ready();
         StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeUp(

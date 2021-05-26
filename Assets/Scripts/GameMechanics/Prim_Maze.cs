@@ -208,8 +208,14 @@ public class Maze : MonoBehaviour
 
         if (isBossMaze)
         {
-            //Place boss
-            //TBD
+            GameObject bossObject = Instantiate(bossPrefab);
+            bossObject.name = "Black Knight";
+
+            Enemy boss = bossObject.GetComponent<Enemy>();
+            boss.EnemyConstructor(Enemy.EnemyType.BlackKnight);
+            boss.gridCoords = new Vector3Int(1, 3, 0);
+            boss.Ready();
+            gridObjectDict.Add(new Vector3Int(1, 3, 0), boss);
         }
         else
         {
