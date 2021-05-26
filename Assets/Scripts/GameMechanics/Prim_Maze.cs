@@ -189,7 +189,16 @@ public class Maze : MonoBehaviour
         playerObject.name = "Player";
         player = playerObject.GetComponent<Player>();
 
-        Vector3Int playerStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+        Vector3Int playerStartCoords;
+        
+        if (isBossMaze)
+        {
+            playerStartCoords = new Vector3Int(1, 0, 2);
+        }
+        else
+        {
+            playerStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
+        }
 
         player.gridCoords = playerStartCoords;
         gridObjectDict = new Dictionary<Vector3Int, GridObject>();
