@@ -358,6 +358,7 @@ public class Maze : MonoBehaviour
 
         for (int i = 0; i < width; i++)
         {
+            //north wall?
             currentWallSegment = generateWallSegment(new Vector3Int(i, -1, 1));
             currentVertCount = vertices.Count;
 
@@ -370,6 +371,7 @@ public class Maze : MonoBehaviour
             }
             wallCount++;
 
+            // west wall?
             currentWallSegment = generateWallSegment(new Vector3Int(-1, i, 0));
             currentVertCount = vertices.Count;
 
