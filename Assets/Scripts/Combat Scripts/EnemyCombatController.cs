@@ -59,6 +59,12 @@ public abstract class EnemyCombatController : ParentCombatController
         return difficulty;
     }
 
+    public void AnimCallthroughDeath()
+    {
+        Debug.Log("Enemy " + id + " has died!");
+        gameObject.GetComponent<Enemy>().maze.removeObject(gameObject.GetComponent<Enemy>());
+    }
+
     //Enemy reaction
     protected void react(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower, int hittee_id)
     {
@@ -147,7 +153,7 @@ public abstract class EnemyCombatController : ParentCombatController
         if (health <= 0)
         {
             _death();
-            gameObject.GetComponent<Enemy>().maze.removeObject(gameObject.GetComponent<Enemy>());
+            GetComponent<Animator>().SetBool("isAlive", false);
         }
     }
 

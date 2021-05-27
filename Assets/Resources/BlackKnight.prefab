@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8034110594124843729}
   - component: {fileID: 7889180582211215120}
   - component: {fileID: 6951384288322583911}
-  - component: {fileID: 2030154006838133110}
+  - component: {fileID: 127129843083908303}
   m_Layer: 0
   m_Name: BlackKnight
   m_TagString: Untagged
@@ -133,7 +133,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2030154006838133110
+--- !u!114 &127129843083908303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,13 +142,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4065303498478920267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d5bb027a6b4174a9f2476f929c0f5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c16a0d0327eae14db20008210ae4a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
   enemyId: -1
-  damage: 20
-  defense: 0.2
-  difficulty: 30
+  damage: 35
+  defense: 0.5
+  difficulty: 50
   anim: {fileID: 6951384288322583911}
   inCombat: 0
