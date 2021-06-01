@@ -260,27 +260,27 @@ public class GameSceneManager : MonoBehaviour
     {
         string[] quotes =
             {
-                "- Carinsti, The arch mage rules over the northern kingdom of Terengar.",
+                "Carinsti, the arch mage rules over the northern kingdom of Terengar.",
                 "Remember to dodge and block.",
                 "Death is a process of advancement.",
-                "Attack with(x)",
+                "Attack with <attack_keys>",
                 "Nestled in the Caraglan mountains is a mysterious dungeon constructed by an ancient deity.",
                 "Dragons lurk in the swamps in the south.",
-                "Powerful necromancers sometimes leaves skeletons just for the fun of it.",
+                "Powerful necromancers sometimes leave skeletons just for the fun of it.",
                 "Peace was never an option.",
                 "Death is an escape to this eternal labyrinth.",
                 "Resolve in the light of the torch.",
-                "Skeleton lurk on the lower floors.",
+                "Skeletons lurk on the lower floors.",
                 "Left to time, mountains erode and gods fall.",
                 "The fire warms the soul, and warms the drums of battle.",
                 "Death is only a setback, keep moving.",
                 "The fire blinds everything, your fears and your mercy.",
                 "Remember to pay attention to the height of your attacks.",
-                "Blocking is an essential part from not meeting your end.",
+                "Blocking is an essential part of not meeting your end.",
                 "Dodging an attack can turn the flow of combat.",
-                "Peace rest on a rope in the lands of Palengar.",
-                "The southern isles of Isma course with jungles, and river of acid.",
-                "The Frigid course of the mountains leave many at the mercy of spirits.",
+                "Peace rests on a rope in the lands of Palengar.",
+                "The southern isles of Isma course with jungles and river of acid.",
+                "The frigid course of the mountains leave many at the mercy of spirits.",
                 "You remember the stark difference in each floor, from the entrance to this mendacious layer."
             };
 

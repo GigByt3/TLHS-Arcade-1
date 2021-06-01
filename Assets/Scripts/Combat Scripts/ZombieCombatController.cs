@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ZombieCombatController : EnemyCombatController
 {
-    
-
     void OnEnable()
     {
         PlayerCombatController._attack += wasHit;
@@ -64,8 +62,6 @@ public class ZombieCombatController : EnemyCombatController
         actionHeight attackHeightSTORE;
         strikeSide attackSideSTORE;
 
-        
-
         float random = Random.Range(0.0f, 100.0f);
         //action height
         if (random < 50.0f)
@@ -88,6 +84,12 @@ public class ZombieCombatController : EnemyCombatController
         }
 
         strike(attackHeightSTORE, attackSideSTORE, strikePower.NORMAL);
+    }
+
+    public override void die()
+    {
+        GetComponent<Animator>().SetBool("isAlive", false);
+        GetComponent<Animator>().Play("zombiedeath");
     }
 
     /*

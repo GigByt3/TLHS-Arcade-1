@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BossCombatController : EnemyCombatController
 {
-    
-
     void OnEnable()
     {
         PlayerCombatController._attack += wasHit;
@@ -88,6 +86,12 @@ public class BossCombatController : EnemyCombatController
         }
 
         strike(attackHeightSTORE, attackSideSTORE, strikePower.NORMAL);
+    }
+
+    public override void die()
+    {
+        GetComponent<Animator>().SetBool("isAlive", false);
+        GetComponent<Animator>().Play("blackKnightDeath");
     }
 
     /*

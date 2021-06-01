@@ -98,15 +98,12 @@ public abstract class ParentCombatController : MonoBehaviour
     //Checks if Player is in the Middle of an Action
     protected bool canAct()
     {
-        //Debug.Log("Dodging?" + isDodging + "Blocking?" + isBlocking);
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
             return false;
         }
         else
         {
-            //Debug.Log("Striking? " + isStriking + "Dodging?" + isDodging + "Blocking?" + isBlocking + "\n Combat Diagnostic: \n Difficulty: " + REMOVE());
-            
             return true;
         }
     }
@@ -116,8 +113,6 @@ public abstract class ParentCombatController : MonoBehaviour
     //Called by Animator Event on Height of Punch just calls the attack event. ()
     public void StrikeConnect()
     {
-        //Debug.Log(this + " on object " + gameObject + " has hit " + enemyId);
-        //Debug.Log("At ParentController StrikeConnect, hitter.damage: " + this.damage);
         _attack(strikeHeightSTORE, strikeSideSTORE, strikePowerSTORE, this, enemyId);
     }
 

@@ -160,7 +160,6 @@ public class PlayerCombatController : ParentCombatController
 
     public override void AnimStart(int number)
     {
-        Debug.Log("At PlayerCombat AnimStart, hitter.damage: " + this.damage);
         swordCanvas.GetComponent<Animator>().SetInteger("AttackIndex", number); 
     }
 

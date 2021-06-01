@@ -43,7 +43,6 @@ public abstract class EnemyCombatController : ParentCombatController
         id = idCounter;
         idCounter++;
         anim = GetComponent<Animator>();
-//        Debug.Log(id);
     }
 
     private void Update()
@@ -153,7 +152,7 @@ public abstract class EnemyCombatController : ParentCombatController
         if (health <= 0)
         {
             _death();
-            GetComponent<Animator>().SetBool("isAlive", false);
+            die();
         }
     }
 
@@ -169,4 +168,6 @@ public abstract class EnemyCombatController : ParentCombatController
     }
 
     public abstract void enemyStrike();
+
+    public abstract void die();
 }

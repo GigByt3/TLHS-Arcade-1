@@ -90,4 +90,10 @@ public class SkeletonCombatController : EnemyCombatController
 
         strike(attackHeightSTORE, attackSideSTORE, strikePower.NORMAL);
     }
+
+    public override void die()
+    {
+        GetComponent<Animator>().SetBool("isAlive", false);
+        GetComponent<Animator>().Play("skeletondeath");
+    }
 }
