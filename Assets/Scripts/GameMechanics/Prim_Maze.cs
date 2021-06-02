@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-//using UnityEngine.XR.WSA.Input;
 
 [RequireComponent(typeof(MeshFilter))]
 
@@ -14,7 +13,7 @@ public class Maze : MonoBehaviour
     public float cellWidth;
     public float cellHeight;
 
-    public GameObject playerPrefab, exitPrefab, bossPrefab;
+    public GameObject playerPrefab, exitPrefab, bossPrefab, chestPrefab;
     public GameObject[] enemyPrefabs;
 
     public int numberOfStartingEnemies;
@@ -85,6 +84,7 @@ public class Maze : MonoBehaviour
     public void Ready()
     {
         walls = new bool[width + 1, height + 1, 2];
+        chestPrefab = Resources.Load<GameObject>("Chest");
 
         if (isBossMaze)
         {
@@ -272,6 +272,22 @@ public class Maze : MonoBehaviour
             gridObjectDict.Add(possibleExitCoords, exitDoor);
 
             exitDoor.Ready();
+
+            int chestsPlaced = 0;
+            while (chestsPlaced <= 4)
+            {
+                int deadEndCellIndex = UnityEngine.Random.Range(0, deadEndCells.Count);
+                Vector2Int chosenDeadEndCell = deadEndCells[deadEndCellIndex];
+                if (!isObjectAtCoords(chosenDeadEndCell.x, chosenDeadEndCell.y))
+                {
+                    GameObject newChest = Instantiate(chestPrefab);
+                    gridObjectDict.Add(new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, 0), exitDoor);
+                    Chest chestComponent = newChest.GetComponent<Chest>();
+                    chestComponent.gridCoords = new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, 0);
+
+                    chestsPlaced++;
+                }
+            }
         }
     }
 
