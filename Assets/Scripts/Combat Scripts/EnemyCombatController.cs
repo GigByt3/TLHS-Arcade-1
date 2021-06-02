@@ -101,21 +101,11 @@ public abstract class EnemyCombatController : ParentCombatController
                     break;
             }
         }
-        else
-        {
-            //Debug.Log("Can't Block or Dodge" +
-            //            "\n Can Dodge: " + canDodge +
-            //            "\n Can Block: " + canBlock +
-            //            "\n Stamina: " + stamina +
-            //            "\n Block Combo: " + blockCombo);
-        }
     }
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower _attackPower, ParentCombatController hitter, int hittee_id)
     {
         if (hittee_id != id) return;
-
-        //Debug.Log("At enemy wasHit, hitter.damage: " + hitter.damage);
 
         if (isDodging != dodgeDir.NONE)
         {

@@ -92,6 +92,7 @@ public class BossCombatController : EnemyCombatController
     {
         GetComponent<Animator>().SetBool("isAlive", false);
         GetComponent<Animator>().Play("blackKnightDeath");
+        GameObject.Find("Game Manager").GetComponent<GameSceneManager>().NextScene();
     }
 
     /*
