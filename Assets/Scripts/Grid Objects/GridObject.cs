@@ -117,28 +117,40 @@ public abstract class GridObject : MonoBehaviour
                     for (int i = 0; i < 4; i++)
                     {
                         Vector3Int keyToCheck = new Vector3Int(gridCoords.x, gridCoords.y - 1, i);
-                        if (maze.gridObjectDict.ContainsKey(keyToCheck)) objectInFront = maze.gridObjectDict[keyToCheck];
+                        if (maze.gridObjectDict.ContainsKey(keyToCheck))
+                        {
+                            objectInFront = maze.gridObjectDict[keyToCheck];
+                        }
                     }
                     break;
                 case 1:
                     for (int i = 0; i < 4; i++)
                     {
                         Vector3Int keyToCheck = new Vector3Int(gridCoords.x + 1, gridCoords.y, i);
-                        if (maze.gridObjectDict.ContainsKey(keyToCheck)) objectInFront = maze.gridObjectDict[keyToCheck];
+                        if (maze.gridObjectDict.ContainsKey(keyToCheck))
+                        {
+                            objectInFront = maze.gridObjectDict[keyToCheck];
+                        }
                     }
                     break;
                 case 2:
                     for (int i = 0; i < 4; i++)
                     {
                         Vector3Int keyToCheck = new Vector3Int(gridCoords.x, gridCoords.y - 1, i);
-                        if (maze.gridObjectDict.ContainsKey(keyToCheck)) objectInFront = maze.gridObjectDict[keyToCheck];
+                        if (maze.gridObjectDict.ContainsKey(keyToCheck))
+                        {
+                            objectInFront = maze.gridObjectDict[keyToCheck];
+                        }
                     }
                     break;
                 case 3:
                     for (int i = 0; i < 4; i++)
                     {
                         Vector3Int keyToCheck = new Vector3Int(gridCoords.x - 1, gridCoords.y, i);
-                        if (maze.gridObjectDict.ContainsKey(keyToCheck)) objectInFront = maze.gridObjectDict[keyToCheck];
+                        if (maze.gridObjectDict.ContainsKey(keyToCheck))
+                        {
+                            objectInFront = maze.gridObjectDict[keyToCheck];
+                        }
                     }
                     break;
             }

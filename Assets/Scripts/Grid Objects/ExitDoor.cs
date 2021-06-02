@@ -24,6 +24,7 @@ public class ExitDoor : GridObject, Interactible
 
     public void onInteract()
     {
+        Debug.Log("Interacted with ExitDoor " + this + " at " + gridCoords);
         GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().NextScene();
     }
 }

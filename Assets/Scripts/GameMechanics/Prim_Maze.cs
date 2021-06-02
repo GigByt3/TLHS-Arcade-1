@@ -281,9 +281,11 @@ public class Maze : MonoBehaviour
                 if (!isObjectAtCoords(chosenDeadEndCell.x, chosenDeadEndCell.y))
                 {
                     GameObject newChest = Instantiate(chestPrefab);
-                    gridObjectDict.Add(new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, 0), exitDoor);
                     Chest chestComponent = newChest.GetComponent<Chest>();
                     chestComponent.gridCoords = new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, 0);
+                    chestComponent.ChestConstructor(cellWidth, cellHeight);
+                    chestComponent.Ready();
+                    gridObjectDict.Add(new Vector3Int(chosenDeadEndCell.x, chosenDeadEndCell.y, 0), chestComponent);
 
                     chestsPlaced++;
                 }

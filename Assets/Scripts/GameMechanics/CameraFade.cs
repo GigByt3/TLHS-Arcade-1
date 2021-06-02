@@ -27,7 +27,6 @@ public class CameraFade : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.01f);
             }
-            Debug.Log("Fade at : " + (int) 100 * (i / fadeCounter) + "%");
             image.color = new Color(
                 image.color.r - 0.005f,
                 image.color.g - 0.005f,
@@ -48,7 +47,6 @@ public class CameraFade : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.01f);
             }
-            Debug.Log("Fade at : " + (int)100 * (i / fadeCounter) + "%");
             image.color = new Color(
                 image.color.r + 0.005f,
                 image.color.g + 0.005f,
