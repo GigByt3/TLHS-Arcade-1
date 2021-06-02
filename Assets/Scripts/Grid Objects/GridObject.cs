@@ -106,20 +106,44 @@ public abstract class GridObject : MonoBehaviour
     }
 
     //Returns whether or not the exit is in front of this GridObject
-    public bool isExitInFront()
+    public void interactInFront()
     {
-        switch (gridCoords.z)
+        if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, gridCoords.z))
         {
-            case 0:
-                if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, 0)) return maze.isExitAtCoords(gridCoords.x, gridCoords.y - 1); else return false;
-            case 1:
-                if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, 1)) return maze.isExitAtCoords(gridCoords.x + 1, gridCoords.y); else return false;
-            case 2:
-                if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, 2)) return maze.isExitAtCoords(gridCoords.x, gridCoords.y + 1); else return false;
-            case 3:
-                if (!maze.getWallFromDirection(gridCoords.x, gridCoords.y, 3)) return maze.isExitAtCoords(gridCoords.x - 1, gridCoords.y); else return false;
-            default:
-                return false;
+            GridObject objectInFront = new DummyObject();
+            switch (gridCoords.z)
+            {
+                case 0:
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Vector3Int keyToCheck = new Vector3Int(gridCoords.x, gridCoords.y - 1, i);
+                        if (maze.gridObjectDict.ContainsKey(keyToCheck)) objectInFront = maze.gridObjectDict[keyToCheck];
+                    }
+                    break;
+                case 1:
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Vector3Int keyToCheck = new Vector3Int(gridCoords.x + 1, gridCoords.y, i);
+                        if (maze.gridObjectDict.ContainsKey(keyToCheck)) objectInFront = maze.gridObjectDict[keyToCheck];
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Vector3Int keyToCheck = new Vector3Int(gridCoords.x, gridCoords.y - 1, i);
+                        if (maze.gridObjectDict.ContainsKey(keyToCheck)) objectInFront = maze.gridObjectDict[keyToCheck];
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Vector3Int keyToCheck = new Vector3Int(gridCoords.x - 1, gridCoords.y, i);
+                        if (maze.gridObjectDict.ContainsKey(keyToCheck)) objectInFront = maze.gridObjectDict[keyToCheck];
+                    }
+                    break;
+            }
+            if (objectInFront is DummyObject) return;
+            if (objectInFront is Interactible interactibleInFront) interactibleInFront.onInteract();
         }
     }
 

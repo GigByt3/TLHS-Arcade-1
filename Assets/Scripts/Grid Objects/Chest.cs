@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest : GridObject
+public class Chest : GridObject, Interactible
 {
     private float width, height;
 
@@ -16,5 +16,10 @@ public class Chest : GridObject
     void Update()
     {
         
+    }
+
+    public void onInteract()
+    {
+
     }
 }
