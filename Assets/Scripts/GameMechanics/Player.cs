@@ -76,10 +76,12 @@ public class Player : GridObject
             string secondPotText = "";
             for (int i = 0; i < inventory.potions.Length; i++)
             {
-                if (i == 0) continue;
-                if (inventory.potions[i] is HealthPotion)
+                if (i != 0)
                 {
-                    secondPotText += "Health Potion\n";
+                    if (inventory.potions[i] is HealthPotion)
+                    {
+                        secondPotText += "Health Potion\n";
+                    }
                 }
             }
             secondaryPotionsText.text = secondPotText;

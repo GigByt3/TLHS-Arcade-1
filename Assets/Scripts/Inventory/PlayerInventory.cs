@@ -16,6 +16,7 @@ public class PlayerInventory
         rightHand = new RustedSword();
         leftHand = new WoodenShield();
         potions[0] = new HealthPotion();
+        potions[1] = new HealthPotion();
     }
 
     //Attempts to add an item if it is better than the item the player currently has
