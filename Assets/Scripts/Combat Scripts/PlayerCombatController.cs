@@ -79,7 +79,7 @@ public class PlayerCombatController : ParentCombatController
             {
                 GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().Death();
                 GetComponent<Player>().die();
-                _enemyExitCombat();
+                _enemyExitCombat?.Invoke();
             }
         }
     }

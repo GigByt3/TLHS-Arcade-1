@@ -52,11 +52,11 @@ public class Player : GridObject
 
     void Update()
     {
-        if (inCombat)
+        if (inCombat && isAlive)
         {
             checkKeysCombat();
         }
-        else
+        else if (isAlive)
         {
             checkKeysMove();
         }
