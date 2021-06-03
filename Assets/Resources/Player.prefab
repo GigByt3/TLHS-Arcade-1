@@ -202,8 +202,9 @@ MonoBehaviour:
 
     HealthPotion'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fa88afd6a7a950742a7b2fd45233f93b, type: 2}
+  m_sharedMaterial: {fileID: 5061840979465327950, guid: fa88afd6a7a950742a7b2fd45233f93b,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -336,8 +337,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Health: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fa88afd6a7a950742a7b2fd45233f93b, type: 2}
+  m_sharedMaterial: {fileID: 5061840979465327950, guid: fa88afd6a7a950742a7b2fd45233f93b,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -500,8 +502,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Current Potions: HealthPotion'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fa88afd6a7a950742a7b2fd45233f93b, type: 2}
+  m_sharedMaterial: {fileID: 5061840979465327950, guid: fa88afd6a7a950742a7b2fd45233f93b,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -729,6 +732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   enemyId: -1
+  enemyType: 0
   health: 100
   damage: 20
   defense: 0.2

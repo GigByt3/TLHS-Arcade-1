@@ -6,7 +6,7 @@ public abstract class ParentCombatController : MonoBehaviour
 {
     private int dodgeCooldown = 2;
     private int blockCooldown = 1;
-    private int strikeCooldown = 1;
+    private int strikeCooldown = 6;
 
     public int id;
     public int enemyId = -1;
@@ -109,8 +109,6 @@ public abstract class ParentCombatController : MonoBehaviour
         }
     }
 
-    public abstract int REMOVE();
-
     //Called by Animator Event on Height of Punch just calls the attack event. ()
     public void StrikeConnect()
     {
@@ -133,12 +131,10 @@ public abstract class ParentCombatController : MonoBehaviour
         {
             case "dodge":
                 isDodging = dodgeDir.NONE;
-                isStriking = false;
                 yield return new WaitForSeconds(dodgeCooldown);
                 break;
             case "block":
                 isBlocking = actionHeight.NONE;
-                isStriking = false;
                 yield return new WaitForSeconds(blockCooldown);
                 break;
             case "light_strike":
@@ -154,6 +150,8 @@ public abstract class ParentCombatController : MonoBehaviour
                 yield return new WaitForSeconds(strikeCooldown * 3);
                 break;
             default:
+                isDodging = dodgeDir.NONE;
+                isBlocking = actionHeight.NONE;
                 isStriking = false;
                 yield return new WaitForSeconds(2);
                 break;
@@ -163,11 +161,9 @@ public abstract class ParentCombatController : MonoBehaviour
         {
             case "dodge":
                 canDodge = true;
-                canStrike = true;
                 break;
             case "block":
                 canBlock = true;
-                canStrike = true;
                 break;
             case "light_strike":
                 canStrike = true;

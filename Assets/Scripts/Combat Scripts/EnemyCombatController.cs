@@ -49,15 +49,11 @@ public abstract class EnemyCombatController : ParentCombatController
 
     private void Update()
     {
-        if (Random.Range(0.0f, 100.0f) < (difficulty) && inCombat)
+        float chanceToHit = Random.Range(0.0f, 1000.0f);
+        if (chanceToHit < difficulty && inCombat)
         {
             enemyStrike();
         }
-    }
-
-    public override int REMOVE()
-    {
-        return difficulty;
     }
 
     public void AnimCallthroughDeath()
@@ -76,35 +72,35 @@ public abstract class EnemyCombatController : ParentCombatController
     {
         if (hittee_id != id) return;
 
-        if (canDodge && stamina - 1 >= 0 && Random.Range(0.0f, 100.0f) < 50)
+        if (canAct() && canDodge && stamina - 1 >= 0 && Random.Range(0.0f, 100.0f) < 50)
         {
             stamina -= 1;
             switch (attackSide)
             {
                 case strikeSide.LEFT:
                     isDodging = dodgeDir.LEFT;
-                    GetComponent<Animator>().SetInteger("CurrentAction", 7);
+                    AnimStart(7);
                     break;
                 case strikeSide.RIGHT:
                     isDodging = dodgeDir.RIGHT;
-                    GetComponent<Animator>().SetInteger("CurrentAction", 8);
+                    AnimStart(8);
                     break;
                 default:
                     isDodging = dodgeDir.NONE;
                     break;
             }
         }
-        else if (canBlock && blockCombo < 5)
+        else if (canAct() && canBlock && blockCombo < 5)
         {
             blockCombo++;
             isBlocking = attackHeight;
             switch(attackHeight)
             {
                 case actionHeight.HIGH:
-                    GetComponent<Animator>().SetInteger("CurrentAction", 5);
+                    AnimStart(5);
                     break;
                 case actionHeight.LOW:
-                    GetComponent<Animator>().SetInteger("CurrentAction", 6);
+                    AnimStart(6);
                     break;
             }
         }
@@ -122,11 +118,6 @@ public abstract class EnemyCombatController : ParentCombatController
             {
                 health -= (int)(hitter.damage * 1.2);
                 //oof. you walked into that one.
-            }
-            else
-            {
-                //you dodged
-                return;
             }
         }
         else if (isBlocking != actionHeight.NONE)
@@ -146,6 +137,7 @@ public abstract class EnemyCombatController : ParentCombatController
         {
             health -= hitter.damage;
         }
+
         if (health <= 0)
         {
             _death();

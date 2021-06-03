@@ -24,7 +24,7 @@ public class ZombieCombatController : EnemyCombatController
         //Block
         if (random < 50.0f)
         {
-            if (canBlock) {
+            if (canBlock && canAct()) {
                 float rando = Random.Range(0.0f, 100.0f);
                 //action height
                 if (rando < 50.0f)
@@ -40,7 +40,7 @@ public class ZombieCombatController : EnemyCombatController
             }
         } else  //dodge
         {
-            if (canDodge)
+            if (canDodge && canAct())
             {
                 float rand = Random.Range(0.0f, 100.0f);
                 if (random < 50.0f)

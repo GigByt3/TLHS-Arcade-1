@@ -31,11 +31,6 @@ public class PlayerCombatController : ParentCombatController
         Player._setEnemy -= HandleSetEnemy;
     }
 
-    public override int REMOVE()
-    {
-        return 420;
-    }
-
     private void HandleSetEnemy(int _id, Enemy.EnemyType _enemyType)
     {
         Debug.Log(this + " runs HandleSetEnemy, takes in " + _id + "and type " + _enemyType);
@@ -47,40 +42,27 @@ public class PlayerCombatController : ParentCombatController
     {
         if (hitter.id == 0) return;
 
-        if(isDodging != dodgeDir.NONE)
-        {
-            //dodging....
+        int damageDealt = (int) Random.Range(10.0f, hitter.damage);
 
-            if ((short)isDodging == (short)_strikeSide)
-            {
-                health -= (int) (hitter.damage * 1.2);
-                //oof. you walked into that one.
-            } else
-            {
-                //you dodged
-                return;
-            }
+        if (isDodging != dodgeDir.NONE && (short)isDodging == (short)_strikeSide)
+        {
+            health -= (int) (damageDealt * 1.2);
+            //oof. you walked into that one
         }
-        else if(isBlocking != actionHeight.NONE)
+        else if(isBlocking != actionHeight.NONE && (short)isBlocking == (short)_strikeHeight)
         {
-            if ((short)isBlocking == (short)_strikeHeight)
-            {
-                health -= (int)(hitter.damage * defense * blockCombo);
-                //block succeeds!
-            } else
-            {
-                health -= hitter.damage;
-                //block fails
-            }
-        } else
+            health -= (int)(damageDealt - (defense * Mathf.Pow(0.9f, blockCombo)));
+        }
+        else
         {
-            health -= hitter.damage;
-            if(health <= 0)
-            {
-                GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().Death();
-                GetComponent<Player>().die();
-                _enemyExitCombat();
-            }
+            health -= damageDealt;
+        }
+
+        if (health <= 0)
+        {
+            GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().Death();
+            GetComponent<Player>().die();
+            _enemyExitCombat();
         }
     }
 
