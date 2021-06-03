@@ -10,6 +10,9 @@ public class PlayerCombatController : ParentCombatController
     public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower, int hittee_id);
     public static event projection _projection;
 
+    public delegate void enemyExitCombat();
+    public static event enemyExitCombat _enemyExitCombat;
+
     void OnEnable()
     {
         id = 0;
@@ -75,6 +78,8 @@ public class PlayerCombatController : ParentCombatController
             if(health <= 0)
             {
                 GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().Death();
+                GetComponent<Player>().die();
+                _enemyExitCombat();
             }
         }
     }

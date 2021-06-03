@@ -29,12 +29,14 @@ public abstract class EnemyCombatController : ParentCombatController
     {
         PlayerCombatController._attack += wasHit;
         PlayerCombatController._projection += react;
+        PlayerCombatController._enemyExitCombat += exitCombat;
     }
 
     void OnDisable()
     {
         PlayerCombatController._attack -= wasHit;
         PlayerCombatController._projection -= react;
+        PlayerCombatController._enemyExitCombat -= exitCombat;
     }
 
     private void Start()
@@ -62,6 +64,11 @@ public abstract class EnemyCombatController : ParentCombatController
     {
         Debug.Log("Enemy " + id + " has died!");
         gameObject.GetComponent<Enemy>().maze.removeObject(gameObject.GetComponent<Enemy>());
+    }
+
+    void exitCombat()
+    {
+        inCombat = false;
     }
 
     //Enemy reaction

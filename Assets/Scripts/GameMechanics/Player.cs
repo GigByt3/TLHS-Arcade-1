@@ -13,6 +13,7 @@ public class Player : GridObject
     public PlayerInventory inventory;
 
     private bool inCombat = false;
+    private bool isAlive = true;
 
     private const float PLAYER_MOVE_COOLDOWN = 0.2f;
     private float playerMoveCooldownCount;
@@ -137,6 +138,12 @@ public class Player : GridObject
     {
         // gain xp maybe?
         inCombat = false;
+    }
+
+    public void die()
+    {
+        isAlive = false;
+        exitCombat();
     }
 
     public Maze.PlayerData getPlayerData()
