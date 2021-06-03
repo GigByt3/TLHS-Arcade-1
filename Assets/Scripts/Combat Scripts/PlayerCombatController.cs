@@ -53,7 +53,7 @@ public class PlayerCombatController : ParentCombatController
         {
             health -= (int)(damageDealt - (defense * Mathf.Pow(0.9f, blockCombo)));
         }
-        else
+        else if(isDodging == dodgeDir.NONE && isBlocking == actionHeight.NONE)
         {
             health -= damageDealt;
         }
