@@ -95,7 +95,7 @@ public class PlayerCombatController : ParentCombatController
                 // left
                 break;
             case "down":
-
+                this.gameObject.GetComponent<Player>().inventory.DrinkPotion();
                 // Drink Potion
                 break;
 

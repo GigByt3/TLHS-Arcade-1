@@ -1,4 +1,6 @@
-﻿public class HealthPotion : Potion
+﻿using UnityEngine;
+
+public class HealthPotion : Potion
 {
     public HealthPotion() : base()
     {
@@ -8,8 +10,7 @@
 
     public override void onConsume()
     {
-        //player.health += 30;
-        //item.remove;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ParentCombatController>().health += 30;
 
         //if(player.health > 100) {
         //player.health = 100;

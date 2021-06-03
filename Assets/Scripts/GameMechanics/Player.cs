@@ -62,7 +62,15 @@ public class Player : GridObject
         }
         updatePos();
         updateRot();
-        healthText.text = "Health: " + GetComponent<PlayerCombatController>().health;
+        if(GetComponent<PlayerCombatController>().health > 0)
+        {
+            healthText.text = "Health: " + GetComponent<PlayerCombatController>().health;
+        }
+        else
+        {
+            healthText.text = "Health: 0";
+        }
+        
         primaryPotionText.text = "Current Potions: \n" + inventory.potions[0];
         {
             string secondPotText = "";
@@ -98,6 +106,11 @@ public class Player : GridObject
         if (Input.GetKeyDown("right"))
         {
             rotate("right");
+            //moveEvent?.Invoke();
+        }
+        if (Input.GetKeyDown("down"))
+        {
+            this.gameObject.GetComponent<Player>().inventory.DrinkPotion();
             //moveEvent?.Invoke();
         }
 

@@ -87,5 +87,11 @@ public class PlayerInventory
         else return 0.0f;
     }
 
-
+    public void DrinkPotion()
+    {
+        Debug.Log("I have been drumnk");
+        potions[0].onConsume();
+        potions[0] = null;
+        SortPotions();
+    }
 }
