@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class HealthPotion : Potion
+﻿public class HealthPotion : Potion
 {
     public HealthPotion() : base()
     {
@@ -20,7 +16,4 @@ public class HealthPotion : Potion
         //}
 
     }
-
-
-
 }

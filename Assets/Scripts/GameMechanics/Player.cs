@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : GridObject
 {
     public delegate void MoveDelegate();
     public static event MoveDelegate moveEvent;
 
-    public delegate void setEnemy(int id);
+    public delegate void setEnemy(int id, Enemy.EnemyType enemyType);
     public static event setEnemy _setEnemy;
 
     public PlayerInventory inventory;
@@ -30,6 +31,10 @@ public class Player : GridObject
 
     public float rotationProgress = 0.0f;
     private bool rotationInterpolating = false;
+
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI primaryPotionText;
+    public TextMeshProUGUI secondaryPotionsText;
 
     void OnEnable()
     {
@@ -56,6 +61,20 @@ public class Player : GridObject
         }
         updatePos();
         updateRot();
+        healthText.text = "Health: " + GetComponent<PlayerCombatController>().health;
+        primaryPotionText.text = "Current Potions: \n" + inventory.potions[0];
+        {
+            string secondPotText = "";
+            for (int i = 0; i < inventory.potions.Length; i++)
+            {
+                if (i == 0) continue;
+                if (inventory.potions[i] is HealthPotion)
+                {
+                    secondPotText += "Health Potion\n";
+                }
+            }
+            secondaryPotionsText.text = secondPotText;
+        }
     }
 
     //Method for checking keypresses when not in combat
@@ -109,7 +128,7 @@ public class Player : GridObject
             this.faceDirection("west");
         }
 
-        _setEnemy(enemy.gameObject.GetComponent<ParentCombatController>().id);
+        _setEnemy(enemy.gameObject.GetComponent<ParentCombatController>().id, enemy.type);
         inCombat = true;
     }
 
@@ -118,6 +137,11 @@ public class Player : GridObject
     {
         // gain xp maybe?
         inCombat = false;
+    }
+
+    public Maze.PlayerData getPlayerData()
+    {
+        return new Maze.PlayerData(inventory, GetComponent<PlayerCombatController>().health, GetComponent<PlayerCombatController>().enemyType);
     }
 
     public delegate void sendKey(string code);

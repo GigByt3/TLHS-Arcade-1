@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class PlayerInventory
 {
-    private Potion[] potions = new Potion[4]; // 4 represents the potion inventory size
+    public Potion[] potions = new Potion[4]; // 4 represents the potion inventory size
 
-    private Item rightHand;
-    private Item leftHand;
+    public Item rightHand;
+    public Item leftHand;
 
     //Starter item kit for the player, gives an iron sword, wooden shield, and one health potion.
     public void StarterKit()
     {
-        rightHand = new IronSword();
+        rightHand = new RustedSword();
         leftHand = new WoodenShield();
         potions[0] = new HealthPotion();
     }

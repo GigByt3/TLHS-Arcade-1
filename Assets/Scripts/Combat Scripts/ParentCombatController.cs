@@ -10,7 +10,8 @@ public abstract class ParentCombatController : MonoBehaviour
 
     public int id;
     public int enemyId = -1;
-    protected int health = 100;
+    public Enemy.EnemyType enemyType;
+    public int health = 100;
     protected int stamina = 10;
     public int damage = 20;
     public float defense = 0.2f;

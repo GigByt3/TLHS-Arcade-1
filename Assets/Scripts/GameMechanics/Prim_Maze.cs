@@ -21,6 +21,8 @@ public class Maze : MonoBehaviour
     public Player player;
     public ExitDoor exitDoor;
 
+    private PlayerData newPlayerData;
+
     public Dictionary<Vector3Int, GridObject> gridObjectDict;
 
     private bool isBossMaze;
@@ -35,12 +37,13 @@ public class Maze : MonoBehaviour
     private GameObject torchPrefab;
 
     //Method for assigning all the various fields of a maze, in lieu of a Java-esque "constructor" in C#
-    public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, GameObject _exitPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty, float _torchDensity)
+    public void MazeConstructor(int _width, int _height, GameObject _playerPrefab, PlayerData _playerData, GameObject _exitPrefab, GameObject[] _enemyPrefabs, Material _material, float _cellWidth, int _numberOfStartingEnemies, float _enemyDifficulty, float _torchDensity)
     {
         isBossMaze = false;
         width = _width;
         height = _height;
         playerPrefab = _playerPrefab;
+        newPlayerData = _playerData;
         exitPrefab = _exitPrefab;
         material = _material;
         enemyDifficulty = _enemyDifficulty;
@@ -51,12 +54,13 @@ public class Maze : MonoBehaviour
         torchDensity = _torchDensity;
     }
 
-    public void BossConstructor(int _width, int _height, GameObject _playerPrefab, GameObject _bossPrefab, Material _material, float _cellWidth)
+    public void BossConstructor(int _width, int _height, GameObject _playerPrefab, PlayerData _playerData, GameObject _bossPrefab, Material _material, float _cellWidth)
     {
         isBossMaze = true;
         width = _width;
         height = _height;
         playerPrefab = _playerPrefab;
+        newPlayerData = _playerData;
         bossPrefab = _bossPrefab;
         material = _material;
         cellWidth = _cellWidth;
@@ -188,6 +192,13 @@ public class Maze : MonoBehaviour
         GameObject playerObject = Instantiate(playerPrefab);
         playerObject.name = "Player";
         player = playerObject.GetComponent<Player>();
+        if (newPlayerData == null)
+        {
+            Debug.Log("Incoming player data was null, something went wrong somewhere! Continuing with new data...");
+            newPlayerData = new PlayerData();
+        }
+        player.inventory = newPlayerData.inventory;
+        playerObject.GetComponent<PlayerCombatController>().health = newPlayerData.health;
 
         Vector3Int playerStartCoords;
         
@@ -212,7 +223,7 @@ public class Maze : MonoBehaviour
             bossObject.name = "Black Knight";
 
             Enemy boss = bossObject.GetComponent<Enemy>();
-            boss.EnemyConstructor(Enemy.EnemyType.BlackKnight);
+            boss.EnemyConstructor(Enemy.EnemyType.BLACKKNIGHT);
             boss.gridCoords = new Vector3Int(1, 3, 0);
             boss.Ready();
             gridObjectDict.Add(new Vector3Int(1, 3, 0), boss);
@@ -237,7 +248,7 @@ public class Maze : MonoBehaviour
                 }
 
                 GameObject newZombie = Instantiate(Resources.Load<GameObject>("Zombie"), cellCoordsToGlobalCoords(possibleStartCoords.x, possibleStartCoords.y), Quaternion.identity);
-                newZombie.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.Zombie);
+                newZombie.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.ZOMBIE);
                 newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
                 newZombie.GetComponent<Enemy>().Ready();
                 gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
@@ -899,4 +910,27 @@ public class Maze : MonoBehaviour
         if (!doesCellExist(new Vector2Int(wall.x, wall.y)) || wall.z > 1) return false;
         return walls[wall.x, wall.y, wall.z];
     }
+
+    public class PlayerData
+    {
+        public PlayerInventory inventory;
+        public int health;
+        public Enemy.EnemyType lastCombatant;
+
+        public PlayerData()
+        {
+            inventory = new PlayerInventory();
+            inventory.StarterKit();
+            health = 100;
+            lastCombatant = Enemy.EnemyType.NULL;
+        }
+
+        public PlayerData(PlayerInventory _inventory, int _health, Enemy.EnemyType _lastCombatant)
+        {
+            inventory = _inventory;
+            health = _health;
+            lastCombatant = _lastCombatant;
+        }
+    }
 }
+

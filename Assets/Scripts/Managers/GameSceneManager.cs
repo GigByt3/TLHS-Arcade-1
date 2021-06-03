@@ -19,6 +19,8 @@ public class GameSceneManager : MonoBehaviour
     private GameObject[] TransitionText;
     private GameObject[] DeathText;
 
+    private Maze.PlayerData transitionalPlayerData;
+
     static float position = 0;
     /*
      * SCENE DIRECTORY
@@ -52,6 +54,9 @@ public class GameSceneManager : MonoBehaviour
 
         }
         Debug.Log("Scene Manager Awake.");
+
+        //Set starting player data
+        transitionalPlayerData = new Maze.PlayerData();
     }
 
     //Subscribing Setup
@@ -85,6 +90,7 @@ public class GameSceneManager : MonoBehaviour
                 break;
             case 1:
                 Debug.Log("ENTERING THE FIRST LAYER");
+                transitionalPlayerData = new Maze.PlayerData();
                 SetUpGame(18, 0, 1);
                 break;
             case 1.5f:
@@ -143,7 +149,7 @@ public class GameSceneManager : MonoBehaviour
         mazeContainer.AddComponent<MeshRenderer>();
         maze = mazeContainer.AddComponent<Maze>();
         GameObject[] enemyPrefabs = {Resources.Load<GameObject>("Zombie")};
-        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), Resources.Load<GameObject>("ExitDoor"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 30, 1.0f, 0.2f);
+        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), transitionalPlayerData, Resources.Load<GameObject>("ExitDoor"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 30, 1.0f, 0.2f);
         maze.Ready();
         StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeUp(
             () => {
@@ -204,7 +210,7 @@ public class GameSceneManager : MonoBehaviour
         mazeContainer.AddComponent<MeshRenderer>();
         maze = mazeContainer.AddComponent<Maze>();
         GameObject bossPrefab = Resources.Load<GameObject>("BlackKnight"); 
-        maze.BossConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), bossPrefab, Resources.Load<Material>("Wall"), cellWidth);
+        maze.BossConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), transitionalPlayerData, bossPrefab, Resources.Load<Material>("Wall"), cellWidth);
         maze.Ready();
         StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeUp(
             () => {
@@ -217,6 +223,7 @@ public class GameSceneManager : MonoBehaviour
 
     public void NextScene()
     {
+        if (position != 0 && Mathf.Approximately(position, Mathf.Floor(position))) transitionalPlayerData = maze.player.getPlayerData();
         position += 0.5f;
 
         if (Mathf.Floor(position) != position)
@@ -244,6 +251,7 @@ public class GameSceneManager : MonoBehaviour
     //This Method Should Not Be Called Internaly!
     public void Death()
     {
+        transitionalPlayerData = maze.player.getPlayerData();
         position = 402;
 
         StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeToRed(

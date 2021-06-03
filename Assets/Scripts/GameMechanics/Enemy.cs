@@ -18,13 +18,13 @@ public class Enemy : GridObject
 
         switch (type)
         {
-            case EnemyType.Zombie:
+            case EnemyType.ZOMBIE:
                 actionsPerTurn = 1;
                 break;
-            case EnemyType.Skeleton:
+            case EnemyType.SKELETON:
                 actionsPerTurn = 2;
                 break;
-            case EnemyType.BlackKnight:
+            case EnemyType.BLACKKNIGHT:
                 actionsPerTurn = 3;
                 break;
             default:
@@ -64,7 +64,7 @@ public class Enemy : GridObject
                 return;
             }
 
-            if (type == EnemyType.BlackKnight) return;
+            if (type == EnemyType.BLACKKNIGHT) return;
 
             if (player.isInCell(visibleNorthCells()))
             {
@@ -123,6 +123,6 @@ public class Enemy : GridObject
 
     public enum EnemyType
     {
-        Zombie, Skeleton, BlackKnight
+        NULL, ZOMBIE, SKELETON, BLACKKNIGHT, PLAYER
     }
 }

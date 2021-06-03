@@ -33,10 +33,11 @@ public class PlayerCombatController : ParentCombatController
         return 420;
     }
 
-    private void HandleSetEnemy(int _id)
+    private void HandleSetEnemy(int _id, Enemy.EnemyType _enemyType)
     {
-        Debug.Log(this + " runs HandleSetEnemy, takes in " + _id);
+        Debug.Log(this + " runs HandleSetEnemy, takes in " + _id + "and type " + _enemyType);
         enemyId = _id;
+        enemyType = _enemyType;
     }
 
     public override void wasHit(actionHeight _strikeHeight, strikeSide _strikeSide, strikePower strikePower, ParentCombatController hitter, int hittee_id)

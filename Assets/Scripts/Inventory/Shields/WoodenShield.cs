@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class WoodenShield : Shield
+﻿public class WoodenShield : Shield
 {
     public WoodenShield() : base()
     {

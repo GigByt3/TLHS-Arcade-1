@@ -105,4 +105,12 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.16666667
+    functionName: AnimCallthroughFinishOpening
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 096baecb9ae659f478626366bbdd9cb9,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
