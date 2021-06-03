@@ -276,10 +276,13 @@ public class GameSceneManager : MonoBehaviour
         //Any other system reset goes here like clearing inventory or experience.
     }
 
-        //Death Poems
+    //Death Poems
     private string PoemGenerator()
     {
         string[] selectedPoem;
+        Vector2Int range = new Vector2Int();
+        Item shield = transitionalPlayerData.inventory.leftHand;
+        Item sword = transitionalPlayerData.inventory.rightHand;
 
         string[] zombiePoems =
         {
@@ -322,9 +325,62 @@ public class GameSceneManager : MonoBehaviour
             "Callous walls, staring with that malignant beast\nShielding only body nay mind or soul, deceased",
             "Relic Light fading in the stretching abyss\nProtecting naught against the flailing limbs, a hiss",
         };
-        
-        return selectedPoem[UnityEngine.Random.Range(0, selectedPoem.Length)];
-    }
+
+        switch (transitionalPlayerData.lastCombatant)
+        {
+            case Enemy.EnemyType.ZOMBIE:
+                selectedPoem = zombiePoems;
+                break;
+
+            case Enemy.EnemyType.SKELETON:
+                selectedPoem = skeletonPoems;
+                break;
+
+            case Enemy.EnemyType.BLACKKNIGHT:
+                selectedPoem = demonPoems;
+                break;
+            default:
+                selectedPoem = phantomPoems;
+                Debug.Log("Enemy type is null; no random poem returned.");
+                break;
+        }
+
+        if (sword is RustedSword)
+        {
+            range.x = 0;
+        }            
+        else if (sword is SteelSword)
+        {
+            range.x = 1;
+        }
+        else if (sword is HolySword)
+        {
+            range.x = 2;
+        }
+
+        if (shield is WoodenShield)
+        {
+            range.y = 3;
+        }
+        else if (shield is SteelShield)
+        {
+            range.y = 4;
+        }
+        else if (shield is HolyShield)
+        {
+            range.y = 5;
+        }
+
+        if (UnityEngine.Random.Range(0, 2) == 1)
+        {
+            return selectedPoem[range.x];
+        }
+        else
+        {
+            return selectedPoem[range.y];
+        }
+    } //0-2 swords: rusted, steel, holy, 3-5 shields: wooden, steel, holy
+   
 
     private string TransitionTextGen()
     {
