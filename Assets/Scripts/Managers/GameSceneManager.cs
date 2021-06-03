@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
-    // FEILDS ==============================================================================================
+    // FIELDS ==============================================================================================
 
     public GameSoundManager _soundManager;
 
@@ -17,6 +17,7 @@ public class GameSceneManager : MonoBehaviour
     private GameObject StartMenu;
 
     private GameObject[] TransitionText;
+    private GameObject[] DeathText;
 
     static float position = 0;
     /*
@@ -108,10 +109,12 @@ public class GameSceneManager : MonoBehaviour
                 SetUpTransition("MFW Winner :confetti:", true);
                 break;
             case 402:
-                SetUpTransition(PoemGenerator(), true);
+                SetUpDeath(PoemGenerator(), true);
                 break;
             default:
                 // DO NOTHING HERE OR ALL HELL WILL BREAK LOSE AND WREAK TERRIBLE VENGENCE UPON AN UNSUSPECTING EARTH
+                // I HAVE ADDED THIS COMMENT. YOUR SILLY FALLIBLE CODE STRUCTURE SHALL FALL TO MY ENORMOUS POWER OF DEATH AND DESTRUCTION.
+                // LET THE DEMONS FLY, LET THE CHILDREN DIE, EARTH WILL FALL.
                 Debug.Log(":)");
                 break;
         }
@@ -159,6 +162,21 @@ public class GameSceneManager : MonoBehaviour
             TransitionText[0].GetComponent<TextMeshProUGUI>().text = Transition;
         }
         catch(Exception e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    //Check if Dead & Give Story Byte
+    private void SetUpDeath(string Death, bool isGameOver)
+    {
+        try
+        {
+            StartCoroutine(SwitchOutOfTransition(4, isGameOver));
+            DeathText = GameObject.FindGameObjectsWithTag("DeathText");
+            DeathText[0].GetComponent<TextMeshProUGUI>().text = Death;
+        }
+        catch (Exception e)
         {
             Debug.Log(e);
         }
@@ -238,7 +256,7 @@ public class GameSceneManager : MonoBehaviour
 
     private void _DeathCall()
     {
-        SceneManager.LoadScene("Transition_Area");
+        SceneManager.LoadScene("Death_Scene");
     }
 
     // PRIVATE METHODS (CLASS TOOLS) ====================================================================================
@@ -250,10 +268,54 @@ public class GameSceneManager : MonoBehaviour
         //Any other system reset goes here like clearing inventory or experience.
     }
 
+        //Death Poems
     private string PoemGenerator()
     {
-        //find a haiku? Or summink... idk? This is where that script goes.
-        return "You may be wondering how you got here. You died. Congratulations.";
+        string[] selectedPoem;
+
+        string[] zombiePoems =
+        {
+            "Fallen, an undead crafted thy tomb\nSword, broken, a gift, and your doom",
+            "Death, at the hands of those you fear\ncrawling zombies, thy blade to clear",
+            "Your glorious sword, was not enough\nThe zombies slay, deep in the rough",
+            "Your rusty shield would not protect\nThe zombies slay, they won’t respect",
+            "Thy ornate shield has broken through\nThe zombie horde, too great for you",
+            "Holy protector could not stay their hands\nZombies bloodied fingers, scour the lands"
+        };
+
+        string[] skeletonPoems =
+        {
+            "Fallen, an undead crafted thy tomb\nSword, broken, a gift, and your doom",
+            "Death, at the hands of those you fear\nThe crawling Skeletons, thy blade to clear",
+            "Your glorious sword, was not enough\nThe Skeletons slay, deep in the rough",
+            "Your rusty shield would not protect\nThe Skeletons slay, they won’t respect",
+            "Thy ornate shield has broken through\nThe skeleton horde, too great for you",
+            "Holy protector could not stay their hands\nskeleton’s bloodied swords, scour the lands",
+        };
+
+        //Demons do not exist and thus this string array is currently useless.
+        string[] demonPoems =
+        {
+            "Fought thus the last ounce, the demon ahead,\nstrength alone cannot slay, rusty sword fished from the dead",
+            "Feet, disrupt the ground above, the demon gravels\nside pierced, blade drops, ending thy travels",
+            "Cheek against the stone, a thud, sprayed blood\nWarm, senseless, symbol holy thrown, sky with blackness flood",
+            "Entrenched stone, a fiend over head,\nA simple defense your flaw instead",
+            "Callous walls, staring with that malignant beast\nShielding only body nay mind or soul, deceased",
+            "Souls lost, a perpetual abyss, but ended by the fiend\nEven the adorned bulwark unable to protect a dream",
+        };
+
+        //Phantoms do not exist and thus this string array is currently useless.
+        string[] phantomPoems =
+        {
+            "Foolish courage, facing odds without metal to match\nDreaming soldiers called limbs detached",
+            "Soon in bloody battle did ensue\nPhantom limbs ripped the fair sword subdued",
+            "Phantasmal limbs, pierce thou body\nHoly relic fallen to the floor, disembodied",
+            "Entrenched stone, a fiend over head,\nA simple defense your flaw instead",
+            "Callous walls, staring with that malignant beast\nShielding only body nay mind or soul, deceased",
+            "Relic Light fading in the stretching abyss\nProtecting naught against the flailing limbs, a hiss",
+        };
+        
+        return selectedPoem[UnityEngine.Random.Range(0, selectedPoem.Length)];
     }
 
     private string TransitionTextGen()
