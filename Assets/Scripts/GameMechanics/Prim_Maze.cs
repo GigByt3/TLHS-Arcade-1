@@ -285,7 +285,7 @@ public class Maze : MonoBehaviour
             exitDoor.Ready();
 
             int chestsPlaced = 0;
-            while (chestsPlaced <= 40)
+            while (chestsPlaced <= 4)
             {
                 int deadEndCellIndex = UnityEngine.Random.Range(0, deadEndCells.Count);
                 Vector2Int chosenDeadEndCell = deadEndCells[deadEndCellIndex];
