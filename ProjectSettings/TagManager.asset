@@ -11,6 +11,7 @@ TagManager:
   - SoundManager
   - Canvas
   - RetroCanvas
+  - DeathText
   layers:
   - Default
   - TransparentFX
