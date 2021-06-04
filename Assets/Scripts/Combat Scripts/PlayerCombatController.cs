@@ -79,7 +79,7 @@ public class PlayerCombatController : ParentCombatController
                 // Heavy Attack
                 break;
             case "right":
-                if (isDodging != dodgeDir.NONE || isStriking) break;
+                if (!canAct()) break;
                 isDodging = dodgeDir.RIGHT;
                 GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 2);
                 // Preform Animation
@@ -87,7 +87,7 @@ public class PlayerCombatController : ParentCombatController
                 // right
                 break;
             case "left":
-                if (isDodging != dodgeDir.NONE || isStriking) break;
+                if (!canAct()) break;
                 isDodging = dodgeDir.LEFT;
                 GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Animator>().SetInteger("DodgePos", 1);
                 // Preform Animation
@@ -100,13 +100,13 @@ public class PlayerCombatController : ParentCombatController
                 break;
 
             case "q":
-                if (isBlocking != actionHeight.NONE) break;
+                if (!canAct()) break;
                 strike(actionHeight.HIGH, strikeSide.LEFT, strikePower.NORMAL);
 
                 // q    
                 break;
             case "w":
-                if (isBlocking != actionHeight.NONE || isStriking) break;
+                if (!canAct()) break;
                 isBlocking = actionHeight.HIGH;
                 sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 1);
                 blockCombo++;
@@ -115,20 +115,20 @@ public class PlayerCombatController : ParentCombatController
                 // w
                 break;
             case "e":
-                if (isBlocking != actionHeight.NONE) break;
+                if (!canAct()) break;
                 strike(actionHeight.LOW, strikeSide.LEFT, strikePower.NORMAL);
 
                 // e
                 break;
 
             case "a":
-                if (isBlocking != actionHeight.NONE) break;
+                if (!canAct()) break;
                 strike(actionHeight.HIGH, strikeSide.RIGHT, strikePower.NORMAL);
 
                 // a
                 break;
             case "s":
-                if (isBlocking != actionHeight.NONE || isStriking) break;
+                if (!canAct()) break;
                 isBlocking = actionHeight.LOW;
                 sheildCanvas.GetComponent<Animator>().SetInteger("sheildNum", 2);
                 blockCombo++;
@@ -137,7 +137,7 @@ public class PlayerCombatController : ParentCombatController
                 // s
                 break;
             case "d":
-                if (isBlocking != actionHeight.NONE) break;
+                if (!canAct()) break;
                 strike(actionHeight.LOW, strikeSide.RIGHT, strikePower.NORMAL);
                     
                 // d

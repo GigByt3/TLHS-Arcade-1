@@ -110,7 +110,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: blackKnightLeftLow
-  m_Speed: 0.6
+  m_Speed: 0.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4472301623497983931}
@@ -264,7 +264,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: blackKnightLeftHigh
-  m_Speed: 0.6
+  m_Speed: 0.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2835627401954079121}
@@ -441,7 +441,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: blackKnightRightLow
-  m_Speed: 0.6
+  m_Speed: 0.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2764749865446398168}
@@ -732,7 +732,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: blackKnightRightHigh
-  m_Speed: 0.6
+  m_Speed: 0.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6650906038809758837}
