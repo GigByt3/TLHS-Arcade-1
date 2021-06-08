@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9b41de1f923c0594eb240d452db979a1, type: 2}
+  m_Motion: {fileID: 7400000, guid: e1aa1c7a410e2b84b9af3f534322e3d8, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -123,7 +123,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b50130a25187b2c40acf22eaae5cb009, type: 2}
+  m_Motion: {fileID: 7400000, guid: c7a2119aeeea4cd4fb74417d31a842aa, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -219,7 +219,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player Attack Animations
+  m_Name: HolySwordAnims
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: AttackIndex
@@ -324,7 +324,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: rustyswordidle
+  m_Name: holyswordidle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -341,7 +341,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: cf0fb87cb7dd98d49b248759cc647ea9, type: 2}
+  m_Motion: {fileID: 7400000, guid: c86909576af2c4e418645fe5765290f9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -368,7 +368,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: fc6c2823fe4a8d6479ea0806a02a6a64, type: 2}
+  m_Motion: {fileID: 7400000, guid: 33e1656aff968944995f23bf28499d54, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -420,7 +420,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6135b3f05ce4cc1438cb5f4204074e9e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4c970550efe50a74d8a0bd2d687bab79, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

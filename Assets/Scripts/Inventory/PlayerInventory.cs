@@ -22,6 +22,8 @@ public class PlayerInventory
     //Attempts to add an item if it is better than the item the player currently has
     public void AddItem(Item itemToAdd)
     {
+        GameObject.Find("Player").GetComponentInChildren<PlayerCombatController>().UpdatePlayerWeapons();
+
         if (itemToAdd != null)
         {
             if (itemToAdd.type == ItemType.POTION)

@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9b41de1f923c0594eb240d452db979a1, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1afa18709959cb44a9b5b8a5606466b9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -123,7 +123,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b50130a25187b2c40acf22eaae5cb009, type: 2}
+  m_Motion: {fileID: 7400000, guid: d5beb2d45578f194884b896e65bc9224, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -140,7 +140,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 5291838917819554910}
-    m_Position: {x: 500, y: 60, z: 0}
+    m_Position: {x: 510, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6333510160052972149}
     m_Position: {x: 200, y: -40, z: 0}
@@ -219,7 +219,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player Attack Animations
+  m_Name: SteelSwordAnims
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: AttackIndex
@@ -341,7 +341,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: cf0fb87cb7dd98d49b248759cc647ea9, type: 2}
+  m_Motion: {fileID: 7400000, guid: 8db814eb5869beb42969ab82338bab4d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -368,7 +368,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: fc6c2823fe4a8d6479ea0806a02a6a64, type: 2}
+  m_Motion: {fileID: 7400000, guid: b23efbac78c3bfd47aae0a1d6b0a5a9b, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -420,7 +420,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6135b3f05ce4cc1438cb5f4204074e9e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 9cdbd4ef20a09134cb8817a64162edea, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

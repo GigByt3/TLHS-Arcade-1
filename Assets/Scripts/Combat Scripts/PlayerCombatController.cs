@@ -31,32 +31,32 @@ public class PlayerCombatController : ParentCombatController
         Player._setEnemy -= HandleSetEnemy;
     }
 
-    private void Update()
+    public void UpdatePlayerWeapons()
     {
         damage = (int)GetComponent<Player>().inventory.GetDamage();
         defense = GetComponent<Player>().inventory.GetDefense();
-        switch(gameObject.GetComponent<PlayerInventory>().leftHand.name)
+        switch(gameObject.GetComponent<Player>().inventory.leftHand.name)
         {
             case "Wooden Shield":
-
+                sheildCanvas.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Resources/WoodenSheildAnims", typeof(RuntimeAnimatorController));
                 break;
             case "Steel Shield":
-
+                sheildCanvas.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Resources/SteelSheildAnims.controller", typeof(RuntimeAnimatorController));
                 break;
             case "Holy Shield":
-
+                sheildCanvas.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Resources/HolySheildAnims.controller", typeof(RuntimeAnimatorController));
                 break;
         }
-        switch (gameObject.GetComponent<PlayerInventory>().rightHand.name)
+        switch (gameObject.GetComponent<Player>().inventory.rightHand.name)
         {
             case "Rusted Sword":
-                swordCanvas.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Animations/Controllers/RustySwordAnims.controller", typeof(RuntimeAnimatorController)));
+                swordCanvas.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Resources/RustySwordAnims.controller", typeof(RuntimeAnimatorController));
                 break;
             case "Steel Sword":
-
+                swordCanvas.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Resources/SteelSwordAnims.controller", typeof(RuntimeAnimatorController));
                 break;
             case "Holy Sword":
-
+                swordCanvas.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Resources/HolySwordAnims", typeof(RuntimeAnimatorController));
                 break;
         }
     }
