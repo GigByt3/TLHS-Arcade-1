@@ -9,7 +9,13 @@ public class PotionComparer : IComparer
         Potion potionX = x as Potion;
         Potion potionY = y as Potion;
 
-        if (potionX == null || potionY == null)
+        if (potionX == null && potionY == null)
+        {
+            return 0;
+        } else if(potionY == null)
+        {
+            return -1;
+        } else if (potionX == null)
         {
             return 1;
         }

@@ -28,7 +28,61 @@ public class Chest : GridObject, Interactible
     {
         Maze maze = GameObject.Find("Maze").GetComponent<Maze>();
 
-        Item itemToGive = new HealthPotion(); //change this to other/random item(s) in the future
+        Item itemToGive; //change this to other/random item(s) in the future
+        switch(Random.Range(0, 30))
+        {
+            case 1:
+                itemToGive = new HolySword();
+                break;
+            case 2:
+                itemToGive = new HolyShield();
+                break;
+            case 3:
+            case 4:
+                itemToGive = new SteelSword();
+                break;
+            case 5:
+            case 6:
+                itemToGive = new SteelShield();
+                break;
+            case 7:
+            case 8:
+                itemToGive = new StrengthPotion();
+                break;
+            case 9:
+            case 10:
+                itemToGive = new IornSkinPotion();
+                break;
+            case 11:
+            case 12:
+                itemToGive = new Poison();
+                break;
+            case 13:
+            case 14:
+                itemToGive = new SpeedPotion();
+                break;
+            case 15:
+                itemToGive = new GreaterSpeedPotion();
+                break;
+            case 16:
+                itemToGive = new GreaterStrengthPotion();
+                break;
+            case 17:
+                itemToGive = new GreaterIornSkinPotion();
+                break;
+            case 18:
+                itemToGive = new GreaterPoison();
+                break;
+            case 19:
+                itemToGive = new GreaterHealthPotion();
+                break;
+            default:
+                itemToGive = new HealthPotion();
+                break;
+        }
+
+        Debug.Log("You have aquired a " + itemToGive.name);
+
         maze.player.inventory.AddItem(itemToGive);
         
         maze.removeObject(this);

@@ -23,6 +23,12 @@ public class gameFunctions : MonoBehaviour
         SceneManager.LoadScene("Credits");
     }
 
+    public void Controls()
+    {
+        SceneManager.LoadScene("Controls");
+    }
+
+
     public void Home()
     {
         SceneManager.LoadScene("Title_Scene");

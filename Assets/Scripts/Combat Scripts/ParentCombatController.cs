@@ -8,6 +8,8 @@ public abstract class ParentCombatController : MonoBehaviour
     private int blockCooldown = 1;
     private int strikeCooldown = 6;
 
+    public float coolDownModifier = 1;
+
     public int id;
     public int enemyId = -1;
     public Enemy.EnemyType enemyType;
@@ -131,29 +133,29 @@ public abstract class ParentCombatController : MonoBehaviour
         {
             case "dodge":
                 isDodging = dodgeDir.NONE;
-                yield return new WaitForSeconds(dodgeCooldown);
+                yield return new WaitForSeconds(dodgeCooldown * coolDownModifier);
                 break;
             case "block":
                 isBlocking = actionHeight.NONE;
-                yield return new WaitForSeconds(blockCooldown);
+                yield return new WaitForSeconds(blockCooldown * coolDownModifier);
                 break;
             case "light_strike":
                 isStriking = false;
-                yield return new WaitForSeconds(strikeCooldown * 0.33f);
+                yield return new WaitForSeconds(strikeCooldown * 0.33f * coolDownModifier);
                 break;
             case "normal_strike":
                 isStriking = false;
-                yield return new WaitForSeconds(strikeCooldown);
+                yield return new WaitForSeconds(strikeCooldown * coolDownModifier);
                 break;
             case "heavy_strike":
                 isStriking = false;
-                yield return new WaitForSeconds(strikeCooldown * 3);
+                yield return new WaitForSeconds(strikeCooldown * 3 * coolDownModifier);
                 break;
             default:
                 isDodging = dodgeDir.NONE;
                 isBlocking = actionHeight.NONE;
                 isStriking = false;
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(2 * coolDownModifier);
                 break;
         }
 

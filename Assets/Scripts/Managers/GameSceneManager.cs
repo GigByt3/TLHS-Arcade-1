@@ -77,9 +77,9 @@ public class GameSceneManager : MonoBehaviour
     private void Setup(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Manager New Scene Loaded.");
-        if(SceneManager.GetActiveScene().name == "Credits") { return; }
-        string TransitionText = TransitionTextGen();
         StartMenu.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Credits" || SceneManager.GetActiveScene().name == "Controls") { return; }
+        string TransitionText = TransitionTextGen();
         switch (position)
         {
             case 0:

@@ -66,6 +66,28 @@ public class PlayerInventory
         //Cool comparer sorting w/ help from Owen
         IComparer potComparer = new PotionComparer();
         Array.Sort(potions, 0, potions.Length, potComparer);
+        string[] potionNames = {"empty", "empty", "empty", "empty"};
+        int potionPosition = 0;
+        foreach(Potion p in potions)
+        {
+            try
+            {
+                potionNames[potionPosition] = p.name;
+                potionPosition++;
+            }
+            catch(Exception e)
+            {
+                Debug.Log(e);
+            }
+
+        }
+        Debug.Log(
+            "Potions:" +
+            "\n" + potionNames[0] +
+            "\n" + potionNames[1] +
+            "\n" + potionNames[2] +
+            "\n" + potionNames[3]
+            );
     }
 
     //Returns player attack damage based on the weapon in the right hand
@@ -90,7 +112,7 @@ public class PlayerInventory
 
     public void DrinkPotion()
     {
-        Debug.Log("I have been drumnk");
+        Debug.Log("I have been drunk");
         potions[0].onConsume();
         potions[0] = null;
         SortPotions();

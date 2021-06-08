@@ -6,6 +6,8 @@ public class PlayerCombatController : ParentCombatController
 {
     public GameObject swordCanvas;
     public GameObject sheildCanvas;
+    public int damageModifier = 0;
+    public int defenseModifier = 0;
 
     public delegate void projection(bool striking, dodgeDir dodging, actionHeight blocking, actionHeight attackHeight, strikeSide attackSide, strikePower attackPower, int hittee_id);
     public static event projection _projection;
@@ -16,8 +18,6 @@ public class PlayerCombatController : ParentCombatController
     void OnEnable()
     {
         id = 0;
-        damage = (int) GetComponent<Player>().inventory.GetDamage();
-        defense = GetComponent<Player>().inventory.GetDefense();
 
         EnemyCombatController._attack += wasHit;
         Player._sendKey += combatAction;
@@ -29,6 +29,36 @@ public class PlayerCombatController : ParentCombatController
         EnemyCombatController._attack -= wasHit;
         Player._sendKey -= combatAction;
         Player._setEnemy -= HandleSetEnemy;
+    }
+
+    private void Update()
+    {
+        damage = (int)GetComponent<Player>().inventory.GetDamage();
+        defense = GetComponent<Player>().inventory.GetDefense();
+        switch(gameObject.GetComponent<PlayerInventory>().leftHand.name)
+        {
+            case "Wooden Shield":
+
+                break;
+            case "Steel Shield":
+
+                break;
+            case "Holy Shield":
+
+                break;
+        }
+        switch (gameObject.GetComponent<PlayerInventory>().rightHand.name)
+        {
+            case "Rusted Sword":
+                swordCanvas.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Animations/Controllers/RustySwordAnims.controller", typeof(RuntimeAnimatorController)));
+                break;
+            case "Steel Sword":
+
+                break;
+            case "Holy Sword":
+
+                break;
+        }
     }
 
     private void HandleSetEnemy(int _id, Enemy.EnemyType _enemyType)
