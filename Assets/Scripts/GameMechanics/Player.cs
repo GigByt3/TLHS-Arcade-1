@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Player : GridObject
 {
@@ -164,8 +165,10 @@ public class Player : GridObject
             //moveEvent?.Invoke();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene("Title_Scene");
+
         //The following is a TESTING SCRIPT
-        if (Input.GetKeyDown("n")) GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().NextScene();
+        //if (Input.GetKeyDown("n")) GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameSceneManager>().NextScene();
     }
 
     //Enters combat with the given enemy
