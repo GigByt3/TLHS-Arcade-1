@@ -114,9 +114,16 @@ public class PlayerInventory
 
     public void DrinkPotion()
     {
-        Debug.Log("I have been drunk");
-        potions[0].onConsume();
-        potions[0] = null;
-        SortPotions();
+        if(potions[0] != null)
+        {
+            Debug.Log("I have been drunk");
+            potions[0].onConsume();
+            potions[0] = null;
+            SortPotions();
+        } else
+        {
+            Debug.Log("huh.");
+        }
+        
     }
 }

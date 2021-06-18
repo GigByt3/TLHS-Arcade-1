@@ -98,15 +98,28 @@ public abstract class ParentCombatController : MonoBehaviour
         }
     }
 
+    int buttonMashFreedom = 0;
     //Checks if Player is in the Middle of an Action
     protected bool canAct()
     {
         if (isStriking || isDodging != dodgeDir.NONE || isBlocking != actionHeight.NONE)
         {
+            Debug.Log("can't act");
+            if(buttonMashFreedom < 20)
+            {
+                buttonMashFreedom++;
+            } else
+            {
+                buttonMashFreedom = 0;
+                isStriking = false;
+                isDodging = dodgeDir.NONE;
+                isBlocking = actionHeight.NONE;
+            }
             return false;
         }
         else
         {
+            Debug.Log("can act");
             return true;
         }
     }

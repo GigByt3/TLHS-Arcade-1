@@ -246,12 +246,25 @@ public class Maze : MonoBehaviour
                         possibleStartCoords = new Vector3Int(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, height), UnityEngine.Random.Range(0, 4));
                     }
                 }
-
-                GameObject newZombie = Instantiate(Resources.Load<GameObject>("Zombie"), cellCoordsToGlobalCoords(possibleStartCoords.x, possibleStartCoords.y), Quaternion.identity);
-                newZombie.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.ZOMBIE);
-                newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
-                newZombie.GetComponent<Enemy>().Ready();
-                gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
+                
+                switch((int) UnityEngine.Random.Range(0, enemyDifficulty))
+                {
+                    case 0:
+                    case 1:
+                        GameObject newZombie = Instantiate(Resources.Load<GameObject>("Zombie"), cellCoordsToGlobalCoords(possibleStartCoords.x, possibleStartCoords.y), Quaternion.identity);
+                        newZombie.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.ZOMBIE);
+                        newZombie.GetComponent<Enemy>().gridCoords = possibleStartCoords;
+                        newZombie.GetComponent<Enemy>().Ready();
+                        gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newZombie.GetComponent<Enemy>());
+                        break;
+                    default:
+                        GameObject newSkelle = Instantiate(Resources.Load<GameObject>("Skeleton"), cellCoordsToGlobalCoords(possibleStartCoords.x, possibleStartCoords.y), Quaternion.identity);
+                        newSkelle.GetComponent<Enemy>().EnemyConstructor(Enemy.EnemyType.SKELETON);
+                        newSkelle.GetComponent<Enemy>().gridCoords = possibleStartCoords;
+                        newSkelle.GetComponent<Enemy>().Ready();
+                        gridObjectDict.Add(new Vector3Int(possibleStartCoords.x, possibleStartCoords.y, possibleStartCoords.z), newSkelle.GetComponent<Enemy>());
+                        break;
+                }
             }
 
             //Place exit

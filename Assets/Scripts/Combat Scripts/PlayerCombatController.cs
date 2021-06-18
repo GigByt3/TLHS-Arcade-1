@@ -98,6 +98,7 @@ public class PlayerCombatController : ParentCombatController
 
     protected void combatAction(string code)
     {
+        Debug.Log("Combat Key is: " + code);
         strikeHeightSTORE = actionHeight.NONE;
         strikeSideSTORE = strikeSide.NONE;
         strikePowerSTORE = strikePower.NONE;

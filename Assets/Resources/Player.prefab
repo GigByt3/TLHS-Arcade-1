@@ -713,6 +713,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridCoords: {x: 0, y: 0, z: 0}
   maze: {fileID: 0}
+  woodSheild: {fileID: 9100000, guid: fb2199db9268cd143a062f603bd86061, type: 2}
+  steelSheild: {fileID: 9100000, guid: 98c5f759f1cd44aa8b81ac8e49ef71c7, type: 2}
+  holySheild: {fileID: 9100000, guid: 97128ff6b31204f84ab42e9b5397a83c, type: 2}
+  rustySword: {fileID: 9100000, guid: 53de89d342f374621bf91734e17a2ff2, type: 2}
+  steelSword: {fileID: 9100000, guid: f381bf10aa1d74fc4bb1904529c197ed, type: 2}
+  holySword: {fileID: 9100000, guid: f032aa47a7fb34167a728e76f6b89b2f, type: 2}
+  sword: {fileID: 1022684016855954513}
+  sheild: {fileID: 219783059041391228}
   positionProgress: 0
   rotationProgress: 0
   healthText: {fileID: 167910209798119590}
@@ -730,6 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0eedc3cd20d64c27bef340beee9f7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coolDownModifier: 1
   id: 0
   enemyId: -1
   enemyType: 0
@@ -738,6 +747,8 @@ MonoBehaviour:
   defense: 0.2
   swordCanvas: {fileID: 12574406438020815}
   sheildCanvas: {fileID: 7299008842515974146}
+  damageModifier: 0
+  defenseModifier: 0
 --- !u!1 &4499617594627649153
 GameObject:
   m_ObjectHideFlags: 0

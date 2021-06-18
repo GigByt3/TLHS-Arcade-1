@@ -94,4 +94,20 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.45
+    functionName: StrikeConnect
+    data: 
+    objectReferenceParameter: {fileID: 4065303498478920267, guid: bbd5245c1f5ca4b8abec3d5813b4bb52,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5833333
+    functionName: Complete
+    data: normal_strike
+    objectReferenceParameter: {fileID: 4065303498478920267, guid: bbd5245c1f5ca4b8abec3d5813b4bb52,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

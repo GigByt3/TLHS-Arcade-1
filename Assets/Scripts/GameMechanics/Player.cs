@@ -1,9 +1,22 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Player : GridObject
 {
+    public RuntimeAnimatorController woodSheild;
+    public RuntimeAnimatorController steelSheild;
+    public RuntimeAnimatorController holySheild;
+
+    public RuntimeAnimatorController rustySword;
+    public RuntimeAnimatorController steelSword;
+    public RuntimeAnimatorController holySword;
+
+    public Animator sword;
+    public Animator sheild;
+
+
     public delegate void MoveDelegate();
     public static event MoveDelegate moveEvent;
 
@@ -55,10 +68,12 @@ public class Player : GridObject
         if (inCombat && isAlive)
         {
             checkKeysCombat();
+            Debug.Log("inCombat");
         }
         else if (isAlive)
         {
             checkKeysMove();
+            Debug.Log("in'tCombat");
         }
         updatePos();
         updateRot();
@@ -70,18 +85,51 @@ public class Player : GridObject
         {
             healthText.text = "Health: 0";
         }
-        
+
+        switch (inventory.leftHand.name)
+        {
+            case "Wooden Shield":
+                if (sheild.runtimeAnimatorController == woodSheild) { break; }
+                sheild.runtimeAnimatorController = woodSheild;
+                break;
+            case "Steel Shield":
+                if (sheild.runtimeAnimatorController == steelSheild) { break; }
+                sheild.runtimeAnimatorController = steelSheild;
+                break;
+            case "Holy Shield":
+                if (sheild.runtimeAnimatorController == holySheild) { break; }
+                sheild.runtimeAnimatorController = holySheild;
+                break;
+        }
+
+        switch (inventory.rightHand.name)
+        {
+            case "Rusted Sword":
+                if (sword.runtimeAnimatorController == rustySword) { break; }
+                sword.runtimeAnimatorController = rustySword;
+                break;
+            case "Steel Sword":
+                if (sword.runtimeAnimatorController == steelSword) { break; }
+                sword.runtimeAnimatorController = steelSword;
+                break;
+            case "Holy Sword":
+                if (sword.runtimeAnimatorController == holySword) { break; }
+                sword.runtimeAnimatorController = holySword;
+                break;
+        }
+
         primaryPotionText.text = "Current Potions: \n" + inventory.potions[0];
         {
             string secondPotText = "";
-            for (int i = 0; i < inventory.potions.Length; i++)
+            for (int i = 1; i < inventory.potions.Length; i++)
             {
-                if (i != 0)
+                try
                 {
-                    if (inventory.potions[i] is HealthPotion)
-                    {
-                        secondPotText += "Health Potion\n";
-                    }
+                    secondPotText += inventory.potions[i].name + "\n";
+                }
+                catch(Exception e)
+                {
+                    Debug.Log("This is- *exceptionally* bad practice. (see what I did there? eh? eh?) My appologies. Don't- do this...");
                 }
             }
             secondaryPotionsText.text = secondPotText;

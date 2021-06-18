@@ -98,13 +98,13 @@ public class GameSceneManager : MonoBehaviour
                 SetUpTransition(TransitionText, false);
                 break;
             case 2:
-                SetUpGame(18, 2, 3);
+                SetUpGame(20, 2, 3);
                 break;
             case 2.5f:
                 SetUpTransition(TransitionText, false);
                 break;
             case 3:
-                SetUpGame(24, 4, 4);
+                SetUpGame(22, 4, 4);
                 break;
             case 3.5f:
                 SetUpTransition(TransitionText, false);
@@ -150,7 +150,23 @@ public class GameSceneManager : MonoBehaviour
         mazeContainer.AddComponent<MeshRenderer>();
         maze = mazeContainer.AddComponent<Maze>();
         GameObject[] enemyPrefabs = {Resources.Load<GameObject>("Zombie")};
-        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), transitionalPlayerData, Resources.Load<GameObject>("ExitDoor"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 30, 1.0f, 0.2f);
+        float difficulty = 1.0f;
+        switch(mazeSize)
+        {
+            case 18:
+                difficulty = 3.0f;
+                break;
+            case 20:
+                difficulty = 4.0f;
+                break;
+            case 22:
+                difficulty = 5.0f;
+                break;
+            default:
+                difficulty = 7.0f;
+                break;
+        }
+        maze.MazeConstructor(mazeSize, mazeSize, Resources.Load<GameObject>("Player"), transitionalPlayerData, Resources.Load<GameObject>("ExitDoor"), enemyPrefabs, Resources.Load<Material>("Wall"), cellWidth, 30, difficulty, 0.2f);
         maze.Ready();
         StartCoroutine(GameObject.FindGameObjectWithTag("RetroCanvas").GetComponent<CameraFade>().FadeUp(
             () => {
