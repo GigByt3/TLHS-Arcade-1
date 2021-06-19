@@ -136,7 +136,7 @@ public abstract class GridObject : MonoBehaviour
                 case 2:
                     for (int i = 0; i < 4; i++)
                     {
-                        Vector3Int keyToCheck = new Vector3Int(gridCoords.x, gridCoords.y - 1, i);
+                        Vector3Int keyToCheck = new Vector3Int(gridCoords.x, gridCoords.y + 1, i);
                         if (maze.gridObjectDict.ContainsKey(keyToCheck))
                         {
                             objectInFront = maze.gridObjectDict[keyToCheck];
